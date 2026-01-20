@@ -37,13 +37,17 @@ void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
 	int error;
 	int x;
 	int y;
-	int sx = (x0 < x1) ? 1 : -1;
-	int sy = (y0 < y1) ? 1 : -1;
+	int sx;
+	int sy;
 	int e2;
 
 	error = abs(x1 - x0) - abs(y1 - y0);
 	x = x0;
 	y = y0;
+	if (!(sx = x0 < x1))
+		sx = -1;
+	if (!(sy = y0 < y1))
+		sy = -1;
 	while (1)
 	{
 		img_put_color(mlx, x, y, ft_rgb(255, 255 ,255));
@@ -65,7 +69,7 @@ void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
 
 void	ft_draw(t_mlx *mlx)
 {
-	draw_line(mlx, 0, 0, 0, 200);
+	draw_line(mlx, 200, 0, 0, 200);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
