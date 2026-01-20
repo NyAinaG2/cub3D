@@ -31,23 +31,41 @@ int	key_hook(int key, t_mlx *param)
 	return (0);
 }
 
+void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
+{
+
+	int error;
+	int x;
+	int y;
+	int sx = (x0 < x1) ? 1 : -1;
+	int sy = (y0 < y1) ? 1 : -1;
+	int e2;
+
+	error = abs(x1 - x0) - abs(y1 - y0);
+	x = x0;
+	y = y0;
+	while (1)
+	{
+		img_put_color(mlx, x, y, ft_rgb(255, 255 ,255));
+		if (x == x1 && y == y1)
+			break;
+		e2 = 2 * error;
+		if (e2 > -abs(y1 - y0))
+		{
+			error -= abs(y1 - y0);
+			x += sx;
+		}
+		if (e2 < abs(x1 - x0))
+		{
+			error += abs(x1 - x0);
+			y += sy;
+		}
+	}
+}
+
 void	ft_draw(t_mlx *mlx)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (x < mlx->size)
-	{
-		y = 0;
-		while (y < mlx->size)
-		{
-			img_put_color(mlx, x, y, ft_rgb(0, 255 ,255));
-			y++;
-		}
-		x++;
-	}
+	draw_line(mlx, 0, 0, 0, 200);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 

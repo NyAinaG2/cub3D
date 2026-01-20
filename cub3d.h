@@ -4,6 +4,12 @@
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_mlx
 {
 	void			*mlx_ptr;
