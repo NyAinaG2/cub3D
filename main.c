@@ -9,6 +9,8 @@ void	img_put_color(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x < 0 || x > mlx->size || y < 0 || y > mlx->size)
+		return ;
 	dst = mlx->addr + (y * mlx->line_length + x * (mlx->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }
@@ -67,16 +69,67 @@ void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
 	}
 }
 
+void	draw_square(t_mlx *mlx, int x, int y, int w)
+{
+	int	j;
+	int	x0;
+
+	j = 0;
+	x0 = 0;
+	while(x0 < w)
+	{
+		j = 0;
+		while (j < w)
+			img_put_color(mlx, x0 + x - (w / 2), j++ + y - (w / 2), ft_rgb(255, 255 ,255));
+		x0++;
+	}
+}
+
+void	ft_draw_map(t_mlx *mlx)
+{
+	int	i;
+	int	j;
+	int	unit;
+	int	**map;
+
+	i = 0;
+	j = 0;
+	unit = mlx->size / 5;
+	map = mlx->map;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			if (map[i][j] == 1)
+				draw_square(mlx, i * unit + (unit / 2), j * unit + (unit / 2), unit);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_draw(t_mlx *mlx)
 {
-	draw_line(mlx, 200, 0, 0, 200);
+	ft_draw_map(mlx);
+	draw_line(mlx, 0, 0, 500, 500);
+	draw_line(mlx, 0, 500, 500, 0);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
 void	init_mlx(void)
 {
+	int	map[5][5] =
+	{
+		{1,1,1,1,1},
+		{1,0,0,0,1},
+		{1,0,1,0,1},
+		{1,0,0,0,1},
+		{1,1,1,1,1}
+	};
 	t_mlx	mlx;
 
+	mlx.map = &map;
 	mlx.size = 500;
 	mlx.mlx_ptr = mlx_init();
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.size, mlx.size, "Fract'ol");

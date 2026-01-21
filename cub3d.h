@@ -3,6 +3,7 @@
 # include <stdio.h>
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
+# include <string.h>
 
 typedef struct s_point
 {
@@ -12,6 +13,9 @@ typedef struct s_point
 
 typedef struct s_mlx
 {
+	void			*map;
+	int				map_width;
+	int				map_height;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	void			*img_ptr;
