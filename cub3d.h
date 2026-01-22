@@ -4,6 +4,10 @@
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <string.h>
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 typedef struct s_point
 {
@@ -13,7 +17,7 @@ typedef struct s_point
 
 typedef struct s_mlx
 {
-	void			*map;
+	int				**map;
 	int				map_width;
 	int				map_height;
 	void			*mlx_ptr;
@@ -26,4 +30,6 @@ typedef struct s_mlx
 	int				size;
 }	t_mlx;
 
+int		ft_rgb(int r, int g, int b);
+void	img_put_color(t_mlx *mlx, int x, int y, int color);
 #endif

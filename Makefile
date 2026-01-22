@@ -5,7 +5,7 @@ MLX_LIB = minilibx-linux/libmlx_Linux.a
 MLX_DIR = minilibx-linux
 MLX_ARCHIVE = minilibx-linux.tgz
 MLX_FLAGS = -L${MLX_DIR} -lmlx_Linux -lXext -lX11
-SRC_FILES = ./main.c
+SRC_FILES = ./main.c ./mlx_img_utils.c
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
 all : ${NAME}
