@@ -9,15 +9,19 @@
 # define KEY_S 115
 # define KEY_D 100
 
-typedef struct s_point
+typedef struct s_vector
 {
 	int	x;
 	int	y;
-}	t_point;
+	int	z;
+}	t_vector;
 
 typedef struct s_mlx
 {
 	int				**map;
+	t_vector		player_pos;
+	int				speed;
+	int				scale;
 	int				map_width;
 	int				map_height;
 	void			*mlx_ptr;

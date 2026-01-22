@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+void	ft_draw(t_mlx *mlx);
+
 void	ft_free_map(t_mlx *mlx)
 {
 	int	i;
@@ -23,7 +25,7 @@ int	**ft_allocate_map(void)
 		{1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 1},
 		{1, 0, 1, 0, 1},
-		{1, 0, 0, 0, 1},
+		{1, 0, 2, 0, 1},
 		{1, 1, 1, 1, 1}
 	};
 	int	**map;
@@ -67,23 +69,24 @@ int	on_close(t_mlx *param)
 	return (0);
 }
 
-int	key_hook(int key, t_mlx *param)
+int	key_hook(int key, t_mlx *mlx)
 {
-
 	if (key == KEY_W)
-		printf("KEY_W\n");
+		mlx->player_pos.y -= mlx->speed;
 	if (key == KEY_A)
-		printf("KEY_A\n");
+		mlx->player_pos.x -= mlx->speed;
 	if (key == KEY_S)
-		printf("KEY_S\n");
+		mlx->player_pos.y += mlx->speed;
 	if (key == KEY_D)
-		printf("KEY_D\n");
+		mlx->player_pos.x += mlx->speed;
 	if (key == 65307)
-		on_close(param);
+		on_close(mlx);
+	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
+		ft_draw(mlx);
 	return (0);
 }
 
-void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
+void	draw_line(t_mlx *mlx, t_vector p0, t_vector p1, int color)
 {
 
 	int error;
@@ -93,33 +96,33 @@ void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1)
 	int sy;
 	int e2;
 
-	error = abs(x1 - x0) - abs(y1 - y0);
-	x = x0;
-	y = y0;
-	if (!(sx = x0 < x1))
+	error = abs(p1.x - p0.x) - abs(p1.y - p0.y);
+	x = p0.x;
+	y = p0.y;
+	if (!(sx = p0.x < p1.x))
 		sx = -1;
-	if (!(sy = y0 < y1))
+	if (!(sy = p0.y < p1.y))
 		sy = -1;
 	while (1)
 	{
-		img_put_color(mlx, x, y, ft_rgb(255, 255 ,255));
-		if (x == x1 && y == y1)
+		img_put_color(mlx, x, y, color);
+		if (x == p1.x && y == p1.y)
 			break;
 		e2 = 2 * error;
-		if (e2 > -abs(y1 - y0))
+		if (e2 > -abs(p1.y - p0.y))
 		{
-			error -= abs(y1 - y0);
+			error -= abs(p1.y - p0.y);
 			x += sx;
 		}
-		if (e2 < abs(x1 - x0))
+		if (e2 < abs(p1.x - p0.x))
 		{
-			error += abs(x1 - x0);
+			error += abs(p1.x - p0.x);
 			y += sy;
 		}
 	}
 }
 
-void	draw_square(t_mlx *mlx, int x, int y, int w)
+void	draw_square(t_mlx *mlx, t_vector pos, int w, int color)
 {
 	int	j;
 	int	x0;
@@ -130,12 +133,46 @@ void	draw_square(t_mlx *mlx, int x, int y, int w)
 	{
 		j = 0;
 		while (j < w)
-			img_put_color(mlx, x0 + x - (w / 2), j++ + y - (w / 2), ft_rgb(255, 255 ,255));
+			img_put_color(mlx, x0 + pos.x - (w / 2), j++ + pos.y - (w / 2), color);
 		x0++;
 	}
 }
 
 void	ft_draw_map(t_mlx *mlx)
+{
+	int			i;
+	int			j;
+	int			unit;
+	t_vector	tmp;
+
+	i = 0;
+	j = 0;
+	unit = mlx->scale;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			tmp.x = i * unit + (unit / 2);
+			tmp.y = j * unit + (unit / 2);
+			if (mlx->map[j][i] == 1)
+				draw_square(mlx, tmp, unit, ft_rgb(255,255,255));
+			else
+				draw_square(mlx, tmp, unit, ft_rgb(0,0,0));
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_draw(t_mlx *mlx)
+{
+	ft_draw_map(mlx);
+	draw_square(mlx, mlx->player_pos, 10, ft_rgb(0, 50 , 150));
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
+}
+
+void	init_player_position(t_mlx *mlx)
 {
 	int	i;
 	int	j;
@@ -149,51 +186,29 @@ void	ft_draw_map(t_mlx *mlx)
 		j = 0;
 		while (j < 5)
 		{
-			if (mlx->map[i][j] == 1)
-				draw_square(mlx, i * unit + (unit / 2), j * unit + (unit / 2), unit);
+			if (mlx->map[j][i] == 2)
+			{
+				mlx->player_pos.x = i * unit + (unit / 2);
+				mlx->player_pos.y = j * unit + (unit / 2);
+				mlx->player_pos.z = 0;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
-void	ft_draw_grid(t_mlx *mlx)
-{
-	int	j;
-	int	unit;
-
-	j = 0;
-	unit = mlx->size / 5;
-	while (j < 5)
-	{
-		draw_line(mlx, 0, j * unit, 500, j * unit);
-		draw_line(mlx, j * unit, 0, j * unit, 500);
-		j++;
-	}
-}
-
-// void	put_play(t_mlx *mlx)
-// {
-
-// }
-
-void	ft_draw(t_mlx *mlx)
-{
-	ft_draw_map(mlx);
-	ft_draw_grid(mlx);
-	draw_line(mlx, 0, 0, 500, 500);
-	draw_line(mlx, 0, 500, 500, 0);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
-}
-
 void	init_mlx(void)
 {
 	t_mlx	mlx;
 
-	mlx.map = ft_allocate_map();
 	mlx.size = 500;
+	mlx.speed = 5;
+	mlx.scale = mlx.size / 5;
+	mlx.map = ft_allocate_map();
+	init_player_position(&mlx);
 	mlx.mlx_ptr = mlx_init();
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.size, mlx.size, "Fract'ol");
+	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.size, mlx.size, "cub3D");
 	mlx.img_ptr = mlx_new_image(mlx.mlx_ptr, mlx.size, mlx.size);
 	mlx.addr = mlx_get_data_addr(mlx.img_ptr, &mlx.bits_per_pixel,
 			&mlx.line_length, &mlx.endian);
