@@ -11,7 +11,7 @@ OBJ_FILES = ${SRC_FILES:.c=.o}
 all : ${NAME}
 
 ${NAME} : ${OBJ_FILES} ${MLX_LIB}
-	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${MLX_FLAGS}
+	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${MLX_FLAGS} -lm
 
 ${MLX_LIB} : ${MLX_DIR}
 	make -C ./${MLX_DIR} all
@@ -20,7 +20,7 @@ ${MLX_DIR} :
 	tar -xzf ${MLX_ARCHIVE};
 
 %.o : %.c ${MLX_LIB}
-	${CC} ${C_FLAGS} -c $< -o $@
+	${CC} ${C_FLAGS} -c $< -o $@ -lm
 
 clean :
 	rm -rf ${OBJ_FILES}

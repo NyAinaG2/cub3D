@@ -22,7 +22,7 @@ void	ft_free_map(t_mlx *mlx)
 int	**ft_allocate_map(void)
 {
 	int	temp[5][5] = {
-		{1, 1, 1, 1, 1},
+		{0, 1, 1, 1, 1},
 		{1, 0, 0, 0, 1},
 		{1, 0, 1, 0, 1},
 		{1, 0, 2, 0, 1},
@@ -72,13 +72,31 @@ int	on_close(t_mlx *param)
 int	key_hook(int key, t_mlx *mlx)
 {
 	if (key == KEY_W)
-		mlx->player_pos.y -= mlx->speed;
+	{
+		mlx->player_pos.x += (int)mlx->player_pos.dx;
+		mlx->player_pos.y += (int)mlx->player_pos.dy;
+	}
 	if (key == KEY_A)
-		mlx->player_pos.x -= mlx->speed;
-	if (key == KEY_S)
-		mlx->player_pos.y += mlx->speed;
+	{
+		mlx->player_pos.z -= 0.1;
+		if (mlx->player_pos.z < 0)
+			mlx->player_pos.z += 2 * PI;
+		mlx->player_pos.dx = cosf(mlx->player_pos.z) * SPEED;
+		mlx->player_pos.dy = sinf(mlx->player_pos.z) * SPEED;
+	}
 	if (key == KEY_D)
-		mlx->player_pos.x += mlx->speed;
+	{
+		mlx->player_pos.z += 0.1;
+		if (mlx->player_pos.z > 2 * PI)
+			mlx->player_pos.z -= 2 * PI;
+		mlx->player_pos.dx = cosf(mlx->player_pos.z) * SPEED;
+		mlx->player_pos.dy = sinf(mlx->player_pos.z) * SPEED;
+	}
+	if (key == KEY_S)
+	{
+		mlx->player_pos.x -= (int)mlx->player_pos.dx;
+		mlx->player_pos.y -= (int)mlx->player_pos.dy;
+	}
 	if (key == 65307)
 		on_close(mlx);
 	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D)
@@ -167,8 +185,16 @@ void	ft_draw_map(t_mlx *mlx)
 
 void	ft_draw(t_mlx *mlx)
 {
+	t_vector	direction;
+	direction.x = mlx->player_pos.x + (int)mlx->player_pos.dx * 5;
+	direction.y = mlx->player_pos.y + (int)mlx->player_pos.dy * 5;
+	direction.dx = 0;
+	direction.dy = 0;
+	direction.z = 0;
 	ft_draw_map(mlx);
 	draw_square(mlx, mlx->player_pos, 10, ft_rgb(0, 50 , 150));
+	//draw player directtion
+	draw_line(mlx, mlx->player_pos, direction, ft_rgb(0, 50 , 150));
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr, 0, 0);
 }
 
@@ -191,6 +217,9 @@ void	init_player_position(t_mlx *mlx)
 				mlx->player_pos.x = i * unit + (unit / 2);
 				mlx->player_pos.y = j * unit + (unit / 2);
 				mlx->player_pos.z = 0;
+				mlx->player_pos.dx = cosf(mlx->player_pos.z) * SPEED;
+				mlx->player_pos.dy = sinf(mlx->player_pos.z) * SPEED;
+
 			}
 			j++;
 		}
@@ -203,7 +232,6 @@ void	init_mlx(void)
 	t_mlx	mlx;
 
 	mlx.size = 500;
-	mlx.speed = 5;
 	mlx.scale = mlx.size / 5;
 	mlx.map = ft_allocate_map();
 	init_player_position(&mlx);

@@ -4,23 +4,28 @@
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <string.h>
+# include <math.h>
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define PI 3.14
+# define SPEED 5
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
-	int	z;
+
+	int		x;
+	int		y;
+	float	dx;
+	float	dy;
+	float	z;
 }	t_vector;
 
 typedef struct s_mlx
 {
 	int				**map;
 	t_vector		player_pos;
-	int				speed;
 	int				scale;
 	int				map_width;
 	int				map_height;
