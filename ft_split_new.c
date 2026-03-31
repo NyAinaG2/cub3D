@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:44:07 by andrrand          #+#    #+#             */
-/*   Updated: 2026/03/30 14:25:16 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:06:17 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_is_delimiter(char c, char *str)
 	return (0);
 }
 
-static int	ft_countword_new(char const *s, char *str)
+int	ft_countword_new(char const *s, char *str)
 {
 	int	count;
 
