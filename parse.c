@@ -50,7 +50,29 @@ int	ft_isindicator(const char *str)
 	return (0);
 }
 
-void	check_map_space(int fd)
+int	skip_emptyline(int fd, int begin)
+{
+	char	*str;
+
+	str = get_next_line(fd);
+	if (!str)
+	{
+		free(str);
+		return (0);
+	}
+	if (ft_isemptyorspace(str))
+	{
+		free(str);
+		if (begin > 0)
+			return (-begin);
+		return (skip_emptyline(fd, 0));
+	}
+	begin++;
+	free(str);
+	return (1 + skip_emptyline(fd, begin));
+}
+
+int	check_map_space(int fd)
 {
 	int		map_height;
 	char	*str;
@@ -59,59 +81,75 @@ void	check_map_space(int fd)
 	map_height = 0;
 	while ((str = get_next_line(fd)))
 	{
+		ft_putendl_fd(str, 1);
 		if (ft_isemptyorspace(str))
 		{
-			close(fd);
 			free(str);
-			exit_error("new line in the map error");
+			return (0);
 		}
 		map_height++;
-		ft_putstr_fd(str, 1);
 		free(str);
 	}
+	if (map_height <= 2)
+		return (0);
 	printf("map_height = %i\n", map_height);
+	return (1);
 }
 
-void	check_element_space(int fd)
+int	check_element_space(int fd)
 {
 	int		readed_line;
 	char	*str;
 
 	str= NULL;
 	readed_line = 0;
-	while ((str = get_next_line(fd)) && readed_line != 6)
+	while (readed_line != 6)
 	{
+		str = get_next_line(fd);
 		if (ft_countword_new(str, "\t\v\f\r ") == 2 && !ft_isemptyorspace(str) && readed_line < 6)
 			readed_line++;
 		else if((ft_countword_new(str, "\t\v\f\r ") != 2 && !ft_isemptyorspace(str) && readed_line < 6)
-		|| (ft_strlen(str) > 1 && ft_isemptyorspace(str) && readed_line < 6))
+		|| (ft_strlen(str) > 1 && ft_isemptyorspace(str) && readed_line < 6) || !str)
 		{
-			close(fd);
 			free(str);
-			exit_error("map format error");
+			return (0);
 		}
 		free(str);
 	}
 	printf("readed_line = %i\n", readed_line);
-	check_map_space(fd);
+	if (readed_line != 6)
+		return (0);
+	printf("skip_emptyline = %i\n", skip_emptyline(fd, 0));
+	return (1);
+	// return (check_map_space(fd));
 }
 
-int	main(int argc, char **argv)
+void	check_map(char *map, int (*f)(int))
 {
 	int	fd;
 
-	if (argc != 2)
-		exit_error("arguments error");
-	if (!ft_check_extension(argv[1]))
-		exit_error("map extension error");
-	fd = open(argv[1], O_RDONLY);
-	if(fd < 0)
+	if((fd = open(map, O_RDONLY)) < 0)
 	{
 		ft_putendl_fd("Error", 2);
 		perror("");
 		exit(1);
 	}
-	check_element_space(fd);
+	if (!f(fd))
+	{
+		close(fd);
+		exit_error("Map format error");
+	}
 	close(fd);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc != 2)
+		exit_error("arguments error");
+	if (!ft_check_extension(argv[1]))
+		exit_error("map extension error");
+	//6 th element
+	check_map(argv[1], check_element_space);
+	//map data
 	return (0);
 }
