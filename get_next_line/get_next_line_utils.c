@@ -6,11 +6,25 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:06:13 by andrrand          #+#    #+#             */
-/*   Updated: 2026/03/30 14:08:46 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/03 08:37:33 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	purge_get_next_line(int fd)
+{
+	char	*str;
+
+	str = get_next_line(fd);
+	if (!str)
+	{
+		free(str);
+		return ;
+	}
+	purge_get_next_line(fd);
+	free(str);
+}
 
 char	*ft_strcpy(char *src, size_t len)
 {

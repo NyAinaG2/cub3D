@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <stdio.h>
-# include "minilibx-linux/mlx.h"
+// # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
@@ -21,6 +21,18 @@ typedef struct s_vector
 	float	dy;
 	float	z;
 }	t_vector;
+
+typedef struct s_data
+{
+	char			cap;
+	int				map_fd;
+	int				textures_fd[4];
+	t_vector		floor_color;
+	t_vector		ceil_color;
+	char			*map_name;
+	unsigned int	map_height;
+	unsigned int	map_width;
+}	t_data;
 
 typedef struct s_mlx
 {

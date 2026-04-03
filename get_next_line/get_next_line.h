@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:06:03 by andrrand          #+#    #+#             */
-/*   Updated: 2026/03/30 14:10:24 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/03 08:37:54 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/libft.h"
 
 char	*ft_strcpy(char *src, size_t len);
+void	purge_get_next_line(int fd);
 char	*get_next_line(int fd);
 
 #endif
