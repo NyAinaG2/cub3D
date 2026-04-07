@@ -1,23 +1,10 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-WEasd  ./map.map
+WE ./map.map
 EA ./map.map
-C 12,12,12
+C 0000,12,12
 F 12,12,12
-NO ./map.map
 SO ./map.map
+NO ./map.map
+
+ 1
+101
+11

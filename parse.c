@@ -20,9 +20,8 @@ void	free_strs(char **strs)
 
 void	exit_error(t_data *data)
 {
-	free_strs(data->labels);
+	(void)data;
 	ft_putendl_fd("Error", 2);
-	perror("");
 	exit(1);
 }
 
@@ -51,64 +50,6 @@ int	ft_isemptyline(const char *str)
 	return (str && ft_strlen(str) == 1 && *str == '\n');
 }
 
-
-
-int	check_element_space(t_data *data)
-{
-	int		line;
-	char	*str;
-
-	str= NULL;
-	line = 0;
-	while (line < 6)
-	{
-		if (!(str = get_next_line(data->map_fd)))
-			break ;
-		if (ft_isemptyline(str))
-		{
-			free(str);
-			continue ;
-		}
-		if (ft_countword(str, ' ') != 2 && line < 6)
-		{
-			free(str);
-			break;
-		}
-		line++;
-		free(str);
-	}
-	return (line == 6);
-}
-
-int	check_map_height(t_data *data)
-{
-	char	*str;
-	int		height;
-
-	height = 0;
-	str = NULL;
-	check_element_space(data);
-	while (1)
-	{
-		if (!(str = get_next_line(data->map_fd))) break ;
-		if (ft_isemptyline(str) && height == 0)
-		{
-			free(str);
-			continue ;
-		}
-		if ((ft_isemptyline(str) && height > 0)
-		|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
-		{
-			free(str);
-			return (0);
-		}
-		height++;
-		free(str);
-	}
-	data->map_height = height;
-	return (height > 2);
-}
-
 void	check_map(t_data *data, int (*f)(t_data *data))
 {
 	if((data->map_fd = open(data->map_name, O_RDONLY)) < 0)
@@ -123,13 +64,12 @@ void	check_map(t_data *data, int (*f)(t_data *data))
 	close(data->map_fd);
 }
 
-
-
 int	check_fd(char *str)
 {
 	int	fd;
 
-	str[ft_strlen(str) - 1] = 0;
+	if (str[ft_strlen(str) - 1] == '\n')
+		str[ft_strlen(str) - 1] = 0;
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 		return (0);
@@ -145,7 +85,8 @@ int	check_color(char *str)
 
 	i = 0;
 	j = 0;
-	str[ft_strlen(str) - 1] = 0;
+	if (str[ft_strlen(str) - 1] == '\n')
+		str[ft_strlen(str) - 1] = 0;
 	strs = ft_split(str, ',');
 	while (strs[i])
 		i++;
@@ -171,21 +112,20 @@ int	check_labels_unit(t_data *data, char *str)
 	strs = ft_split(str, ' ');
 	while (i < 6 && !error)
 	{
-		if (ft_strncmp(data->labels[i], strs[0], ft_strlen(strs[0])) == 0)
+		if (ft_strncmp(TEX_LABELS_STATIC[i], strs[0], ft_strlen(strs[0])) == 0)
 		{
 			data->index_checker[i]++;
 			error = data->index_checker[i] > 1;
-			if (i <= 3 && !error)
+			if (i <= 3 && error == 0)
 				error = !check_fd(strs[1]);
-			else if (!error)
+			else if (error == 0)
 				error = !check_color(strs[1]);
 			break;
 		}
 		i++;
 	}
-	error = i >= 6;
 	free_strs(strs);
-	return (!error);
+	return (error != 1 && i < 6);
 }
 
 int	check_labels(t_data *data)
@@ -217,6 +157,112 @@ int	check_labels(t_data *data)
 	return (line == 6);
 }
 
+void	skip_labels(t_data *data)
+{
+	int		line;
+	char	*str;
+
+	str= NULL;
+	line = 0;
+	while (line < 6)
+	{
+		if (!(str = get_next_line(data->map_fd)))
+			break ;
+		if (ft_isemptyline(str))
+		{
+			free(str);
+			continue ;
+		}
+		line++;
+		free(str);
+	}
+}
+
+int	set_cap(t_data *data, const char *str)
+{
+	while (*str)
+	{
+		if (data->cap == 0 && ft_strchr("NOWE", *str))
+			data->cap = *str;
+		else if (data->cap != 0 && ft_strchr("NOWE", *str))
+			return	(0);
+		str++;
+	}
+	return (1);
+
+}
+
+int	check_map_height(t_data *data)
+{
+	char	*str;
+	int		height;
+
+	height = 0;
+	str = NULL;
+	skip_labels(data);
+	while (1)
+	{
+		if (!(str = get_next_line(data->map_fd))) break ;
+		if (ft_isemptyline(str) && height == 0)
+		{
+			free(str);
+			continue ;
+		}
+		if ((ft_isemptyline(str) && height > 0) || !set_cap(data, str)
+		|| is_allcharin(str, " \n")
+		|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
+		{
+			free(str);
+			return (0);
+		}
+		height++;
+		free(str);
+	}
+	data->map_height = height;
+	return (height > 2 && data->cap != 0);
+}
+
+int	get_width(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str == ' ')
+		str++;
+	while (*str)
+	{
+		str++;
+		i++;
+	}
+	return (i);
+}
+
+int	check_map_width(t_data *data)
+{
+	char	*str;
+	int		width;
+
+	width = 0;
+	str = NULL;
+	skip_labels(data);
+	while (1)
+	{
+		if (!(str = get_next_line(data->map_fd))) break ;
+		if (ft_isemptyline(str) && width == 0)
+		{
+			free(str);
+			continue ;
+		}
+		if (str[ft_strlen(str) - 1] == '\n')
+			str[ft_strlen(str) - 1] = 0;
+		if (width > ft_strlen(str))
+			width = ft_strlen(str);
+		free(str);
+	}
+	data->map_width = width;
+	return (width > 2);
+}
+
 void	init_data(t_data *data, char **argv)
 {
 	int	i;
@@ -225,7 +271,6 @@ void	init_data(t_data *data, char **argv)
 	data->cap = 0;
 	data->map_name = argv[1];
 	data->map_fd = -1;
-	data->labels = ft_split("NO,SO,WE,EA,F,C", ',');
 	while (i < 3)
 	{
 		data->floor_color[i] = 0;
@@ -240,8 +285,6 @@ void	init_data(t_data *data, char **argv)
 
 int	main(int argc, char **argv)
 {
-
-
 	t_data	data;
 
 	init_data(&data, argv);
@@ -251,8 +294,6 @@ int	main(int argc, char **argv)
 		exit_error(&data);
 	//checking 6 first map element
 	check_map(&data, check_labels);
-	// check_map(&data, check_map_height);
-	// printf("map height = %d\n", data.map_height);
-	// check_map(&data, check_element_count);
+	check_map(&data, check_map_height);
 	return (0);
 }

@@ -11,9 +11,7 @@
 # define KEY_D 100
 # define PI 3.14
 # define SPEED 5
-# define NOT_CHECKED -2
-# define IS_CHECKED -1
-
+# define TEX_LABELS_STATIC ((char *[]){"NO","SO","WE","EA","F","C", NULL})
 typedef struct s_vector
 {
 
@@ -27,7 +25,6 @@ typedef struct s_vector
 typedef struct s_data
 {
 	char			cap;
-	char			**labels;
 	int				map_fd;
 	int				index_checker[6];
 	int				floor_color[3];
