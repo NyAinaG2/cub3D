@@ -7,13 +7,33 @@
 #include "libft/libft.h"
 #include "cub3d.h"
 
-int		ft_countword_new(char const *s, char *str);
-
-void	exit_error(char *str)
+void	free_strs(char **strs)
 {
+	int	i;
+
+	i = 0;
+	while (strs[i])
+		free(strs[i++]);
+	free(strs[i]);
+	free(strs);
+}
+
+void	exit_error(t_data *data)
+{
+	free_strs(data->labels);
 	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(str, 2);
+	perror("");
 	exit(1);
+}
+
+int	is_allcharin(const char *source, const char *str)
+{
+	while (*source)
+	{
+		if (!ft_strchr(str, *source++))
+			return (0);
+	}
+	return (1);
 }
 
 int	ft_check_extension(char *str)
@@ -26,156 +46,175 @@ int	ft_check_extension(char *str)
 	return (ft_strncmp(str + (len - 4),".map", 4) == 0);
 }
 
-int	ft_isnothing(const char *str)
+int	ft_isemptyline(const char *str)
 {
-	if(!str || !*str)
-		return (1);
-	while (*str)
-	{
-		if (!ft_strchr(" ", *str++))
-			return (0);
-	}
-	return (1);
+	return (str && ft_strlen(str) == 1 && *str == '\n');
 }
+
+
 
 int	check_element_space(t_data *data)
 {
-	int		readed_line;
+	int		line;
 	char	*str;
 
 	str= NULL;
-	readed_line = 0;
-	while (readed_line != 6)
+	line = 0;
+	while (line < 6)
 	{
-		str = get_next_line(data->map_fd);
-		if (ft_countword_new(str, "\t\v\f\r ") == 2 && !ft_isnothing(str) && readed_line < 6)
-			readed_line++;
-		else if((ft_countword_new(str, "\t\v\f\r ") != 2 && !ft_isnothing(str) && readed_line < 6)
-		|| (ft_strlen(str) > 1 && ft_isnothing(str) && readed_line < 6) || !str)
+		if (!(str = get_next_line(data->map_fd)))
+			break ;
+		if (ft_isemptyline(str))
 		{
 			free(str);
-			return (0);
+			continue ;
 		}
+		if (ft_countword(str, ' ') != 2 && line < 6)
+		{
+			free(str);
+			break;
+		}
+		line++;
 		free(str);
 	}
-	return (readed_line == 6);
-}
-
-int	get_map_height(t_data *data, int begin)
-{
-	char	*str;
-
-	str = get_next_line(data->map_fd);
-	if (begin == 0)
-		check_element_space(data);
-	if (!str)
-	{
-		free(str);
-		return (0);
-	}
-	if (ft_isnothing(str) && ft_strlen(str) > 1)
-	{
-		free(str);
-		return (-begin);
-	}
-	if (ft_isnothing(str))
-	{
-		free(str);
-		if (begin > 0)
-			return (-begin);
-		return (get_map_height(data, 0));
-	}
-	free(str);
-	return (1 + get_map_height(data, ++begin));
+	return (line == 6);
 }
 
 int	check_map_height(t_data *data)
 {
-	return ((data->map_height = get_map_height(data, 0)) > 2);
+	char	*str;
+	int		height;
+
+	height = 0;
+	str = NULL;
+	check_element_space(data);
+	while (1)
+	{
+		if (!(str = get_next_line(data->map_fd))) break ;
+		if (ft_isemptyline(str) && height == 0)
+		{
+			free(str);
+			continue ;
+		}
+		if ((ft_isemptyline(str) && height > 0)
+		|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
+		{
+			free(str);
+			return (0);
+		}
+		height++;
+		free(str);
+	}
+	data->map_height = height;
+	return (height > 2);
 }
 
 void	check_map(t_data *data, int (*f)(t_data *data))
 {
 	if((data->map_fd = open(data->map_name, O_RDONLY)) < 0)
-	{
-		ft_putendl_fd("Error", 2);
-		perror("");
-		exit(1);
-	}
+		exit_error(data);
 	if (!f(data))
 	{
 		purge_get_next_line(data->map_fd);
 		close(data->map_fd);
-		exit_error("Map format error");
+		exit_error(data);
 	}
 	purge_get_next_line(data->map_fd);
 	close(data->map_fd);
 }
 
-void	fill_fd_texture(int	*fd, char *str)
-{
-	int	tmp;
 
-	if ((tmp = open(str, O_RDONLY)) < 0)
+
+int	check_fd(char *str)
+{
+	int	fd;
+
+	str[ft_strlen(str) - 1] = 0;
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
+}
+
+int	check_color(char *str)
+{
+	char	**strs;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	str[ft_strlen(str) - 1] = 0;
+	strs = ft_split(str, ',');
+	while (strs[i])
+		i++;
+	while (strs[j] && i == 3)
 	{
-		*fd = -1;
-		return ;
+		if (ft_atoi(strs[j]) > 255 || ft_atoi(strs[j]) < 0
+			|| !is_allcharin(strs[j],"1234567890"))
+			break ;
+		j++;
 	}
-	close(tmp);
-	if (*fd == -1)
-		*fd = 0;
-	else
-		*fd = -1;
+	free_strs(strs);
+	return (i == 3 && j == 3);
 }
 
-void	check_texture(t_data *data, char *str)
+int	check_labels_unit(t_data *data, char *str)
 {
-	char	**tab;
+	char	**strs;
 	int		i;
+	int		error;
 
 	i = 0;
-	tab = ft_split(str, ' ');
-	if (ft_strncmp("NO", tab[0], ft_strlen(tab[0])) == 0)
-		fill_fd_texture(&data->textures_fd[0], tab[0]);
-	if (ft_strncmp("SO", tab[0], ft_strlen(tab[0]))  == 0)
-		fill_fd_texture(&data->textures_fd[1], tab[0]);
-	if (ft_strncmp("WE", tab[0], ft_strlen(tab[0]))  == 0)
-		fill_fd_texture(&data->textures_fd[2], tab[0]);
-	if (ft_strncmp("EA", tab[0], ft_strlen(tab[0]))  == 0)
-		fill_fd_texture(&data->textures_fd[3], tab[0]);
-	while (tab[i])
-		free(tab[i++]);
-	free(tab[i]);
-	free(tab);
-}
-
-
-int	check_map_texture(t_data *data)
-{
-	int		readed_line;
-	char	*str;
-	int		i;
-
-	str= NULL;
-	readed_line = 0;
-	i = 0;
-	while (readed_line != 6)
+	error = 0;
+	strs = ft_split(str, ' ');
+	while (i < 6 && !error)
 	{
-		str = get_next_line(data->map_fd);
-		if (ft_countword_new(str, " ") == 2 && !ft_isnothing(str) && readed_line < 4)
+		if (ft_strncmp(data->labels[i], strs[0], ft_strlen(strs[0])) == 0)
 		{
-			check_texture(data, str);
-			readed_line++;
+			data->index_checker[i]++;
+			error = data->index_checker[i] > 1;
+			if (i <= 3 && !error)
+				error = !check_fd(strs[1]);
+			else if (!error)
+				error = !check_color(strs[1]);
+			break;
 		}
-		free(str);
-	}
-	while (i < 4)
-	{
-		if (data->textures_fd[i])
-			close(data->textures_fd[i]);
 		i++;
 	}
-	return (readed_line == 6);
+	error = i >= 6;
+	free_strs(strs);
+	return (!error);
+}
+
+int	check_labels(t_data *data)
+{
+	int		line;
+	char	*str;
+
+	str= NULL;
+	line = 0;
+	while (line < 6)
+	{
+		if (!(str = get_next_line(data->map_fd)))
+			break ;
+		if (ft_isemptyline(str))
+		{
+			free(str);
+			continue ;
+		}
+		if ((ft_countword(str, ' ') != 2 && line < 6)
+		|| !check_labels_unit(data, str))
+		{
+			free(str);
+			break;
+		}
+		line++;
+		free(str);
+	}
+	printf("line  = %d\n", line);
+	return (line == 6);
 }
 
 void	init_data(t_data *data, char **argv)
@@ -186,23 +225,34 @@ void	init_data(t_data *data, char **argv)
 	data->cap = 0;
 	data->map_name = argv[1];
 	data->map_fd = -1;
-	while (i < 4)
-		data->textures_fd[i++] = -1;
+	data->labels = ft_split("NO,SO,WE,EA,F,C", ',');
+	while (i < 3)
+	{
+		data->floor_color[i] = 0;
+		data->ceil_color[i++] = 0;
+	}
+	i = 0;
+	while (i < 6)
+		data->index_checker[i++] = 0;
 	data->map_height = 0;
 	data->map_width = 0;
 }
 
 int	main(int argc, char **argv)
 {
+
+
 	t_data	data;
 
 	init_data(&data, argv);
 	if (argc != 2)
-		exit_error("arguments error");
+		exit_error(&data);
 	if (!ft_check_extension(argv[1]))
-		exit_error("map extension error");
-	check_map(&data, check_element_space);
-	check_map(&data, check_map_height);
-	check_map(&data, check_map_texture);
+		exit_error(&data);
+	//checking 6 first map element
+	check_map(&data, check_labels);
+	// check_map(&data, check_map_height);
+	// printf("map height = %d\n", data.map_height);
+	// check_map(&data, check_element_count);
 	return (0);
 }

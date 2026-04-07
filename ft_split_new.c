@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:44:07 by andrrand          #+#    #+#             */
-/*   Updated: 2026/03/31 14:06:17 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:40:24 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,8 @@ static char	**ft_settab_new(char **tab, char const *s, char *str)
 
 char	**ft_split_new(char const *s, char *str)
 {
-	int		i;
-	int		count;
 	char	**tab;
 
-	i = 0;
-	count = 0;
 	tab = malloc(sizeof (char *) * (ft_countword_new(s, str) + 1));
 	if (tab == NULL)
 		return (NULL);

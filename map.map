@@ -1,10 +1,23 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+WEasd  ./map.map
+EA ./map.map
+C 12,12,12
+F 12,12,12
 NO ./map.map
 SO ./map.map
-WE        ./map.map
-EA ./map.map
-F 220,100,0
-C 225,30,0
-
-1
-1
-1

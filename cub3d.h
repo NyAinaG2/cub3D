@@ -11,6 +11,8 @@
 # define KEY_D 100
 # define PI 3.14
 # define SPEED 5
+# define NOT_CHECKED -2
+# define IS_CHECKED -1
 
 typedef struct s_vector
 {
@@ -25,10 +27,11 @@ typedef struct s_vector
 typedef struct s_data
 {
 	char			cap;
+	char			**labels;
 	int				map_fd;
-	int				textures_fd[4];
-	t_vector		floor_color;
-	t_vector		ceil_color;
+	int				index_checker[6];
+	int				floor_color[3];
+	int				ceil_color[3];
 	char			*map_name;
 	unsigned int	map_height;
 	unsigned int	map_width;

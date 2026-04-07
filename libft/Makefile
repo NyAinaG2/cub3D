@@ -8,13 +8,13 @@ all : ${NAME}
 
 $(NAME) : ${OBJ_FILES}
 	ar -rcs ${NAME} ${OBJ_FILES}
-	
+
 %.o : %.c
-	cc -Wall -Wextra -Werror -c $< -o $@ -I libft.h
-	
+	cc -Wall -Wextra -Werror -c $< -o $@
+
 clean :
 	rm -rf ${OBJ_FILES} ${OBJ_BONUS}
-	
+
 fclean : clean
 	rm -f ${NAME}
 
