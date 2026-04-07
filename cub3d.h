@@ -24,14 +24,14 @@ typedef struct s_vector
 
 typedef struct s_data
 {
-	char			cap;
-	int				map_fd;
-	int				index_checker[6];
-	int				floor_color[3];
-	int				ceil_color[3];
-	char			*map_name;
-	unsigned int	map_height;
-	unsigned int	map_width;
+	char		cap;
+	int			map_fd;
+	int			index_checker[6];
+	int			floor_color[3];
+	int			ceil_color[3];
+	char		*map_name;
+	size_t		map_height;
+	size_t		map_width;
 }	t_data;
 
 typedef struct s_mlx

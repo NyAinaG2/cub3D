@@ -180,6 +180,8 @@ void	skip_labels(t_data *data)
 
 int	set_cap(t_data *data, const char *str)
 {
+	if (is_allcharin(str, " \n"))
+		return (0);
 	while (*str)
 	{
 		if (data->cap == 0 && ft_strchr("NOWE", *str))
@@ -189,13 +191,12 @@ int	set_cap(t_data *data, const char *str)
 		str++;
 	}
 	return (1);
-
 }
 
 int	check_map_height(t_data *data)
 {
 	char	*str;
-	int		height;
+	size_t	height;
 
 	height = 0;
 	str = NULL;
@@ -209,7 +210,6 @@ int	check_map_height(t_data *data)
 			continue ;
 		}
 		if ((ft_isemptyline(str) && height > 0) || !set_cap(data, str)
-		|| is_allcharin(str, " \n")
 		|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
 		{
 			free(str);
@@ -222,25 +222,10 @@ int	check_map_height(t_data *data)
 	return (height > 2 && data->cap != 0);
 }
 
-int	get_width(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*str == ' ')
-		str++;
-	while (*str)
-	{
-		str++;
-		i++;
-	}
-	return (i);
-}
-
 int	check_map_width(t_data *data)
 {
 	char	*str;
-	int		width;
+	size_t	width;
 
 	width = 0;
 	str = NULL;
@@ -255,7 +240,7 @@ int	check_map_width(t_data *data)
 		}
 		if (str[ft_strlen(str) - 1] == '\n')
 			str[ft_strlen(str) - 1] = 0;
-		if (width > ft_strlen(str))
+		if (width < ft_strlen(str))
 			width = ft_strlen(str);
 		free(str);
 	}
@@ -295,5 +280,6 @@ int	main(int argc, char **argv)
 	//checking 6 first map element
 	check_map(&data, check_labels);
 	check_map(&data, check_map_height);
+	check_map(&data, check_map_width);
 	return (0);
 }
