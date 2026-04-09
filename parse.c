@@ -153,7 +153,6 @@ int	check_labels(t_data *data)
 		line++;
 		free(str);
 	}
-	printf("line  = %d\n", line);
 	return (line == 6);
 }
 
@@ -222,30 +221,94 @@ int	check_map_height(t_data *data)
 	return (height > 2 && data->cap != 0);
 }
 
-int	check_map_width(t_data *data)
+size_t	count_first_space(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	return (i);
+}
+
+size_t	count_rear_space(char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(str) - 1;
+	if (str[ft_strlen(str) - 1] == '\n')
+	{
+		str[ft_strlen(str) - 1] = 0;
+		len--;
+	}
+	while (len && str[len] == ' ')
+	{
+		len--;
+		i++;
+	}
+	return (i);
+}
+
+int	set_start_width(t_data *data)
 {
 	char	*str;
-	size_t	width;
+	size_t	start;
+	size_t	start_width;
 
-	width = 0;
+	start_width = 0;
 	str = NULL;
+	start = 0;
 	skip_labels(data);
 	while (1)
 	{
 		if (!(str = get_next_line(data->map_fd))) break ;
-		if (ft_isemptyline(str) && width == 0)
+		if (ft_isemptyline(str) && start_width == 0)
+		{
+			free(str);
+			continue ;
+		}
+		if (start++ == 0)
+			start_width = count_first_space(str);
+		if (start_width > count_first_space(str))
+			start_width = count_first_space(str);
+		free(str);
+	}
+	data->start_width = start_width;
+	return (1);
+}
+
+int	set_end_width(t_data *data)
+{
+	char	*str;
+	size_t	start;
+	size_t	end_width;
+
+	end_width = 0;
+	str = NULL;
+	start = 0;
+	skip_labels(data);
+	while (1)
+	{
+		if (!(str = get_next_line(data->map_fd))) break ;
+		if (ft_isemptyline(str) && end_width == 0)
 		{
 			free(str);
 			continue ;
 		}
 		if (str[ft_strlen(str) - 1] == '\n')
 			str[ft_strlen(str) - 1] = 0;
-		if (width < ft_strlen(str))
-			width = ft_strlen(str);
+		printf("ft_strlen = %zu, count_rear_space %zu\n", ft_strlen(str), count_rear_space(str));
+		printf("ft_strlen - count_rear_space %zu\n", ft_strlen(str) - data->start_width - count_rear_space(str));
+		if (start++ == 0)
+			end_width = ft_strlen(str) - data->start_width - count_rear_space(str);
+		if (end_width < ft_strlen(str) - data->start_width - count_rear_space(str))
+			end_width = ft_strlen(str) - data->start_width - count_rear_space(str);
 		free(str);
 	}
-	data->map_width = width;
-	return (width > 2);
+	data->end_width = end_width;
+	return (1);
 }
 
 void	init_data(t_data *data, char **argv)
@@ -265,7 +328,8 @@ void	init_data(t_data *data, char **argv)
 	while (i < 6)
 		data->index_checker[i++] = 0;
 	data->map_height = 0;
-	data->map_width = 0;
+	data->start_width = 0;
+	data->end_width = 0;
 }
 
 int	main(int argc, char **argv)
@@ -280,6 +344,9 @@ int	main(int argc, char **argv)
 	//checking 6 first map element
 	check_map(&data, check_labels);
 	check_map(&data, check_map_height);
-	check_map(&data, check_map_width);
+	check_map(&data, set_start_width);
+	printf("start width = %zu\n", data.start_width);
+	check_map(&data, set_end_width);
+	printf("end width = %zu\n", data.end_width);
 	return (0);
 }

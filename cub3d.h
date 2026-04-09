@@ -31,7 +31,8 @@ typedef struct s_data
 	int			ceil_color[3];
 	char		*map_name;
 	size_t		map_height;
-	size_t		map_width;
+	size_t		start_width;
+	size_t		end_width;
 }	t_data;
 
 typedef struct s_mlx
