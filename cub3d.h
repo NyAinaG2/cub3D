@@ -30,6 +30,7 @@ typedef struct s_data
 	int			floor_color[3];
 	int			ceil_color[3];
 	char		*map_name;
+	char		**map_tab;
 	size_t		map_height;
 	size_t		start_width;
 	size_t		end_width;

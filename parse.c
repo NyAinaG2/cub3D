@@ -16,6 +16,7 @@ void	free_strs(char **strs)
 		free(strs[i++]);
 	free(strs[i]);
 	free(strs);
+	strs = NULL;
 }
 
 void	exit_error(t_data *data)
@@ -299,15 +300,89 @@ int	set_end_width(t_data *data)
 		}
 		if (str[ft_strlen(str) - 1] == '\n')
 			str[ft_strlen(str) - 1] = 0;
-		printf("ft_strlen = %zu, count_rear_space %zu\n", ft_strlen(str), count_rear_space(str));
-		printf("ft_strlen - count_rear_space %zu\n", ft_strlen(str) - data->start_width - count_rear_space(str));
-		if (start++ == 0)
-			end_width = ft_strlen(str) - data->start_width - count_rear_space(str);
-		if (end_width < ft_strlen(str) - data->start_width - count_rear_space(str))
+		if (start++ == 0 || end_width < ft_strlen(str) - data->start_width - count_rear_space(str))
 			end_width = ft_strlen(str) - data->start_width - count_rear_space(str);
 		free(str);
 	}
 	data->end_width = end_width;
+	return (1);
+}
+
+void	replace_to_space(t_data *data, char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < data->end_width)
+		str[i++] = 'x';
+	str[i] = 0;
+}
+
+char	**init_map_tab(t_data *data)
+{
+	char	**map_tab;
+	size_t	i;
+
+	i = 0;
+	map_tab = malloc(sizeof(char *) * (data->map_height + 1));
+	if (!map_tab)
+		return (NULL);
+	while (i <= data->map_height)
+		map_tab[i++] = NULL;
+	i = 0;
+	while (i < data->map_height)
+	{
+		map_tab[i] = malloc(sizeof(char) * (data->end_width + 1));
+		if (!map_tab[i])
+		{
+			while (i > 0)
+				free(map_tab[--i]);
+			free(map_tab);
+			map_tab = NULL;
+			return (NULL);
+		}
+		replace_to_space(data, map_tab[i]);
+		i++;
+	}
+	return (map_tab);
+}
+
+void	get_next_to_map_core(t_data *data, char *str)
+{
+	static	size_t	index = 0;
+	size_t			i;
+	size_t			len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (i < data->end_width)
+	{
+		if (i + data->start_width < len)
+			data->map_tab[index][i] = str[i + data->start_width];
+		i++;
+	}
+	index++;
+}
+
+int	get_next_to_map(t_data *data)
+{
+	char	*str;
+
+	str = NULL;
+	skip_labels(data);
+	while (1)
+	{
+		if (!(str = get_next_line(data->map_fd))) break ;
+		if (ft_isemptyline(str))
+		{
+			free(str);
+			continue ;
+		}
+		if (str[ft_strlen(str) - 1] == '\n')
+			str[ft_strlen(str) - 1] = 0;
+		get_next_to_map_core(data, str);
+		free(str);
+	}
 	return (1);
 }
 
@@ -318,6 +393,7 @@ void	init_data(t_data *data, char **argv)
 	i = 0;
 	data->cap = 0;
 	data->map_name = argv[1];
+	data->map_tab = NULL;
 	data->map_fd = -1;
 	while (i < 3)
 	{
@@ -341,12 +417,20 @@ int	main(int argc, char **argv)
 		exit_error(&data);
 	if (!ft_check_extension(argv[1]))
 		exit_error(&data);
-	//checking 6 first map element
 	check_map(&data, check_labels);
 	check_map(&data, check_map_height);
 	check_map(&data, set_start_width);
 	printf("start width = %zu\n", data.start_width);
 	check_map(&data, set_end_width);
 	printf("end width = %zu\n", data.end_width);
+	data.map_tab = init_map_tab(&data);
+	if (!data.map_tab)
+		return (0);
+	for (size_t i = 0; data.map_tab[i]; i++)
+		printf("%zu | %s\n", i, data.map_tab[i]);
+	check_map(&data, get_next_to_map);
+	for (size_t i = 0; data.map_tab[i]; i++)
+		printf("%zu | %s\n", i, data.map_tab[i]);
+	free_strs(data.map_tab);
 	return (0);
 }
