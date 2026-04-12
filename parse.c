@@ -23,6 +23,8 @@ void	exit_error(t_data *data)
 {
 	(void)data;
 	ft_putendl_fd("Error", 2);
+	if (data->map_tab)
+		free_strs(data->map_tab);
 	exit(1);
 }
 
@@ -314,7 +316,7 @@ void	replace_to_space(t_data *data, char *str)
 
 	i = 0;
 	while (i < data->end_width)
-		str[i++] = 'x';
+		str[i++] = ' ';
 	str[i] = 0;
 }
 
@@ -386,6 +388,44 @@ int	get_next_to_map(t_data *data)
 	return (1);
 }
 
+int	check_map_close_core(t_data *data, size_t i, size_t j)
+{
+	if (data->map_tab[j][i] == '0' || data->map_tab[j][i] == data->cap)
+	{
+		if ((j == data->map_height - 1 || j == 0)
+		|| (i == data->end_width - 1 || i == 0))
+			return (0);
+		if ((data->map_tab[j + 1][i] == ' ')
+		|| (data->map_tab[j - 1][i] == ' '))
+			return (0);
+		if ((data->map_tab[j][i + 1] == ' ')
+		|| (data->map_tab[j][i - 1] == ' '))
+			return (0);
+	}
+	return (1);
+}
+
+int	check_map_close(t_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while(i < data->end_width)
+	{
+		j = 0;
+		while (j < data->map_height)
+		{
+			if (!check_map_close_core(data, i, j))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	init_data(t_data *data, char **argv)
 {
 	int	i;
@@ -431,6 +471,7 @@ int	main(int argc, char **argv)
 	check_map(&data, get_next_to_map);
 	for (size_t i = 0; data.map_tab[i]; i++)
 		printf("%zu | %s\n", i, data.map_tab[i]);
+	check_map(&data, check_map_close);
 	free_strs(data.map_tab);
 	return (0);
 }
