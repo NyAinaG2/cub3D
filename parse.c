@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/14 10:39:46 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:02:29 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_check_extension(char *str)
 	len = ft_strlen(str);
 	if (len < 4)
 		return (0);
-	return (ft_strncmp(str + (len - 4),".map", 4) == 0);
+	return (ft_strncmp(str + (len - 4), ".map", 4) == 0);
 }
 
 int	ft_isemptyline(const char *str)
@@ -66,11 +66,12 @@ int	ft_isemptyline(const char *str)
 	return (str && ft_strlen(str) == 1 && *str == '\n');
 }
 
-void	check_from_file(t_data *data, int (*f)(t_data *), int o ,char *msg)
+void	check_from_file(t_data *data, int (*f)(t_data *), int o, char *msg)
 {
 	if (o)
 	{
-		if((data->map_fd = open(data->map_name, O_RDONLY)) < 0)
+		data->map_fd = open(data->map_name, O_RDONLY);
+		if (data->map_fd < 0)
 			exit_error(data, "Fail to open the map file");
 		if (!f(data))
 		{
@@ -121,7 +122,7 @@ int	check_color(char *str)
 	while (strs[j] && i == 3)
 	{
 		if (ft_atoi(strs[j]) > 255 || ft_atoi(strs[j]) < 0
-			|| !is_allcharin(strs[j],"1234567890"))
+			|| !is_allcharin(strs[j], "1234567890"))
 			break ;
 		j++;
 	}
@@ -148,7 +149,7 @@ int	check_labels_unit(t_data *data, char *str)
 				error = !check_fd(strs[1]);
 			else if (error == 0)
 				error = !check_color(strs[1]);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -161,11 +162,12 @@ int	check_labels(t_data *data)
 	int		line;
 	char	*str;
 
-	str= NULL;
+	str = NULL;
 	line = 0;
 	while (line < 6)
 	{
-		if (!(str = get_next_line(data->map_fd)))
+		str = get_next_line(data->map_fd);
+		if (!str)
 			break ;
 		if (ft_isemptyline(str))
 		{
@@ -173,10 +175,10 @@ int	check_labels(t_data *data)
 			continue ;
 		}
 		if ((ft_countword(str, ' ') != 2 && line < 6)
-		|| !check_labels_unit(data, str))
+			|| !check_labels_unit(data, str))
 		{
 			free(str);
-			break;
+			break ;
 		}
 		line++;
 		free(str);
@@ -189,11 +191,12 @@ void	skip_labels(t_data *data)
 	int		line;
 	char	*str;
 
-	str= NULL;
+	str = NULL;
 	line = 0;
 	while (line < 6)
 	{
-		if (!(str = get_next_line(data->map_fd)))
+		str = get_next_line(data->map_fd);
+		if (!str)
 			break ;
 		if (ft_isemptyline(str))
 		{
@@ -214,7 +217,7 @@ int	set_cap(t_data *data, const char *str)
 		if (data->cap == 0 && ft_strchr("NOWE", *str))
 			data->cap = *str;
 		else if (data->cap != 0 && ft_strchr("NOWE", *str))
-			return	(0);
+			return (0);
 		str++;
 	}
 	return (1);
@@ -230,14 +233,16 @@ int	check_map_height(t_data *data)
 	skip_labels(data);
 	while (1)
 	{
-		if (!(str = get_next_line(data->map_fd))) break ;
+		str = get_next_line(data->map_fd);
+		if (!str)
+			break ;
 		if (ft_isemptyline(str) && height == 0)
 		{
 			free(str);
 			continue ;
 		}
 		if ((ft_isemptyline(str) && height > 0) || !set_cap(data, str)
-		|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
+			|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
 		{
 			free(str);
 			return (0);
@@ -291,7 +296,9 @@ int	set_start_width(t_data *data)
 	skip_labels(data);
 	while (1)
 	{
-		if (!(str = get_next_line(data->map_fd))) break ;
+		str = get_next_line(data->map_fd);
+		if (!str)
+			break ;
 		if (ft_isemptyline(str) && start_width == 0)
 		{
 			free(str);
@@ -319,7 +326,9 @@ int	set_end_width(t_data *data)
 	skip_labels(data);
 	while (1)
 	{
-		if (!(str = get_next_line(data->map_fd))) break ;
+		str = get_next_line(data->map_fd);
+		if (!str)
+			break ;
 		if (ft_isemptyline(str) && end_width == 0)
 		{
 			free(str);
@@ -376,7 +385,7 @@ char	**init_map_tab(t_data *data)
 
 void	get_next_to_map_core(t_data *data, char *str)
 {
-	static	size_t	index = 0;
+	static size_t	index = 0;
 	size_t			i;
 	size_t			len;
 
@@ -399,7 +408,9 @@ int	get_next_to_map(t_data *data)
 	skip_labels(data);
 	while (1)
 	{
-		if (!(str = get_next_line(data->map_fd))) break ;
+		str = get_next_line(data->map_fd);
+		if (!str)
+			break ;
 		if (ft_isemptyline(str))
 		{
 			free(str);
@@ -418,13 +429,13 @@ int	check_map_close_core(t_data *data, size_t i, size_t j)
 	if (data->map_tab[j][i] == '0' || data->map_tab[j][i] == data->cap)
 	{
 		if ((j == data->map_height - 1 || j == 0)
-		|| (i == data->end_width - 1 || i == 0))
+			|| (i == data->end_width - 1 || i == 0))
 			return (0);
 		if ((data->map_tab[j + 1][i] == ' ')
-		|| (data->map_tab[j - 1][i] == ' '))
+			|| (data->map_tab[j - 1][i] == ' '))
 			return (0);
 		if ((data->map_tab[j][i + 1] == ' ')
-		|| (data->map_tab[j][i - 1] == ' '))
+			|| (data->map_tab[j][i - 1] == ' '))
 			return (0);
 	}
 	return (1);
@@ -438,7 +449,7 @@ int	check_map_close(t_data *data)
 
 	i = 0;
 	j = 0;
-	while(i < data->end_width)
+	while (i < data->end_width)
 	{
 		j = 0;
 		while (j < data->map_height)
@@ -459,19 +470,19 @@ size_t	check_map_gap_core(t_data *data, size_t i, size_t j, size_t *count)
 	data->map_tab[j][i] += 3;
 	if (i + 1 < data->end_width && ft_strchr("10NOWE", data->map_tab[j][i + 1]))
 		check_map_gap_core(data, i + 1, j, count);
-	if (j + 1 < data->map_height && ft_strchr("10NOWE",data->map_tab[j + 1][i]))
+	if (j + 1 < data->map_height && ft_strchr("10NOWE", data->map_tab[j + 1][i]))
 		check_map_gap_core(data, i, j + 1, count);
-	if (i > 0 && ft_strchr("10NOWE",data->map_tab[j][i - 1]))
+	if (i > 0 && ft_strchr("10NOWE", data->map_tab[j][i - 1]))
 		check_map_gap_core(data, i - 1, j, count);
-	if (j > 0 && ft_strchr("10NOWE",data->map_tab[j - 1][i]))
+	if (j > 0 && ft_strchr("10NOWE", data->map_tab[j - 1][i]))
 		check_map_gap_core(data, i, j - 1, count);
 	if (i + 1 < data->end_width && j + 1 < data->map_height && ft_strchr("10NOWE", data->map_tab[j + 1][i + 1]))
 		check_map_gap_core(data, i + 1, j + 1, count);
-	if (j + 1 < data->map_height && i > 0 && ft_strchr("10NOWE",data->map_tab[j + 1][i - 1]))
+	if (j + 1 < data->map_height && i > 0 && ft_strchr("10NOWE", data->map_tab[j + 1][i - 1]))
 		check_map_gap_core(data, i - 1, j + 1, count);
-	if (j > 0 && i + 1 < data->end_width && ft_strchr("10NOWE",data->map_tab[j - 1][i + 1]))
+	if (j > 0 && i + 1 < data->end_width && ft_strchr("10NOWE", data->map_tab[j - 1][i + 1]))
 		check_map_gap_core(data, i + 1, j - 1, count);
-	if (j > 0 && i > 0 && ft_strchr("10NOWE",data->map_tab[j - 1][i - 1]))
+	if (j > 0 && i > 0 && ft_strchr("10NOWE", data->map_tab[j - 1][i - 1]))
 		check_map_gap_core(data, i - 1, j - 1, count);
 	(*count) += 1;
 	return (*count);
@@ -486,7 +497,7 @@ size_t	check_map_gap(t_data *data)
 	i = 0;
 	j = 0;
 	count = 0;
-	while(i < data->end_width)
+	while (i < data->end_width)
 	{
 		j = 0;
 		while (j < data->map_height)
@@ -507,7 +518,7 @@ int	check_isolated_part(t_data *data)
 
 	i = 0;
 	j = 0;
-	while(i < data->end_width)
+	while (i < data->end_width)
 	{
 		j = 0;
 		while (j < data->map_height)
@@ -552,9 +563,9 @@ int	main(int argc, char **argv)
 		exit_error(&data, "Arguments count error");
 	if (!ft_check_extension(argv[1]))
 		exit_error(&data, "Not extended with .map");
-	check_from_file(&data, check_labels, 1,"Map 6 elements error");
-	check_from_file(&data, check_map_height, 1,"Map height error");
-	check_from_file(&data, set_start_width, 1,"");
+	check_from_file(&data, check_labels, 1, "Map 6 elements error");
+	check_from_file(&data, check_map_height, 1, "Map height error");
+	check_from_file(&data, set_start_width, 1, "");
 	check_from_file(&data, set_end_width, 1, "");
 	data.map_tab = init_map_tab(&data);
 	if (!data.map_tab)
