@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
+/*   Updated: 2026/04/14 10:39:46 by andrrand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -19,10 +31,11 @@ void	free_strs(char **strs)
 	strs = NULL;
 }
 
-void	exit_error(t_data *data)
+void	exit_error(t_data *data, char *msg)
 {
 	(void)data;
 	ft_putendl_fd("Error", 2);
+	ft_putendl_fd(msg, 2);
 	if (data->map_tab)
 		free_strs(data->map_tab);
 	exit(1);
@@ -53,18 +66,30 @@ int	ft_isemptyline(const char *str)
 	return (str && ft_strlen(str) == 1 && *str == '\n');
 }
 
-void	check_map(t_data *data, int (*f)(t_data *data))
+void	check_from_file(t_data *data, int (*f)(t_data *), int o ,char *msg)
 {
-	if((data->map_fd = open(data->map_name, O_RDONLY)) < 0)
-		exit_error(data);
-	if (!f(data))
+	if (o)
 	{
+		if((data->map_fd = open(data->map_name, O_RDONLY)) < 0)
+			exit_error(data, "Fail to open the map file");
+		if (!f(data))
+		{
+			purge_get_next_line(data->map_fd);
+			close(data->map_fd);
+			exit_error(data, msg);
+		}
 		purge_get_next_line(data->map_fd);
 		close(data->map_fd);
-		exit_error(data);
+		return ;
 	}
-	purge_get_next_line(data->map_fd);
-	close(data->map_fd);
+	if (!f(data))
+		exit_error(data, msg);
+}
+
+void	check_map_attribute(t_data *data, int (*f)(t_data *data), char *msg)
+{
+	if (!f(data))
+		exit_error(data, msg);
 }
 
 int	check_fd(char *str)
@@ -524,28 +549,22 @@ int	main(int argc, char **argv)
 
 	init_data(&data, argv);
 	if (argc != 2)
-		exit_error(&data);
+		exit_error(&data, "Arguments count error");
 	if (!ft_check_extension(argv[1]))
-		exit_error(&data);
-	check_map(&data, check_labels);
-	check_map(&data, check_map_height);
-	check_map(&data, set_start_width);
-	printf("start width = %zu\n", data.start_width);
-	check_map(&data, set_end_width);
-	printf("end width = %zu\n", data.end_width);
+		exit_error(&data, "Not extended with .map");
+	check_from_file(&data, check_labels, 1,"Map 6 elements error");
+	check_from_file(&data, check_map_height, 1,"Map height error");
+	check_from_file(&data, set_start_width, 1,"");
+	check_from_file(&data, set_end_width, 1, "");
 	data.map_tab = init_map_tab(&data);
 	if (!data.map_tab)
 		return (0);
+	check_from_file(&data, get_next_to_map, 1, "");
+	check_from_file(&data, check_map_close, 0, "Map is not closed");
+	// printf("count = %zu\n", check_map_gap(&data));
 	for (size_t i = 0; data.map_tab[i]; i++)
-		printf("%zu | %s\n", i, data.map_tab[i]);
-	check_map(&data, get_next_to_map);
-	for (size_t i = 0; data.map_tab[i]; i++)
-		printf("%zu | %s\n", i, data.map_tab[i]);
-	check_map(&data, check_map_close);
-	printf("count = %zu\n", check_map_gap(&data));
-	for (size_t i = 0; data.map_tab[i]; i++)
-		printf("%zu | %s\n", i, data.map_tab[i]);
-	printf("check_isolated_part = %i\n", check_isolated_part(&data));
+		printf("%s|%zu\n", data.map_tab[i], i);
+	// printf("check_isolated_part = %i\n", check_isolated_part(&data));
 	free_strs(data.map_tab);
 	return (0);
 }
