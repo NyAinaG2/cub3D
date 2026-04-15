@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/14 19:02:29 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/15 06:15:54 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_check_extension(char *str)
 	len = ft_strlen(str);
 	if (len < 4)
 		return (0);
-	return (ft_strncmp(str + (len - 4), ".map", 4) == 0);
+	return (ft_strncmp(str + (len - 4), ".cub", 4) == 0);
 }
 
 int	ft_isemptyline(const char *str)
@@ -562,7 +562,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit_error(&data, "Arguments count error");
 	if (!ft_check_extension(argv[1]))
-		exit_error(&data, "Not extended with .map");
+		exit_error(&data, "Not extended with .cub");
 	check_from_file(&data, check_labels, 1, "Map 6 elements error");
 	check_from_file(&data, check_map_height, 1, "Map height error");
 	check_from_file(&data, set_start_width, 1, "");
