@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/15 06:15:54 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/21 10:27:57 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	free_strs(char **strs)
 	int	i;
 
 	i = 0;
+	if (!strs)
+		return ;
 	while (strs[i])
 		free(strs[i++]);
 	free(strs[i]);
@@ -53,12 +55,22 @@ int	is_allcharin(const char *source, const char *str)
 
 int	ft_check_extension(char *str)
 {
-	int	len;
+	char	**strs;
+	size_t	len;
+	size_t	i;
 
-	len = ft_strlen(str);
-	if (len < 4)
-		return (0);
-	return (ft_strncmp(str + (len - 4), ".cub", 4) == 0);
+	strs = ft_split(str, '/');
+	i = 0;
+	while (strs[i])
+		i++;
+	if (i == 0)
+		return (free_strs(strs),0);
+	len = ft_strlen(strs[i - 1]);
+	if (len < 5)
+		return (free_strs(strs), 0);
+	if (ft_strncmp(strs[i - 1] + (len - 4), ".cub", 4) != 0)
+		return (free_strs(strs), 0);
+	return (free_strs(strs),1);
 }
 
 int	ft_isemptyline(const char *str)
