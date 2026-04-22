@@ -12,6 +12,8 @@
 # define PI 3.14
 # define SPEED 5
 # define TEX_LABELS_STATIC ((char *[]){"NO","SO","WE","EA","F","C", NULL})
+# define ARG_ERROR "Error\nArgument error\n"
+# define EXT_ERROR "Error\nExtention error\n"
 typedef struct s_vector
 {
 

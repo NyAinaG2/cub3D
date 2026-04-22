@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/21 10:27:57 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/22 20:07:52 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,10 +255,7 @@ int	check_map_height(t_data *data)
 		}
 		if ((ft_isemptyline(str) && height > 0) || !set_cap(data, str)
 			|| (!ft_isemptyline(str) && !is_allcharin(str, "10NOWE \n")))
-		{
-			free(str);
-			return (0);
-		}
+			return (free(str), 0);
 		height++;
 		free(str);
 	}
@@ -475,75 +472,6 @@ int	check_map_close(t_data *data)
 	return (1);
 }
 
-size_t	check_map_gap_core(t_data *data, size_t i, size_t j, size_t *count)
-{
-	if (data->map_tab[j][i] == ' ')
-		return (0);
-	data->map_tab[j][i] += 3;
-	if (i + 1 < data->end_width && ft_strchr("10NOWE", data->map_tab[j][i + 1]))
-		check_map_gap_core(data, i + 1, j, count);
-	if (j + 1 < data->map_height && ft_strchr("10NOWE", data->map_tab[j + 1][i]))
-		check_map_gap_core(data, i, j + 1, count);
-	if (i > 0 && ft_strchr("10NOWE", data->map_tab[j][i - 1]))
-		check_map_gap_core(data, i - 1, j, count);
-	if (j > 0 && ft_strchr("10NOWE", data->map_tab[j - 1][i]))
-		check_map_gap_core(data, i, j - 1, count);
-	if (i + 1 < data->end_width && j + 1 < data->map_height && ft_strchr("10NOWE", data->map_tab[j + 1][i + 1]))
-		check_map_gap_core(data, i + 1, j + 1, count);
-	if (j + 1 < data->map_height && i > 0 && ft_strchr("10NOWE", data->map_tab[j + 1][i - 1]))
-		check_map_gap_core(data, i - 1, j + 1, count);
-	if (j > 0 && i + 1 < data->end_width && ft_strchr("10NOWE", data->map_tab[j - 1][i + 1]))
-		check_map_gap_core(data, i + 1, j - 1, count);
-	if (j > 0 && i > 0 && ft_strchr("10NOWE", data->map_tab[j - 1][i - 1]))
-		check_map_gap_core(data, i - 1, j - 1, count);
-	(*count) += 1;
-	return (*count);
-}
-
-size_t	check_map_gap(t_data *data)
-{
-	size_t	i;
-	size_t	j;
-	size_t	count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (i < data->end_width)
-	{
-		j = 0;
-		while (j < data->map_height)
-		{
-			if (data->map_tab[j][i] == data->cap)
-				return (check_map_gap_core(data, i, j, &count));
-			j++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-int	check_isolated_part(t_data *data)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < data->end_width)
-	{
-		j = 0;
-		while (j < data->map_height)
-		{
-			if (data->map_tab[j][i] != ' ' && ft_strchr("10NOWE", data->map_tab[j][i]))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 void	init_data(t_data *data, char **argv)
 {
 	int	i;
@@ -570,11 +498,11 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	init_data(&data, argv);
 	if (argc != 2)
-		exit_error(&data, "Arguments count error");
+		return (ft_putstr_fd(ARG_ERROR, 2), 1);
 	if (!ft_check_extension(argv[1]))
-		exit_error(&data, "Not extended with .cub");
+		return (ft_putstr_fd(EXT_ERROR, 2), 1);
+	init_data(&data, argv);
 	check_from_file(&data, check_labels, 1, "Map 6 elements error");
 	check_from_file(&data, check_map_height, 1, "Map height error");
 	check_from_file(&data, set_start_width, 1, "");
@@ -584,10 +512,8 @@ int	main(int argc, char **argv)
 		return (0);
 	check_from_file(&data, get_next_to_map, 1, "");
 	check_from_file(&data, check_map_close, 0, "Map is not closed");
-	// printf("count = %zu\n", check_map_gap(&data));
 	for (size_t i = 0; data.map_tab[i]; i++)
 		printf("%s|%zu\n", data.map_tab[i], i);
-	// printf("check_isolated_part = %i\n", check_isolated_part(&data));
 	free_strs(data.map_tab);
 	return (0);
 }

@@ -9,7 +9,7 @@ LDLIBS = -lm
 LIBFT = libft/libft.a
 LIBFT_FLAGS = -Llibft -lft
 # find . -name "*.c" | tr '\n' ' '
-SRC_FILES = ./parse.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c ./ft_split_new.c
+SRC_FILES = ./parse.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 # SRC_FILES = ./main.c ./mlx_img_utils.c
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
