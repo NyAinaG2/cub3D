@@ -5,13 +5,22 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "libft/libft.h"
+
+
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
 # define PI 3.14
 # define SPEED 5
-# define TEX_LABELS_STATIC ((char *[]){"NO","SO","WE","EA","F","C", NULL})
+# define MEM_ERROR "Error\nMemory allocation fail\n"
+# define FD_ERROR "Error\nFail to open the map file\n"
+# define MAP_ERROR "Error\nSomething is wrong in the map\n"
+# define CLOSED_ERROR "Error\nMap is not closed\n"
+# define LABEL_ERROR "Error\nSomething is wrong in the 6 first elements\n"
 # define ARG_ERROR "Error\nArgument error\n"
 # define EXT_ERROR "Error\nExtention error\n"
 typedef struct s_vector
@@ -26,6 +35,7 @@ typedef struct s_vector
 
 typedef struct s_data
 {
+	char		**labels;
 	char		cap;
 	int			map_fd;
 	int			index_checker[6];
@@ -34,8 +44,8 @@ typedef struct s_data
 	char		*map_name;
 	char		**map_tab;
 	size_t		map_height;
-	size_t		start_width;
-	size_t		end_width;
+	size_t		start_w;
+	size_t		end_w;
 }	t_data;
 
 typedef struct s_mlx

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:06:13 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/03 08:37:33 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/25 23:00:37 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	purge_get_next_line(int fd)
 {
 	char	*str;
 
+	if (!fd)
+		return ;
 	str = get_next_line(fd);
 	if (!str)
 	{
