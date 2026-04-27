@@ -15,11 +15,11 @@ OBJ_FILES = ${SRC_FILES:.c=.o}
 
 all : ${NAME}
 
-# ${NAME} : ${OBJ_FILES} ${MLX_LIB}
-# 	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${MLX_FLAGS} ${LDLIBS}
+${NAME} : ${OBJ_FILES} ${LIBFT} ${MLX_LIB}
+	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${LIBFT_FLAGS} ${MLX_FLAGS} ${LDLIBS}
 
-${NAME} : ${OBJ_FILES} ${LIBFT}
-	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${LIBFT_FLAGS}
+# ${NAME} : ${OBJ_FILES} ${LIBFT}
+# 	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${LIBFT_FLAGS}
 
 ${LIBFT} :
 	make -C ./libft all
@@ -30,27 +30,29 @@ ${MLX_LIB} : ${MLX_DIR}
 ${MLX_DIR} :
 	tar -xzf ${MLX_ARCHIVE};
 
-# %.o : %.c ${MLX_LIB}
-# 	${CC} ${C_FLAGS} -c $< -o $@
-
-%.o : %.c
+%.o : %.c ${MLX_LIB} ${LIBFT}
 	${CC} ${C_FLAGS} -c $< -o $@
 
-# clean :
-# 	rm -rf ${OBJ_FILES}
-# 	make -C ./$(MLX_DIR) clean
+# %.o : %.c
+# 	${CC} ${C_FLAGS} -c $< -o $@
 
 clean :
 	make -C ./libft clean
 	rm -rf ${OBJ_FILES}
+	make -C ./$(MLX_DIR) clean
 
-# fclean : clean
-# 	rm -f ${NAME}
-# 	rm -rf ${MLX_DIR}
+# clean :
+# 	make -C ./libft clean
+# 	rm -rf ${OBJ_FILES}
 
 fclean : clean
 	make -C ./libft fclean
 	rm -f ${NAME}
+	rm -rf ${MLX_DIR}
+
+# fclean : clean
+# 	make -C ./libft fclean
+# 	rm -f ${NAME}
 
 re: fclean all
 

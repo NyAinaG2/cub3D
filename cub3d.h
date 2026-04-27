@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <stdio.h>
-// # include "minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
@@ -16,6 +16,7 @@
 # define KEY_D 100
 # define PI 3.14
 # define SPEED 5
+# define MLX_ERROR "Error\nMinilibix Init fail\n"
 # define MEM_ERROR "Error\nMemory allocation fail\n"
 # define FD_ERROR "Error\nFail to open the map file\n"
 # define MAP_ERROR "Error\nSomething is wrong in the map\n"
@@ -35,6 +36,8 @@ typedef struct s_vector
 
 typedef struct s_data
 {
+	void		*img_ptr[4]; //mbola tsy kitiana
+	int			*img_size[4][2]; //mbola tsy kitiana
 	char		**labels;
 	char		cap;
 	int			map_fd;
@@ -46,6 +49,7 @@ typedef struct s_data
 	size_t		map_height;
 	size_t		start_w;
 	size_t		end_w;
+	void		*mlx_ptr;
 }	t_data;
 
 typedef struct s_mlx

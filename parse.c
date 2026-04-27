@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/25 23:17:54 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/27 21:03:50 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	trim_newline(char *str)
 void	exit_parse(t_data *data, char *msg)
 {
 	ft_putstr_fd(msg, 2);
-	if(data->map_fd)
+	if(data->map_fd > 0)
 	{
 		purge_get_next_line(data->map_fd);
 		close(data->map_fd);
@@ -47,6 +47,8 @@ void	exit_parse(t_data *data, char *msg)
 		free_strs(data->map_tab);
 	if (data->labels)
 		free_strs(data->labels);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
 	exit(1);
 }
 
@@ -92,8 +94,6 @@ int	ft_check_extension(char *str)
 	return (free_strs(strs),1);
 }
 
-
-
 void	check_from_file(t_data *data, int (*f)(t_data *), int o, char *msg)
 {
 	if (o)
@@ -119,7 +119,6 @@ int	check_fd(char *str)
 {
 	int	fd;
 
-
 	trim_newline(str);
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
@@ -144,7 +143,7 @@ size_t	ft_count_char(const char *str, char c)
 	return (count);
 }
 
-void	get_color_core(t_data *data, char *str, int color[3])
+void	get_color_core(char *str, int color[3])
 {
 	char	**strs;
 	int		i;
@@ -152,7 +151,7 @@ void	get_color_core(t_data *data, char *str, int color[3])
 	i = 0;
 	strs = ft_split(str, ',');
 	if (!strs)
-		exit_parse(data, MEM_ERROR);
+		return ;
 	while (i < 3)
 	{
 		color[i] = ft_atoi(strs[i]);
@@ -164,9 +163,9 @@ void	get_color_core(t_data *data, char *str, int color[3])
 void	get_color(t_data *data, char *ref, char *str)
 {
 	if (ft_strncmp("F", ref, ft_strlen(ref)) == 0)
-		get_color_core(data, str, data->floor_color);
+		get_color_core(str, data->floor_color);
 	if (ft_strncmp("C", ref, ft_strlen(ref)) == 0)
-		get_color_core(data, str, data->ceil_color);
+		get_color_core(str, data->ceil_color);
 }
 
 int	check_color(t_data *data, char *ref, char *str)
@@ -182,7 +181,7 @@ int	check_color(t_data *data, char *ref, char *str)
 		return (0);
 	strs = ft_split(str, ',');
 	if(!strs)
-		exit_parse(data, MEM_ERROR);
+		return (0);
 	while (strs[i])
 		i++;
 	while (strs[j] && i == 3)
@@ -208,7 +207,7 @@ int	check_labels_unit(t_data *data, char *str)
 	error = 0;
 	strs = ft_split(str, ' ');
 	if (!strs)
-		exit_parse(data, MEM_ERROR);
+		return (0);
 	while (i < 6 && !error)
 	{
 		if (ft_strncmp(data->labels[i], strs[0], ft_strlen(strs[0])) == 0)
@@ -536,6 +535,12 @@ void	init_data(t_data *data, char **argv)
 	data->map_name = argv[1];
 	data->map_tab = NULL;
 	data->map_fd = -1;
+	data->mlx_ptr = mlx_init();
+	if(!data->mlx_ptr)
+	{
+		ft_putstr_fd(MLX_ERROR, 2);
+		exit (1);
+	}
 	while (i < 3)
 	{
 		data->floor_color[i] = 0;
@@ -574,5 +579,7 @@ int	main(int argc, char **argv)
 	printf("C %i,%i,%i\n", data.ceil_color[0], data.ceil_color[1], data.ceil_color[2]);
 	free_strs(data.map_tab);
 	free_strs(data.labels);
+	mlx_destroy_display(data.mlx_ptr);
+	free(data.mlx_ptr);
 	return (0);
 }
