@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = cc
+CC = clang
 
 C_FLAGS = -Wall -Werror -Wextra
 
@@ -18,9 +18,9 @@ LIBFT = libft/libft.a
 
 LIBFT_FLAGS = -Llibft -lft
 
-SRC_FILES = ./parse.c \
-			./get_next_line/get_next_line.c\
-			./get_next_line/get_next_line_utils.c\
+SRC_FILES = parse.c \
+			get_next_line/get_next_line.c \
+			get_next_line/get_next_line_utils.c \
 
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
@@ -35,9 +35,6 @@ ${LIBFT} :
 ${MLX_LIB} : ${MLX_DIR}
 	make -C ./${MLX_DIR} all
 
-${MLX_DIR} :
-	tar -xzf ${MLX_ARCHIVE};
-
 %.o : %.c ${MLX_LIB} ${LIBFT}
 	${CC} ${C_FLAGS} -c $< -o $@
 
@@ -49,6 +46,5 @@ clean :
 fclean : clean
 	make -C ./libft fclean
 	rm -f ${NAME}
-	rm -rf ${MLX_DIR}
 
 re: fclean all

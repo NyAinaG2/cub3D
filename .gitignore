@@ -1,0 +1,7 @@
+*.o
+*.cub
+*.zip
+cub3D
+minilibx-linux
+get_next_line
+libft
