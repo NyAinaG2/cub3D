@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/30 10:48:11 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:32:37 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,16 @@ void	exit_all(t_data *data, int value)
 		purge_get_next_line(data->map_fd);
 		close(data->map_fd);
 	}
-	if (data->map_tab)
+	if (data->map_tab != NULL)
 		free_strs(data->map_tab);
 	if (data->labels)
 		free_strs(data->labels);
 	while (i < 4)
-		mlx_destroy_image(data->mlx_ptr, data->img_ptr[i++]);
+	{
+		if (data->img_ptr[i] != NULL)
+			mlx_destroy_image(data->mlx_ptr, data->img_ptr[i]);
+		i++;
+	}
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(value);
@@ -149,7 +153,7 @@ size_t	ft_count_char(const char *str, char c)
 	return (count);
 }
 
-void	get_color_core(char *str, int color[3])
+void	get_color(t_data *data, char *str, int index)
 {
 	char	**strs;
 	int		i;
@@ -160,21 +164,13 @@ void	get_color_core(char *str, int color[3])
 		return ;
 	while (i < 3)
 	{
-		color[i] = ft_atoi(strs[i]);
+		data->colors[index - 4][i] = ft_atoi(strs[i]);
 		i++;
 	}
 	free_strs(strs);
 }
 
-void	get_color(t_data *data, char *ref, char *str)
-{
-	if (ft_strncmp("F", ref, ft_strlen(ref)) == 0)
-		get_color_core(str, data->floor_color);
-	if (ft_strncmp("C", ref, ft_strlen(ref)) == 0)
-		get_color_core(str, data->ceil_color);
-}
-
-int	check_color(t_data *data, char *ref, char *str)
+int	check_color(t_data *data, char *str, int index)
 {
 	char	**strs;
 	int		i;
@@ -199,7 +195,7 @@ int	check_color(t_data *data, char *ref, char *str)
 	}
 	free_strs(strs);
 	if(i == 3 && j == 3)
-		get_color(data, ref, str);
+		get_color(data, str, index);
 	return (i == 3 && j == 3);
 }
 
@@ -223,7 +219,7 @@ int	check_labels_unit(t_data *data, char *str)
 			if (i <= 3 && error == 0)
 				error = !check_texture(data, strs[1], i);
 			else if (error == 0)
-				error = !check_color(data, strs[0], strs[1]);
+				error = !check_color(data, strs[1], i);
 			break ;
 		}
 		i++;
@@ -547,14 +543,11 @@ void	init_data(t_data *data, char **argv)
 		ft_putstr_fd(MLX_ERROR, 2);
 		exit (1);
 	}
-	while (i < 3)
-	{
-		data->floor_color[i] = 0;
-		data->ceil_color[i++] = 0;
-	}
-	i = 0;
 	while (i < 6)
 		data->index_checker[i++] = 0;
+	i = 0;
+	while (i < 4)
+		data->img_ptr[i++] = NULL;
 	data->map_height = 0;
 	data->start_w = 0;
 	data->end_w = 0;
@@ -581,8 +574,8 @@ int	main(int argc, char **argv)
 	check_from_file(&data, check_map_close, 0, CLOSED_ERROR);
 	for (size_t i = 0; data.map_tab[i]; i++)
 		printf("%s|%zu\n", data.map_tab[i], i);
-	printf("F %i,%i,%i\n", data.floor_color[0], data.floor_color[1], data.floor_color[2]);
-	printf("C %i,%i,%i\n", data.ceil_color[0], data.ceil_color[1], data.ceil_color[2]);
+	printf("F %i,%i,%i\n", data.colors[0][0], data.colors[0][1], data.colors[0][2]);
+	printf("C %i,%i,%i\n", data.colors[1][0], data.colors[1][1], data.colors[1][2]);
 	exit_all(&data, 0);
 	return (0);
 }

@@ -36,14 +36,13 @@ typedef struct s_vector
 
 typedef struct s_data
 {
-	void		*img_ptr[4]; //mbola tsy kitiana
-	int			img_size[4][2]; //mbola tsy kitiana
+	void		*img_ptr[4];
+	int			img_size[4][2];
 	char		**labels;
 	char		cap;
 	int			map_fd;
 	int			index_checker[6];
-	int			floor_color[3];
-	int			ceil_color[3];
+	int			colors[2][3];
 	char		*map_name;
 	char		**map_tab;
 	size_t		map_height;
