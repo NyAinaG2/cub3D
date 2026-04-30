@@ -2,7 +2,7 @@ NAME = cub3D
 
 CC = clang
 
-C_FLAGS = -Wall -Werror -Wextra
+C_FLAGS = -Wall -Werror -Wextra -g
 
 MLX_LIB = minilibx-linux/libmlx_Linux.a
 
