@@ -18,15 +18,14 @@ LIBFT = libft/libft.a
 
 LIBFT_FLAGS = -Llibft -lft
 
-SRC_FILES = parse.c \
-			get_next_line/get_next_line.c \
-			get_next_line/get_next_line_utils.c \
+SRC_FILES = projection/projection.c \
+			main.c \
 
 OBJ_FILES = ${SRC_FILES:.c=.o}
 
 all : ${NAME}
 
-${NAME} : ${OBJ_FILES} ${LIBFT} ${MLX_LIB}
+${NAME} : ${LIBFT} ${MLX_LIB} ${OBJ_FILES} 
 	${CC} ${C_FLAGS} -o ${NAME} ${OBJ_FILES} ${LIBFT_FLAGS} ${MLX_FLAGS} ${LDLIBS}
 
 ${LIBFT} :
