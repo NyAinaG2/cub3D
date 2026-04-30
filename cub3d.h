@@ -37,7 +37,7 @@ typedef struct s_vector
 typedef struct s_data
 {
 	void		*img_ptr[4]; //mbola tsy kitiana
-	int			*img_size[4][2]; //mbola tsy kitiana
+	int			img_size[4][2]; //mbola tsy kitiana
 	char		**labels;
 	char		cap;
 	int			map_fd;

@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/27 21:03:50 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/04/30 10:48:11 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	trim_newline(char *str)
 		str[ft_strlen(str) - 1] = 0;
 }
 
-void	exit_parse(t_data *data, char *msg)
+void	exit_all(t_data *data, int value)
 {
-	ft_putstr_fd(msg, 2);
+	int	i;
+
+	i = 0;
 	if(data->map_fd > 0)
 	{
 		purge_get_next_line(data->map_fd);
@@ -47,8 +49,17 @@ void	exit_parse(t_data *data, char *msg)
 		free_strs(data->map_tab);
 	if (data->labels)
 		free_strs(data->labels);
+	while (i < 4)
+		mlx_destroy_image(data->mlx_ptr, data->img_ptr[i++]);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
+	exit(value);
+}
+
+void	exit_parse(t_data *data, char *msg)
+{
+	ft_putstr_fd(msg, 2);
+	exit_all(data, 1);
 	exit(1);
 }
 
@@ -115,16 +126,11 @@ void	check_from_file(t_data *data, int (*f)(t_data *), int o, char *msg)
 		exit_parse(data, msg);
 }
 
-int	check_fd(char *str)
+int	check_texture(t_data *data, char *str, int index)
 {
-	int	fd;
-
 	trim_newline(str);
-	fd = open(str, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	close(fd);
-	return (1);
+	data->img_ptr[index] = mlx_xpm_file_to_image(data->mlx_ptr, str, &data->img_size[index][0], &data->img_size[index][1]);
+	return (data->img_ptr[index] != NULL);
 }
 
 size_t	ft_count_char(const char *str, char c)
@@ -215,7 +221,7 @@ int	check_labels_unit(t_data *data, char *str)
 			data->index_checker[i]++;
 			error = data->index_checker[i] > 1;
 			if (i <= 3 && error == 0)
-				error = !check_fd(strs[1]);
+				error = !check_texture(data, strs[1], i);
 			else if (error == 0)
 				error = !check_color(data, strs[0], strs[1]);
 			break ;
@@ -577,9 +583,6 @@ int	main(int argc, char **argv)
 		printf("%s|%zu\n", data.map_tab[i], i);
 	printf("F %i,%i,%i\n", data.floor_color[0], data.floor_color[1], data.floor_color[2]);
 	printf("C %i,%i,%i\n", data.ceil_color[0], data.ceil_color[1], data.ceil_color[2]);
-	free_strs(data.map_tab);
-	free_strs(data.labels);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+	exit_all(&data, 0);
 	return (0);
 }
