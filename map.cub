@@ -3,9 +3,8 @@ WE ./textures/west.xpm
 EA ./textures/east.xpm
 SO ./textures/south.xpm
 NO ./textures/north.xpm
-F 98,12,100
+F 98,       120           ,                                                                             100
 C 98,12,19
-
 111111
 100001
 10N001
@@ -14,6 +13,6 @@ C 98,12,19
 100001
 100001
 100001
-100001        1
+100001
 100001
 111111

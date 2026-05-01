@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/30 11:32:37 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/01 17:04:38 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,33 @@ void	check_from_file(t_data *data, int (*f)(t_data *), int o, char *msg)
 		exit_parse(data, msg);
 }
 
+int	ft_check_head(char *src, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (*str == ' ')
+		str++;
+	while (src[i] == str[i])
+		i++;
+	if (str[i] == ' ' && !src[i])
+		return (i);
+	return (0);
+}
+
 int	check_texture(t_data *data, char *str, int index)
 {
+	char	**strs;
+
+	strs = NULL;
 	trim_newline(str);
-	data->img_ptr[index] = mlx_xpm_file_to_image(data->mlx_ptr, str, &data->img_size[index][0], &data->img_size[index][1]);
+	if (ft_countword(str, ' ') != 2)
+		return (0);
+	strs = ft_split(str, ' ');
+	if (!strs)
+		return (0);
+	data->img_ptr[index] = mlx_xpm_file_to_image(data->mlx_ptr, strs[1], &data->img_size[index][0], &data->img_size[index][1]);
+	free_strs(strs);
 	return (data->img_ptr[index] != NULL);
 }
 
@@ -179,17 +202,17 @@ int	check_color(t_data *data, char *str, int index)
 	i = 0;
 	j = 0;
 	trim_newline(str);
-	if (ft_count_char(str, ',') != 2)
+	str += ft_check_head(data->labels[index], str);
+	i = ft_countword(str, ',');
+	if (ft_count_char(str, ',') != 2 || i != 3)
 		return (0);
 	strs = ft_split(str, ',');
 	if(!strs)
 		return (0);
-	while (strs[i])
-		i++;
 	while (strs[j] && i == 3)
 	{
 		if (ft_atoi(strs[j]) > 255 || ft_atoi(strs[j]) < 0
-			|| !is_allcharin(strs[j], "1234567890"))
+			|| !is_allcharin(strs[j], "1234567890 ") || ft_countword(strs[j], ' ') != 1)
 			break ;
 		j++;
 	}
@@ -199,32 +222,27 @@ int	check_color(t_data *data, char *str, int index)
 	return (i == 3 && j == 3);
 }
 
-int	check_labels_unit(t_data *data, char *str)
+int	check_token(t_data *data, char *str)
 {
-	char	**strs;
 	int		i;
 	int		error;
 
 	i = 0;
 	error = 0;
-	strs = ft_split(str, ' ');
-	if (!strs)
-		return (0);
 	while (i < 6 && !error)
 	{
-		if (ft_strncmp(data->labels[i], strs[0], ft_strlen(strs[0])) == 0)
+		if (ft_check_head(data->labels[i], str))
 		{
 			data->index_checker[i]++;
 			error = data->index_checker[i] > 1;
 			if (i <= 3 && error == 0)
-				error = !check_texture(data, strs[1], i);
+				error = !check_texture(data, str, i);
 			else if (error == 0)
-				error = !check_color(data, strs[1], i);
+				error = !check_color(data, str, i);
 			break ;
 		}
 		i++;
 	}
-	free_strs(strs);
 	return (error != 1 && i < 6);
 }
 
@@ -245,8 +263,7 @@ int	check_labels(t_data *data)
 			free(str);
 			continue ;
 		}
-		if ((ft_countword(str, ' ') != 2 && line < 6)
-			|| !check_labels_unit(data, str))
+		if (!check_token(data, str))
 		{
 			free(str);
 			break ;
