@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 07:19:12 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 09:44:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,25 @@ int key_handler(int key, t_test* data)
 	if (key == 65307) close_window(data);
 	if (key == 65364)
 	{
-		if (tmp_map[data->playerY + 1][data->playerX] != 1)
-		{
-			++data->playerY;
-			draw(data);
-		}
+		if (tmp_map[(int)(data->playerY + 0.3)][(int)data->playerX] != 1)
+			data->playerY += 0.2;
+		draw(data);
 	}
 	if (key == 65362)
 	{
-		if (tmp_map[data->playerY - 1][data->playerX] != 1)
-		{
-			--data->playerY;
-			draw(data);
-		}
+		if (tmp_map[(int)(data->playerY - 0.3)][(int)data->playerX] != 1)
+			data->playerY -= 0.2;
 		draw(data);
 	}
 	if (key == 65361)
 	{
-		if (tmp_map[data->playerY][data->playerX - 1] != 1)
-		{
-			--data->playerX;
-			draw(data);
-		}
+		if (tmp_map[(int)(data->playerY)][(int)(data->playerX - 0.3)] != 1)
+			data->playerX -= 0.2;
 		draw(data);
 	}
 	if (key == 65363)
-	{
-		if (tmp_map[data->playerY][data->playerX + 1] != 1)
-		{
-			++data->playerX;
-			draw(data);
-		}
-		draw(data);
-	}
+		if (tmp_map[(int)(data->playerY)][(int)(data->playerX + 0.3)] != 1)
+			data->playerX += 0.2;
+	draw(data);
 	return (0);
 }
