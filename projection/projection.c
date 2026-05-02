@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 13:22:15 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 14:55:55 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,43 @@ void draw_rectangle(t_test* data, int x, int y, int color)
 		}
 		i++;
 	}
+}
+
+void draw_line_dda(t_test* data, t_point p0, t_point p1, int color)
+{
+	t_point delta;
+	t_point inc;
+	float steps;
+	int i;
+
+	delta.x = p1.x - p0.x;
+	delta.y = p1.y - p0.y;
+	if (fabs(delta.x) > fabs(delta.y))
+		steps = fabs(delta.x);
+	else
+		steps = fabs(delta.y);
+	inc.x = delta.x / steps;
+	inc.y = delta.y / steps;
+	i = 0;
+	while (i <= (int)steps)
+	{
+		put_pixel_to_img(data, (int)p0.x, (int)p0.y, color);
+		p0.x += inc.x;
+		p0.y += inc.y;
+		i++;
+	}
+}
+
+void draw_player(t_test* data)
+{
+	t_point p0;
+	t_point p1;
+
+	p0.x = data->playerX * data->tile_size + 10 * cos(data->direction);
+	p0.y = data->playerY * data->tile_size + 10 * sin(data->direction);
+	p1.x = data->playerX * data->tile_size - (10 * cos(data->direction));
+	p1.y = data->playerY * data->tile_size - (10 * sin(data->direction));
+	draw_line_dda(data, p0, p1, 0xFFFFF);
 }
 
 int init(t_test* data_ptr)

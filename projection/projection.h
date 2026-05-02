@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 11:03:29 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 14:48:03 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct test_s
 	int line_length;
 	int endian;
 } t_test;
+
+typedef struct s_point
+{
+	float x;
+	float y;
+} t_point;
 
 typedef struct s_color
 {
