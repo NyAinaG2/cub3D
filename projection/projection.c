@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 10:37:10 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:22:15 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,6 @@ void draw_rectangle(t_test* data, int x, int y, int color)
 		{
 			put_pixel_to_img(
 				data, x * data->tile_size + i, y * data->tile_size + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void draw_player(t_test* data)
-{
-	int i;
-	int j;
-	int size;
-
-	i = 0;
-	size = (data->tile_size / 5);
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			put_pixel_to_img(data,
-							 data->playerX * data->tile_size + i,
-							 data->playerY * data->tile_size + j,
-							 0x555555);
 			j++;
 		}
 		i++;
