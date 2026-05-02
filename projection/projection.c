@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 16:09:55 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 16:27:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int init(t_test* data_ptr)
 	data_ptr->mapSizeY = 7;
 	data_ptr->playerX = 3;
 	data_ptr->playerY = 5;
-	data_ptr->playerR = 10;
+	data_ptr->playerR = 7;
 	data_ptr->direction = 0;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;
