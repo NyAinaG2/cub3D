@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/01 10:21:04 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 07:13:29 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ void put_pixel_to_img(t_test* data, int x, int y, int color)
 	*(unsigned int*)addr = color;
 }
 
+void draw_rectangle(t_test* data, int x, int y, int color)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < data->tile_size)
+	{
+		j = 0;
+		while (j < data->tile_size)
+		{
+			put_pixel_to_img(
+				data, x * data->tile_size + i, y * data->tile_size + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 int init(t_test* data_ptr)
 {
 	data_ptr->mlx_ptr = mlx_init();
@@ -35,46 +54,36 @@ int init(t_test* data_ptr)
 									   &data_ptr->bpp,
 									   &data_ptr->line_length,
 									   &data_ptr->endian);
-	data_ptr->mapSizeX = 12;
-	data_ptr->mapSizeY = 12;
+	data_ptr->mapSizeX = 6;
+	data_ptr->mapSizeY = 7;
 	data_ptr->playerX = 3;
 	data_ptr->playerY = 5;
-	data_ptr->mapSizeY = 12;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;
+	data_ptr->tile_size = 64;
 	return (1);
 }
 
 void draw(t_test* data)
 {
-	unsigned int i;
-	unsigned int j;
 	int x;
 	int y;
 
-	i = 0;
-	j = 0;
-	while (i < 6)
+	x = 0;
+	while (x < data->mapSizeX)
 	{
-		while (j < 7)
+		y = 0;
+		while (y < data->mapSizeY)
 		{
-			x = 0;
-			while (x < 64)
-			{
-				y = 0;
-				while (y < 64)
-				{
-					if (tmp_map[j][i] == 1)
-						put_pixel_to_img(
-							data, j * 64 + x, i * 64 + y, 0x08F0F4);
-					y++;
-				}
-				x++;
-			}
-			j++;
+			if (tmp_map[y][x] == 1)
+				draw_rectangle(data, x, y, 0x569874);
+			else
+				draw_rectangle(data, x, y, 0);
+			y++;
 		}
-		j = 0;
-		i++;
+		x++;
 	}
+	draw_rectangle(data, data->playerX, data->playerY, 0x005599);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
+	printf("Drawing!\n");
 }

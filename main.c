@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/01 09:59:42 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/01 19:16:24 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main()
 
 	if (init(&data)) printf("OK\n");
 	draw(&data);
+	mlx_key_hook(data.windows_ptr, key_handler, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

@@ -19,6 +19,7 @@ LIBFT = libft/libft.a
 LIBFT_FLAGS = -Llibft -lft
 
 SRC_FILES = projection/projection.c \
+			projection/key_handler.c \
 			main.c \
 
 OBJ_FILES = ${SRC_FILES:.c=.o}

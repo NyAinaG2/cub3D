@@ -6,12 +6,15 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/01 09:59:58 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/01 19:16:35 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROJECTION_H
 #define PROJECTION_H
+
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "../minilibx-linux/mlx.h"
 
@@ -26,6 +29,7 @@ typedef struct test_s
 	void* mlx_ptr;
 	void* windows_ptr;
 	unsigned char** map;
+	int tile_size;
 	int playerX;
 	int playerY;
 	int offsetX;
@@ -51,5 +55,7 @@ typedef struct s_color
 extern const unsigned char tmp_map[7][6];
 int init(t_test* data_ptr);
 void draw(t_test* data);
+int close_window(t_test* data);
+int key_handler(int key, t_test* params);
 
 #endif
