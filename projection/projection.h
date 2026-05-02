@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 09:47:05 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 11:03:29 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 
 #define WIN_H 800
 #define WIN_W 800
-#define TILE_SIZE 64
-
 #define WIN_TITLE "cub3D"
+#define TILE_SIZE 64
+#define ROTATION_SPEED 0.1
+#define MOVE_SPEED 0.2
+#define PI2 6.28
 
 typedef struct test_s
 {
@@ -33,6 +35,7 @@ typedef struct test_s
 	int tile_size;
 	float playerX;
 	float playerY;
+	float direction;
 	int offsetX;
 	int offsetY;
 	float cellX;
