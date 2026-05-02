@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 07:13:29 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 08:04:06 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,31 @@ void draw_rectangle(t_test* data, int x, int y, int color)
 	}
 }
 
+void draw_player(t_test* data)
+{
+	int i;
+	int j;
+	int size;
+
+	i = 0;
+	size = (data->tile_size / 5);
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			put_pixel_to_img(data,
+							 data->playerX * data->tile_size + i +
+								 (data->pTileX * data->tile_size),
+							 data->playerY * data->tile_size + j +
+								 (data->pTileY * data->tile_size),
+							 0x555555);
+			j++;
+		}
+		i++;
+	}
+}
+
 int init(t_test* data_ptr)
 {
 	data_ptr->mlx_ptr = mlx_init();
@@ -58,6 +83,8 @@ int init(t_test* data_ptr)
 	data_ptr->mapSizeY = 7;
 	data_ptr->playerX = 3;
 	data_ptr->playerY = 5;
+	data_ptr->pTileX = 0.5;
+	data_ptr->pTileY = 0.5;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;
 	data_ptr->tile_size = 64;
@@ -83,7 +110,7 @@ void draw(t_test* data)
 		}
 		x++;
 	}
-	draw_rectangle(data, data->playerX, data->playerY, 0x005599);
+	draw_player(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
 	printf("Drawing!\n");
 }

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/01 19:16:35 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 07:43:59 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct test_s
 	int tile_size;
 	int playerX;
 	int playerY;
+	float pTileX;
+	float pTileY;
 	int offsetX;
 	int offsetY;
 	float cellX;
