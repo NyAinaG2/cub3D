@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 14:55:55 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 16:09:55 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,29 @@ void draw_line_dda(t_test* data, t_point p0, t_point p1, int color)
 	}
 }
 
+void set_center(t_test* data, t_point* c)
+{
+	c->x = data->playerX * data->tile_size;
+	c->y = data->playerY * data->tile_size;
+}
+
 void draw_player(t_test* data)
 {
 	t_point p0;
 	t_point p1;
+	t_point p2;
+	t_point c;
 
-	p0.x = data->playerX * data->tile_size + 10 * cos(data->direction);
-	p0.y = data->playerY * data->tile_size + 10 * sin(data->direction);
-	p1.x = data->playerX * data->tile_size - (10 * cos(data->direction));
-	p1.y = data->playerY * data->tile_size - (10 * sin(data->direction));
-	draw_line_dda(data, p0, p1, 0xFFFFF);
+	set_center(data, &c);
+	p0.x = c.x + data->playerR * cos(data->direction);
+	p0.y = c.y + data->playerR * sin(data->direction);
+	p1.x = c.x + data->playerR * cos(data->direction + 2.44);
+	p1.y = c.y + data->playerR * sin(data->direction + 2.44);
+	p2.x = c.x + data->playerR * cos(data->direction + 3.84);
+	p2.y = c.y + data->playerR * sin(data->direction + 3.84);
+	draw_line_dda(data, p0, p1, 0xFFFFFF);
+	draw_line_dda(data, p0, p2, 0xFFFFFF);
+	draw_line_dda(data, p1, p2, 0xFFFFFF);
 }
 
 int init(t_test* data_ptr)
@@ -95,6 +108,7 @@ int init(t_test* data_ptr)
 	data_ptr->mapSizeY = 7;
 	data_ptr->playerX = 3;
 	data_ptr->playerY = 5;
+	data_ptr->playerR = 10;
 	data_ptr->direction = 0;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;

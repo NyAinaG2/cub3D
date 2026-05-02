@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 14:48:03 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 16:00:24 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct test_s
 	float playerX;
 	float playerY;
 	float direction;
+	float playerR;
 	int offsetX;
 	int offsetY;
 	float cellX;
