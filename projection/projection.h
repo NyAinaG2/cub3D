@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 16:00:24 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 16:15:12 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 #include "../minilibx-linux/mlx.h"
 
-#define WIN_H 800
-#define WIN_W 800
+#define WIN_W 1280
+#define WIN_H 720
 #define WIN_TITLE "cub3D"
 #define TILE_SIZE 64
 #define ROTATION_SPEED 0.1
