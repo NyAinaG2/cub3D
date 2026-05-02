@@ -6,13 +6,14 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 09:33:58 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 09:47:05 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROJECTION_H
 #define PROJECTION_H
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 

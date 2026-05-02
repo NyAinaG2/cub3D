@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 09:44:28 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/02 09:52:56 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,17 @@ int key_handler(int key, t_test* data)
 	{
 		if (tmp_map[(int)(data->playerY - 0.3)][(int)data->playerX] != 1)
 			data->playerY -= 0.2;
+		else
+			data->playerY = floorf(data->playerY);
 		draw(data);
 	}
 	if (key == 65361)
 	{
 		if (tmp_map[(int)(data->playerY)][(int)(data->playerX - 0.3)] != 1)
 			data->playerX -= 0.2;
+		else
+			data->playerX = floorf(data->playerX);
+
 		draw(data);
 	}
 	if (key == 65363)
