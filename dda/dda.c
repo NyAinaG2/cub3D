@@ -6,59 +6,55 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 16:59:35 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:30:30 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
+static void set_dda_params(t_vec* vec, t_point p, float dir)
+{
+	vec->hit = 0;
+	vec->mapX = (int)p.x;
+	vec->mapY = (int)p.y;
+	vec->angle.x = cos(dir);
+	vec->angle.y = sin(dir);
+	vec->step.x = copysign(1.0, vec->angle.x);
+	vec->step.y = copysign(1.0, vec->angle.y);
+	vec->delta.x = fabs(1 / vec->angle.x);
+	vec->delta.y = fabs(1 / vec->angle.y);
+	if (vec->step.x > 0)
+		vec->side.x = (floor(p.x + 1) - p.x) * vec->delta.x;
+	else
+		vec->side.x = (p.x - floor(p.x)) * vec->delta.x;
+	if (vec->step.y > 0)
+		vec->side.y = (floor(p.y + 1) - p.y) * vec->delta.y;
+	else
+		vec->side.y = (p.y - floor(p.y)) * vec->delta.y;
+}
+
 t_point has_hit(t_test* data, t_point p, float dir)
 {
-	t_point delta;
-	t_point side;
-	t_point angle;
-	t_point step;
-	t_point res;
-	float t;
-	int hit;
-	int mapX;
-	int mapY;
-
-	hit = 0;
-	mapX = (int)p.x;
-	mapY = (int)p.y;
-	angle.x = cos(dir);
-	angle.y = sin(dir);
-	step.x = copysign(1.0, angle.x);
-	step.y = copysign(1.0, angle.y);
-	delta.x = fabs(1 / angle.x);
-	delta.y = fabs(1 / angle.y);
-	if (step.x > 0)
-		side.x = (floor(p.x + 1) - p.x) * delta.x;
-	else
-		side.x = (p.x - floor(p.x)) * delta.x;
-	if (step.y > 0)
-		side.y = (floor(p.y + 1) - p.y) * delta.y;
-	else
-		side.y = (p.y - floor(p.y)) * delta.y;
-	while (hit == 0)
+	t_vec vec;
+	set_dda_params(&vec, p, dir);
+	while (vec.hit == 0)
 	{
-		if (side.x < side.y)
+		if (vec.side.x < vec.side.y)
 		{
-			t = side.x;
-			side.x += delta.x;
-			mapX += (int)step.x;
+			vec.t = vec.side.x;
+			vec.side.x += vec.delta.x;
+			vec.mapX += (int)(vec.step.x);
 		}
 		else
 		{
-			t = side.y;
-			side.y += delta.y;
-			mapY += (int)step.y;
+			vec.t = vec.side.y;
+			vec.side.y += vec.delta.y;
+			vec.mapY += (int)(vec.step.y);
 		}
-		if (tmp_map[mapY][mapX] == 1) hit = 1;
+		if (tmp_map[vec.mapY][vec.mapX] == 1) vec.hit = 1;
 	}
-	draw_rectangle(data, mapX, mapY, 0x999999);
-	res.x = p.x + t * angle.x;
-	res.y = p.y + t * angle.y;
-	return (res);
+	draw_rectangle(data, vec.mapX, vec.mapY, 0x194939);
+	vec.res.x = p.x + vec.t * vec.angle.x;
+	vec.res.y = p.y + vec.t * vec.angle.y;
+	return (vec.res);
 }

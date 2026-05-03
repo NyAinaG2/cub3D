@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 09:01:58 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:13:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ typedef struct s_point
 	float x;
 	float y;
 } t_point;
+
+typedef struct s_vec
+{
+	t_point delta;
+	t_point side;
+	t_point angle;
+	t_point step;
+	t_point res;
+	float t;
+	int mapX;
+	int mapY;
+	int hit;
+} t_vec;
 
 typedef struct s_color
 {
