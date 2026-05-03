@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 11:24:01 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 15:00:46 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int init(t_test* data_ptr)
 	data_ptr->playerX = 3;
 	data_ptr->playerY = 5;
 	data_ptr->playerR = 10;
-	data_ptr->direction = 0;
+	data_ptr->direction = 2;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;
 	data_ptr->tile_size = 64;
@@ -121,9 +121,11 @@ void draw_ray(t_test* data)
 	t_point p0;
 	t_point p1;
 
-	p0.x = data->playerX * data->tile_size;
-	p0.y = data->playerY * data->tile_size;
+	p0.x = data->playerX;
+	p0.y = data->playerY;
 	p1 = has_hit(p0, data->direction);
+	p0.x = p0.x * data->tile_size;
+	p0.y = p0.y * data->tile_size;
 	p1.x = p1.x * data->tile_size;
 	p1.y = p1.y * data->tile_size;
 	draw_line_dda(data, p0, p1, 0x555555);
