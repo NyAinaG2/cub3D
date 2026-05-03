@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/02 20:23:40 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 09:17:27 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,4 @@ void draw(t_test* data)
 	}
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
-	printf("Drawing!\n");
 }

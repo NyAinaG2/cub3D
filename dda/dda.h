@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection.h                                       :+:      :+:    :+:   */
+/*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 09:02:53 by mrakotos         ###   ########.fr       */
+/*   Created: 2026/05/03 08:59:21 by mrakotos          #+#    #+#             */
+/*   Updated: 2026/05/03 09:02:19 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROJECTION_H
-#define PROJECTION_H
+#ifndef DDA_H
+#define DDA_H
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "../minilibx-linux/mlx.h"
 #include "../types.h"
-
-extern const unsigned char tmp_map[7][6];
-int init(t_test* data_ptr);
-void draw(t_test* data);
-int close_window(t_test* data);
-int key_handler(int key, t_test* params);
 
 #endif
