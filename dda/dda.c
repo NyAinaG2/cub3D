@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 17:30:30 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:36:46 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,31 @@ static void set_dda_params(t_vec* vec, t_point p, float dir)
 		vec->side.y = (p.y - floor(p.y)) * vec->delta.y;
 }
 
-t_point has_hit(t_test* data, t_point p, float dir)
+static void dda_loop(t_vec* vec)
 {
-	t_vec vec;
-	set_dda_params(&vec, p, dir);
-	while (vec.hit == 0)
+	while (vec->hit == 0)
 	{
-		if (vec.side.x < vec.side.y)
+		if (vec->side.x < vec->side.y)
 		{
-			vec.t = vec.side.x;
-			vec.side.x += vec.delta.x;
-			vec.mapX += (int)(vec.step.x);
+			vec->t = vec->side.x;
+			vec->side.x += vec->delta.x;
+			vec->mapX += (int)(vec->step.x);
 		}
 		else
 		{
-			vec.t = vec.side.y;
-			vec.side.y += vec.delta.y;
-			vec.mapY += (int)(vec.step.y);
+			vec->t = vec->side.y;
+			vec->side.y += vec->delta.y;
+			vec->mapY += (int)(vec->step.y);
 		}
-		if (tmp_map[vec.mapY][vec.mapX] == 1) vec.hit = 1;
+		if (tmp_map[vec->mapY][vec->mapX] == 1) vec->hit = 1;
 	}
+}
+
+t_point dda(t_test* data, t_point p, float dir)
+{
+	t_vec vec;
+	set_dda_params(&vec, p, dir);
+	dda_loop(&vec);
 	draw_rectangle(data, vec.mapX, vec.mapY, 0x194939);
 	vec.res.x = p.x + vec.t * vec.angle.x;
 	vec.res.y = p.y + vec.t * vec.angle.y;
