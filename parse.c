@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/01 17:04:38 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:38:55 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	ft_check_extension(char *str)
 	return (free_strs(strs),1);
 }
 
-void	check_from_file(t_data *data, int (*f)(t_data *), int o, char *msg)
+void	check_map(t_data *data, int (*f)(t_data *), int o, char *msg)
 {
 	if (o)
 	{
@@ -582,13 +582,13 @@ int	main(int argc, char **argv)
 	if (!ft_check_extension(argv[1]))
 		return (ft_putstr_fd(EXT_ERROR, 2), 1);
 	init_data(&data, argv);
-	check_from_file(&data, check_labels, 1, LABEL_ERROR);
-	check_from_file(&data, check_map_height, 1, MAP_ERROR);
-	check_from_file(&data, set_start_width, 1, "");
-	check_from_file(&data, set_end_width, 1, "");
+	check_map(&data, check_labels, 1, LABEL_ERROR);
+	check_map(&data, check_map_height, 1, MAP_ERROR);
+	check_map(&data, set_start_width, 1, "");
+	check_map(&data, set_end_width, 1, "");
 	data.map_tab = init_map_tab(&data);
-	check_from_file(&data, get_next_to_map, 1, "");
-	check_from_file(&data, check_map_close, 0, CLOSED_ERROR);
+	check_map(&data, get_next_to_map, 1, "");
+	check_map(&data, check_map_close, 0, CLOSED_ERROR);
 	for (size_t i = 0; data.map_tab[i]; i++)
 		printf("%s|%zu\n", data.map_tab[i], i);
 	printf("F %i,%i,%i\n", data.colors[0][0], data.colors[0][1], data.colors[0][2]);
