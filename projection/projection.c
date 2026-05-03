@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 09:17:27 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 11:24:01 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,19 @@ int init(t_test* data_ptr)
 	return (1);
 }
 
+void draw_ray(t_test* data)
+{
+	t_point p0;
+	t_point p1;
+
+	p0.x = data->playerX * data->tile_size;
+	p0.y = data->playerY * data->tile_size;
+	p1 = has_hit(p0, data->direction);
+	p1.x = p1.x * data->tile_size;
+	p1.y = p1.y * data->tile_size;
+	draw_line_dda(data, p0, p1, 0x555555);
+}
+
 void draw(t_test* data)
 {
 	int x;
@@ -136,5 +149,6 @@ void draw(t_test* data)
 		x++;
 	}
 	draw_player(data);
+	draw_ray(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
 }

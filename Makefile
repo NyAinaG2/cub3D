@@ -20,6 +20,7 @@ LIBFT_FLAGS = -Llibft -lft
 
 SRC_FILES = projection/projection.c \
 			projection/key_handler.c \
+			dda/dda.c \
 			main.c \
 
 OBJ_FILES = ${SRC_FILES:.c=.o}

@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.h                                              :+:      :+:    :+:   */
+/*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/03 08:59:21 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 10:21:06 by mrakotos         ###   ########.fr       */
+/*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
+/*   Updated: 2026/05/03 11:21:36 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DDA_H
-#define DDA_H
+#include "dda.h"
 
-#include "../projection/projection.h"
-#include "../types.h"
+t_point has_hit(t_point p, float dir)
+{
+	(void)p;
+	(void)dir;
+	t_point res;
 
-t_point has_hit(t_point p, float dir);
-
-#endif
+	res.x = 4.3;
+	res.y = 6;
+	return (res);
+}
