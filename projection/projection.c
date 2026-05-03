@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 16:08:05 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:31:35 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void draw_ray(t_test* data)
 
 	p0.x = data->playerX;
 	p0.y = data->playerY;
-	p1 = has_hit(p0, data->direction);
+	p1 = has_hit(data, p0, data->direction);
 	p0.x = p0.x * data->tile_size;
 	p0.y = p0.y * data->tile_size;
 	p1.x = p1.x * data->tile_size;

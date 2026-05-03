@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 10:20:43 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:29:35 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 extern const unsigned char tmp_map[7][6];
 int init(t_test* data_ptr);
+void draw_rectangle(t_test* data, int x, int y, int color);
 void draw(t_test* data);
 int close_window(t_test* data);
 int key_handler(int key, t_test* params);

@@ -6,15 +6,14 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 16:06:46 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:59:35 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-t_point has_hit(t_point p, float dir)
+t_point has_hit(t_test* data, t_point p, float dir)
 {
-	t_point tmp;
 	t_point delta;
 	t_point side;
 	t_point angle;
@@ -28,8 +27,6 @@ t_point has_hit(t_point p, float dir)
 	hit = 0;
 	mapX = (int)p.x;
 	mapY = (int)p.y;
-	tmp.x = p.x;
-	tmp.y = p.y;
 	angle.x = cos(dir);
 	angle.y = sin(dir);
 	step.x = copysign(1.0, angle.x);
@@ -60,6 +57,7 @@ t_point has_hit(t_point p, float dir)
 		}
 		if (tmp_map[mapY][mapX] == 1) hit = 1;
 	}
+	draw_rectangle(data, mapX, mapY, 0x999999);
 	res.x = p.x + t * angle.x;
 	res.y = p.y + t * angle.y;
 	return (res);
