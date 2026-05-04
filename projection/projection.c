@@ -124,17 +124,12 @@ void draw_ray(t_test* data)
 {
 	t_point p0;
 	t_point p1;
-	t_point angle;
-	float fov;
-	float step;
 	float tmp;
 
-	fov = 1.15;
-	angle.x = data->direction - (fov / 2) ;
-	angle.y = data->direction + (fov / 2) ;
-	step = 0.001;
-	tmp = angle.x;
-	while (tmp < angle.y)
+	data->fovMin = data->direction - (data->fov / 2) ;
+	data->fovMax = data->direction + (data->fov / 2) ;
+	tmp = data->fovMin;
+	while (tmp < data->fovMax)
 	{
 	    p0.x = data->playerX + 0.2 * cos(data->direction);
 		p0.y = data->playerY + 0.2 * sin(data->direction);
@@ -144,7 +139,7 @@ void draw_ray(t_test* data)
 		p1.x = p1.x * data->tile_size;
 		p1.y = p1.y * data->tile_size;
 		draw_line_dda(data, p0, p1, 0x555555);
-		tmp += step;
+		tmp += data->step;
 	}
 }
 
