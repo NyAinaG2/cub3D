@@ -2,6 +2,7 @@
 *.cub
 *.zip
 .vscode
+.zed
 cub3D
 minilibx-linux
 get_next_line

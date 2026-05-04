@@ -31,6 +31,10 @@ typedef struct test_s
 	float playerY;
 	float direction;
 	float playerR;
+	float fovMax;
+	float fovMin;
+	float fov;
+	float step;
 	int offsetX;
 	int offsetY;
 	float cellX;

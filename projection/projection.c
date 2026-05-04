@@ -110,6 +110,10 @@ int init(t_test* data_ptr)
 	data_ptr->playerY = 5;
 	data_ptr->playerR = 10;
 	data_ptr->direction = 2;
+	data_ptr->fov = 1.15;
+	data_ptr->fovMax = data_ptr->direction + (data_ptr->fov / 2);
+	data_ptr->fovMin = data_ptr->direction - (data_ptr->fov / 2);
+	data_ptr->step = 0.001;
 	data_ptr->offsetX = 32;
 	data_ptr->offsetY = 32;
 	data_ptr->tile_size = 64;
@@ -120,16 +124,30 @@ void draw_ray(t_test* data)
 {
 	t_point p0;
 	t_point p1;
+	t_point angle;
+	float fov;
+	float step;
+	float tmp;
 
-	p0.x = data->playerX;
-	p0.y = data->playerY;
-	p1 = dda(data, p0, data->direction);
-	p0.x = p0.x * data->tile_size;
-	p0.y = p0.y * data->tile_size;
-	p1.x = p1.x * data->tile_size;
-	p1.y = p1.y * data->tile_size;
-	draw_line_dda(data, p0, p1, 0x555555);
+	fov = 1.15;
+	angle.x = data->direction - (fov / 2) ;
+	angle.y = data->direction + (fov / 2) ;
+	step = 0.001;
+	tmp = angle.x;
+	while (tmp < angle.y)
+	{
+	    p0.x = data->playerX + 0.2 * cos(data->direction);
+		p0.y = data->playerY + 0.2 * sin(data->direction);
+	    p1 = dda(data, p0, tmp);
+		p0.x = p0.x * data->tile_size;
+		p0.y = p0.y * data->tile_size;
+		p1.x = p1.x * data->tile_size;
+		p1.y = p1.y * data->tile_size;
+		draw_line_dda(data, p0, p1, 0x555555);
+		tmp += step;
+	}
 }
+
 
 void draw(t_test* data)
 {

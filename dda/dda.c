@@ -56,9 +56,9 @@ static void dda_loop(t_vec* vec)
 t_point dda(t_test* data, t_point p, float dir)
 {
 	t_vec vec;
+	(void)data;
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec);
-	draw_rectangle(data, vec.mapX, vec.mapY, 0x194939);
 	vec.res.x = p.x + vec.t * vec.angle.x;
 	vec.res.y = p.y + vec.t * vec.angle.y;
 	return (vec.res);
