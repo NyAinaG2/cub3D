@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/04 22:20:52 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/04 22:25:13 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,7 +509,7 @@ int	get_next_to_map(t_data *data)
 
 void	check_map_close_core(t_data *data, size_t i, size_t j)
 {
-	if(!data->is_closed || ft_strchr("13QZVH", data->map_tab[j][i]))
+	if(!data->is_closed || ft_strchr("13QZVH-", data->map_tab[j][i]))
 		return ;
 	if (j == 0 || j >= data->map_height - 1 || i == 0 || i >= data->end_w - 1)
 	{
