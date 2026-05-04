@@ -36,6 +36,7 @@ typedef struct s_vector
 
 typedef struct s_data
 {
+	int			is_closed;
 	void		*img_ptr[4];
 	int			img_size[4][2];
 	char		**labels;

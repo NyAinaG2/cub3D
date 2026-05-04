@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/03 10:38:55 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/04 22:19:00 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,21 +507,27 @@ int	get_next_to_map(t_data *data)
 	return (1);
 }
 
-int	check_map_close_core(t_data *data, size_t i, size_t j)
+void	check_map_close_core(t_data *data, size_t i, size_t j)
 {
-	if (data->map_tab[j][i] == '0' || data->map_tab[j][i] == data->cap)
+	if(!data->is_closed || ft_strchr("13QZVH", data->map_tab[j][i]))
+		return ;
+	if (j == 0 || j >= data->map_height - 1 || i == 0 || i >= data->end_w - 1)
 	{
-		if ((j == data->map_height - 1 || j == 0)
-			|| (i == data->end_w - 1 || i == 0))
-			return (0);
-		if ((data->map_tab[j + 1][i] == ' ')
-			|| (data->map_tab[j - 1][i] == ' '))
-			return (0);
-		if ((data->map_tab[j][i + 1] == ' ')
-			|| (data->map_tab[j][i - 1] == ' '))
-			return (0);
+		data->is_closed = 0;
+		return ;
 	}
-	return (1);
+	if(data->map_tab[j][i] == ' ')
+		data->map_tab[j][i] = '-';
+	if(strchr("NWSE0", data->map_tab[j][i]))
+		data->map_tab[j][i] += 3;
+	if (j > 0)
+		check_map_close_core_new(data, i, j - 1);
+	if (j < data->map_height -1)
+		check_map_close_core_new(data, i, j + 1);
+	if (i > 0)
+		check_map_close_core_new(data, i - 1, j);
+	if (i < data->end_w -1)
+		check_map_close_core_new(data, i + 1, j);
 }
 
 int	check_map_close(t_data *data)
@@ -536,13 +542,17 @@ int	check_map_close(t_data *data)
 		j = 0;
 		while (j < data->map_height)
 		{
-			if (!check_map_close_core(data, i, j))
-				return (0);
+			if(strchr("NWSE0", data->map_tab[j][i]))
+				check_map_close_core_new(data, i, j);
+			if(!data->is_closed)
+				break ;
 			j++;
 		}
+		if(!data->is_closed)
+			break ;
 		i++;
 	}
-	return (1);
+	return (data->is_closed);
 }
 
 void	init_data(t_data *data, char **argv)
@@ -551,6 +561,7 @@ void	init_data(t_data *data, char **argv)
 
 	i = 0;
 	data->cap = 0;
+	data->is_closed = 1;
 	data->map_name = argv[1];
 	data->map_tab = NULL;
 	data->map_fd = -1;
