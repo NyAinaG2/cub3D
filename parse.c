@@ -6,7 +6,7 @@
 /*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/04 22:19:00 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/04 22:20:52 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,13 +521,13 @@ void	check_map_close_core(t_data *data, size_t i, size_t j)
 	if(strchr("NWSE0", data->map_tab[j][i]))
 		data->map_tab[j][i] += 3;
 	if (j > 0)
-		check_map_close_core_new(data, i, j - 1);
+		check_map_close_core(data, i, j - 1);
 	if (j < data->map_height -1)
-		check_map_close_core_new(data, i, j + 1);
+		check_map_close_core(data, i, j + 1);
 	if (i > 0)
-		check_map_close_core_new(data, i - 1, j);
+		check_map_close_core(data, i - 1, j);
 	if (i < data->end_w -1)
-		check_map_close_core_new(data, i + 1, j);
+		check_map_close_core(data, i + 1, j);
 }
 
 int	check_map_close(t_data *data)
@@ -543,7 +543,7 @@ int	check_map_close(t_data *data)
 		while (j < data->map_height)
 		{
 			if(strchr("NWSE0", data->map_tab[j][i]))
-				check_map_close_core_new(data, i, j);
+				check_map_close_core(data, i, j);
 			if(!data->is_closed)
 				break ;
 			j++;
