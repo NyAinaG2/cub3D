@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/04 22:25:13 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:02:07 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_strs(char **strs)
 
 void	trim_newline(char *str)
 {
-	if(!str)
+	if (!str)
 		return ;
 	if (str[ft_strlen(str) - 1] == '\n')
 		str[ft_strlen(str) - 1] = 0;
@@ -40,7 +40,7 @@ void	exit_all(t_data *data, int value)
 	int	i;
 
 	i = 0;
-	if(data->map_fd > 0)
+	if (data->map_fd > 0)
 	{
 		purge_get_next_line(data->map_fd);
 		close(data->map_fd);
@@ -100,13 +100,13 @@ int	ft_check_extension(char *str)
 	while (strs[i])
 		i++;
 	if (i == 0)
-		return (free_strs(strs),0);
+		return (free_strs(strs), 0);
 	len = ft_strlen(strs[i - 1]);
 	if (len < 5)
 		return (free_strs(strs), 0);
 	if (ft_strncmp(strs[i - 1] + (len - 4), ".cub", 4) != 0)
 		return (free_strs(strs), 0);
-	return (free_strs(strs),1);
+	return (free_strs(strs), 1);
 }
 
 void	check_map(t_data *data, int (*f)(t_data *), int o, char *msg)
@@ -217,7 +217,7 @@ int	check_color(t_data *data, char *str, int index)
 		j++;
 	}
 	free_strs(strs);
-	if(i == 3 && j == 3)
+	if (i == 3 && j == 3)
 		get_color(data, str, index);
 	return (i == 3 && j == 3);
 }
@@ -509,16 +509,14 @@ int	get_next_to_map(t_data *data)
 
 void	check_map_close_core(t_data *data, size_t i, size_t j)
 {
-	if(!data->is_closed || ft_strchr("13QZVH-", data->map_tab[j][i]))
+	if(!data->is_closed || ft_strchr("13QZVH#", data->map_tab[j][i]))
 		return ;
 	if (j == 0 || j >= data->map_height - 1 || i == 0 || i >= data->end_w - 1)
 	{
 		data->is_closed = 0;
 		return ;
 	}
-	if(data->map_tab[j][i] == ' ')
-		data->map_tab[j][i] = '-';
-	if(strchr("NWSE0", data->map_tab[j][i]))
+	if(strchr("NWSE0 ", data->map_tab[j][i]))
 		data->map_tab[j][i] += 3;
 	if (j > 0)
 		check_map_close_core(data, i, j - 1);
