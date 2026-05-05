@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/05 12:02:07 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/05 22:20:34 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,15 +147,20 @@ int	ft_check_head(char *src, char *str)
 int	check_texture(t_data *data, char *str, int index)
 {
 	char	**strs;
+	int		*width;
+	int		*height;
 
 	strs = NULL;
+	width = &data->img_size[index][0];
+	height = &data->img_size[index][1];
 	trim_newline(str);
 	if (ft_countword(str, ' ') != 2)
 		return (0);
 	strs = ft_split(str, ' ');
 	if (!strs)
 		return (0);
-	data->img_ptr[index] = mlx_xpm_file_to_image(data->mlx_ptr, strs[1], &data->img_size[index][0], &data->img_size[index][1]);
+	data->img_ptr[index] = mlx_xpm_file_to_image
+		(data->mlx_ptr, strs[1], width, height);
 	free_strs(strs);
 	return (data->img_ptr[index] != NULL);
 }
@@ -193,6 +198,13 @@ void	get_color(t_data *data, char *str, int index)
 	free_strs(strs);
 }
 
+int	invalid_color_format(char *str)
+{
+	return (ft_atoi(str) > 255 || ft_atoi(str) < 0
+		|| !is_allcharin(str, "1234567890 ")
+		|| ft_countword(str, ' ') != 1);
+}
+
 int	check_color(t_data *data, char *str, int index)
 {
 	char	**strs;
@@ -207,12 +219,11 @@ int	check_color(t_data *data, char *str, int index)
 	if (ft_count_char(str, ',') != 2 || i != 3)
 		return (0);
 	strs = ft_split(str, ',');
-	if(!strs)
+	if (!strs)
 		return (0);
 	while (strs[j] && i == 3)
 	{
-		if (ft_atoi(strs[j]) > 255 || ft_atoi(strs[j]) < 0
-			|| !is_allcharin(strs[j], "1234567890 ") || ft_countword(strs[j], ' ') != 1)
+		if (invalid_color_format(strs[j]))
 			break ;
 		j++;
 	}
@@ -395,8 +406,7 @@ int	set_start_width(t_data *data)
 			start_width = cf_space(str);
 		free(str);
 	}
-	data->start_w = start_width;
-	return (1);
+	return (data->start_w = start_width, 1);
 }
 
 int	set_end_width(t_data *data)
@@ -420,12 +430,12 @@ int	set_end_width(t_data *data)
 			continue ;
 		}
 		trim_newline(str);
-		if (start++ == 0 || end_w < ft_strlen(str) - data->start_w - cr_space(str))
+		if (start++ == 0
+			|| end_w < ft_strlen(str) - data->start_w - cr_space(str))
 			end_w = ft_strlen(str) - data->start_w - cr_space(str);
 		free(str);
 	}
-	data->end_w = end_w;
-	return (1);
+	return (data->end_w = end_w, 1);
 }
 
 void	replace_to_space(t_data *data, char *str)
@@ -509,14 +519,14 @@ int	get_next_to_map(t_data *data)
 
 void	check_map_close_core(t_data *data, size_t i, size_t j)
 {
-	if(!data->is_closed || ft_strchr("13QZVH#", data->map_tab[j][i]))
+	if (!data->is_closed || ft_strchr("13QZVH#", data->map_tab[j][i]))
 		return ;
 	if (j == 0 || j >= data->map_height - 1 || i == 0 || i >= data->end_w - 1)
 	{
 		data->is_closed = 0;
 		return ;
 	}
-	if(strchr("NWSE0 ", data->map_tab[j][i]))
+	if (strchr("NWSE0 ", data->map_tab[j][i]))
 		data->map_tab[j][i] += 3;
 	if (j > 0)
 		check_map_close_core(data, i, j - 1);
@@ -540,13 +550,13 @@ int	check_map_close(t_data *data)
 		j = 0;
 		while (j < data->map_height)
 		{
-			if(strchr("NWSE0", data->map_tab[j][i]))
+			if (strchr("NWSE0", data->map_tab[j][i]))
 				check_map_close_core(data, i, j);
-			if(!data->is_closed)
+			if (!data->is_closed)
 				break ;
 			j++;
 		}
-		if(!data->is_closed)
+		if (!data->is_closed)
 			break ;
 		i++;
 	}
@@ -564,7 +574,7 @@ void	init_data(t_data *data, char **argv)
 	data->map_tab = NULL;
 	data->map_fd = -1;
 	data->mlx_ptr = mlx_init();
-	if(!data->mlx_ptr)
+	if (!data->mlx_ptr)
 	{
 		ft_putstr_fd(MLX_ERROR, 2);
 		exit (1);
@@ -598,10 +608,10 @@ int	main(int argc, char **argv)
 	data.map_tab = init_map_tab(&data);
 	check_map(&data, get_next_to_map, 1, "");
 	check_map(&data, check_map_close, 0, CLOSED_ERROR);
-	for (size_t i = 0; data.map_tab[i]; i++)
-		printf("%s|%zu\n", data.map_tab[i], i);
-	printf("F %i,%i,%i\n", data.colors[0][0], data.colors[0][1], data.colors[0][2]);
-	printf("C %i,%i,%i\n", data.colors[1][0], data.colors[1][1], data.colors[1][2]);
+	// for (size_t i = 0; data.map_tab[i]; i++)
+	// 	printf("%s|%zu\n", data.map_tab[i], i);
+	// printf("F %i,%i,%i\n", data.colors[0][0], data.colors[0][1], data.colors[0][2]);
+	// printf("C %i,%i,%i\n", data.colors[1][0], data.colors[1][1], data.colors[1][2]);
 	exit_all(&data, 0);
 	return (0);
 }

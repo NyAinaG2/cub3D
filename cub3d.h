@@ -21,7 +21,7 @@
 # define FD_ERROR "Error\nFail to open the map file\n"
 # define MAP_ERROR "Error\nSomething is wrong in the map\n"
 # define CLOSED_ERROR "Error\nMap is not closed\n"
-# define LABEL_ERROR "Error\nSomething is wrong in the 6 first elements\n"
+# define LABEL_ERROR "Error\nWrong map parameters\n"
 # define ARG_ERROR "Error\nArgument error\n"
 # define EXT_ERROR "Error\nExtention error\n"
 typedef struct s_vector
