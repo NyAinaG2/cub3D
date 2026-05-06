@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/05 22:20:34 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/06 09:42:10 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ void	trim_newline(char *str)
 		return ;
 	if (str[ft_strlen(str) - 1] == '\n')
 		str[ft_strlen(str) - 1] = 0;
+}
+
+int	is_allcharin(const char *source, const char *str)
+{
+	while (*source)
+	{
+		if (!ft_strchr(str, *source++))
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_isemptyline(const char *str)
+{
+	return (str && ft_strlen(str) == 1 && *str == '\n');
 }
 
 void	exit_all(t_data *data, int value)
@@ -66,23 +81,6 @@ void	exit_parse(t_data *data, char *msg)
 	exit_all(data, 1);
 	exit(1);
 }
-
-int	is_allcharin(const char *source, const char *str)
-{
-	while (*source)
-	{
-		if (!ft_strchr(str, *source++))
-			return (0);
-	}
-	return (1);
-}
-
-int	ft_isemptyline(const char *str)
-{
-	return (str && ft_strlen(str) == 1 && *str == '\n');
-}
-
-//---------------end parse utils-----------
 
 int	ft_check_extension(char *str)
 {
@@ -592,6 +590,54 @@ void	init_data(t_data *data, char **argv)
 		exit_parse(data, MEM_ERROR);
 }
 
+void	ft_reset_char_map(t_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (data->map_tab[j])
+	{
+		i = 0;
+		while (data->map_tab[j][i])
+		{
+			if (ft_strchr("3QZVH#", data->map_tab[j][i]))
+				data->map_tab[j][i] -= 3;
+			i++;
+		}
+		j++;
+	}
+}
+
+void	ft_print_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	ft_putstr_fd("F ", 1);
+	ft_putnbr_fd(data->colors[0][0], 1);
+	ft_putstr_fd(",", 1);
+	ft_putnbr_fd(data->colors[0][1], 1);
+	ft_putstr_fd(",", 1);
+	ft_putnbr_fd(data->colors[0][2], 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("C ", 1);
+	ft_putnbr_fd(data->colors[1][0], 1);
+	ft_putstr_fd(",", 1);
+	ft_putnbr_fd(data->colors[1][1], 1);
+	ft_putstr_fd(",", 1);
+	ft_putnbr_fd(data->colors[1][2], 1);
+	ft_putstr_fd("\n", 1);
+	while (data->map_tab[i])
+	{
+		ft_putstr_fd(data->map_tab[i], 1);
+		ft_putstr_fd("|", 1);
+		ft_putnbr_fd(i++, 1);
+		ft_putstr_fd("\n", 1);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -608,10 +654,8 @@ int	main(int argc, char **argv)
 	data.map_tab = init_map_tab(&data);
 	check_map(&data, get_next_to_map, 1, "");
 	check_map(&data, check_map_close, 0, CLOSED_ERROR);
-	// for (size_t i = 0; data.map_tab[i]; i++)
-	// 	printf("%s|%zu\n", data.map_tab[i], i);
-	// printf("F %i,%i,%i\n", data.colors[0][0], data.colors[0][1], data.colors[0][2]);
-	// printf("C %i,%i,%i\n", data.colors[1][0], data.colors[1][1], data.colors[1][2]);
+	ft_reset_char_map(&data);
+	ft_print_map(&data);
 	exit_all(&data, 0);
 	return (0);
 }
