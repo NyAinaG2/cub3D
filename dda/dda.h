@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 08:59:21 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 17:37:44 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:09:29 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 #include "../projection/projection.h"
 #include "../types.h"
 
-t_point dda(t_test* data, t_point p, float dir);
+t_point dda(t_point p, float dir);
 
 #endif

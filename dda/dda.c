@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 17:36:46 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:08:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-static void set_dda_params(t_vec* vec, t_point p, float dir)
+static void	set_dda_params(t_vec *vec, t_point p, float dir)
 {
 	vec->hit = 0;
 	vec->mapX = (int)p.x;
@@ -33,7 +33,7 @@ static void set_dda_params(t_vec* vec, t_point p, float dir)
 		vec->side.y = (p.y - floor(p.y)) * vec->delta.y;
 }
 
-static void dda_loop(t_vec* vec)
+static void	dda_loop(t_vec *vec)
 {
 	while (vec->hit == 0)
 	{
@@ -49,14 +49,15 @@ static void dda_loop(t_vec* vec)
 			vec->side.y += vec->delta.y;
 			vec->mapY += (int)(vec->step.y);
 		}
-		if (tmp_map[vec->mapY][vec->mapX] == 1) vec->hit = 1;
+		if (tmp_map[vec->mapY][vec->mapX] == 1)
+			vec->hit = 1;
 	}
 }
 
-t_point dda(t_test* data, t_point p, float dir)
+t_point	dda(t_point p, float dir)
 {
-	t_vec vec;
-	(void)data;
+	t_vec	vec;
+
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec);
 	vec.res.x = p.x + vec.t * vec.angle.x;

@@ -6,27 +6,28 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 17:38:01 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/06 20:14:51 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
 
-void put_pixel_to_img(t_test* data, int x, int y, int color)
+void	put_pixel_to_img(t_test *data, int x, int y, int color)
 {
-	char* addr;
+	char	*addr;
 
-	if (x < 0 || x >= WIN_W) return;
-	if (y < 0 || y >= WIN_H) return;
-
+	if (x < 0 || x >= WIN_W)
+		return ;
+	if (y < 0 || y >= WIN_H)
+		return ;
 	addr = data->addr + ((y * data->line_length) + (x * (data->bpp / 8)));
-	*(unsigned int*)addr = color;
+	*(unsigned int *)addr = color;
 }
 
-void draw_rectangle(t_test* data, int x, int y, int color)
+void	draw_rectangle(t_test *data, int x, int y, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < data->tile_size)
@@ -34,20 +35,20 @@ void draw_rectangle(t_test* data, int x, int y, int color)
 		j = 0;
 		while (j < data->tile_size)
 		{
-			put_pixel_to_img(
-				data, x * data->tile_size + i, y * data->tile_size + j, color);
+			put_pixel_to_img(data, x * data->tile_size + i, y * data->tile_size
+				+ j, color);
 			j++;
 		}
 		i++;
 	}
 }
 
-void draw_line_dda(t_test* data, t_point p0, t_point p1, int color)
+void	draw_line_dda(t_test *data, t_point p0, t_point p1, int color)
 {
-	t_point delta;
-	t_point inc;
-	float steps;
-	int i;
+	t_point	delta;
+	t_point	inc;
+	float	steps;
+	int		i;
 
 	delta.x = p1.x - p0.x;
 	delta.y = p1.y - p0.y;
@@ -67,18 +68,18 @@ void draw_line_dda(t_test* data, t_point p0, t_point p1, int color)
 	}
 }
 
-void set_center(t_test* data, t_point* c)
+void	set_center(t_test *data, t_point *c)
 {
 	c->x = data->playerX * data->tile_size;
 	c->y = data->playerY * data->tile_size;
 }
 
-void draw_player(t_test* data)
+void	draw_player(t_test *data)
 {
-	t_point p0;
-	t_point p1;
-	t_point p2;
-	t_point c;
+	t_point	p0;
+	t_point	p1;
+	t_point	p2;
+	t_point	c;
 
 	set_center(data, &c);
 	p0.x = c.x + data->playerR * cos(data->direction);
@@ -92,18 +93,18 @@ void draw_player(t_test* data)
 	draw_line_dda(data, p1, p2, 0xFFFFFF);
 }
 
-int init(t_test* data_ptr)
+int	init(t_test *data_ptr)
 {
 	data_ptr->mlx_ptr = mlx_init();
-	if (!data_ptr->mlx_ptr) return (0);
-	data_ptr->windows_ptr =
-		mlx_new_window(data_ptr->mlx_ptr, WIN_W, WIN_H, WIN_TITLE);
-	if (!data_ptr->windows_ptr) return (0);
+	if (!data_ptr->mlx_ptr)
+		return (0);
+	data_ptr->windows_ptr = mlx_new_window(data_ptr->mlx_ptr, WIN_W, WIN_H,
+			WIN_TITLE);
+	if (!data_ptr->windows_ptr)
+		return (0);
 	data_ptr->img = mlx_new_image(data_ptr->mlx_ptr, WIN_W, WIN_H);
-	data_ptr->addr = mlx_get_data_addr(data_ptr->img,
-									   &data_ptr->bpp,
-									   &data_ptr->line_length,
-									   &data_ptr->endian);
+	data_ptr->addr = mlx_get_data_addr(data_ptr->img, &data_ptr->bpp,
+			&data_ptr->line_length, &data_ptr->endian);
 	data_ptr->mapSizeX = 6;
 	data_ptr->mapSizeY = 7;
 	data_ptr->playerX = 3;
@@ -120,20 +121,20 @@ int init(t_test* data_ptr)
 	return (1);
 }
 
-void draw_ray(t_test* data)
+void	draw_ray(t_test *data)
 {
-	t_point p0;
-	t_point p1;
-	float tmp;
+	t_point	p0;
+	t_point	p1;
+	float	tmp;
 
-	data->fovMin = data->direction - (data->fov / 2) ;
-	data->fovMax = data->direction + (data->fov / 2) ;
+	data->fovMin = data->direction - (data->fov / 2);
+	data->fovMax = data->direction + (data->fov / 2);
 	tmp = data->fovMin;
 	while (tmp < data->fovMax)
 	{
-	    p0.x = data->playerX + 0.2 * cos(data->direction);
+		p0.x = data->playerX + 0.2 * cos(data->direction);
 		p0.y = data->playerY + 0.2 * sin(data->direction);
-	    p1 = dda(data, p0, tmp);
+		p1 = dda(p0, tmp);
 		p0.x = p0.x * data->tile_size;
 		p0.y = p0.y * data->tile_size;
 		p1.x = p1.x * data->tile_size;
@@ -143,11 +144,10 @@ void draw_ray(t_test* data)
 	}
 }
 
-
-void draw(t_test* data)
+void	draw(t_test *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	while (x < data->mapSizeX)
