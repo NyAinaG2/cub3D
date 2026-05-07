@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 05:21:19 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 09:11:04 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	key_handler(int key, t_test *data)
 		data->playerX -= cos(data->direction) * MOVE_SPEED;
 	}
 	if (key == 65361)
-		data->direction -= 0.2;
+		data->direction -= ROTATION_SPEED;
 	if (key == 65363)
-		data->direction += 0.2;
+		data->direction += ROTATION_SPEED;
 	normalize_direction(data);
 	draw(data);
 	return (0);

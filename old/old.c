@@ -1,3 +1,10 @@
+
+void	set_center(t_test *data, t_point *c)
+{
+	c->x = data->playerX * data->tile_size;
+	c->y = data->playerY * data->tile_size;
+}
+
 void	draw_player(t_test *data)
 {
 	t_point	p0;

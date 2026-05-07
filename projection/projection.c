@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 08:26:44 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 09:06:09 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ void	put_pixel_to_img(t_test *data, int x, int y, int color)
 		return ;
 	addr = data->addr + ((y * data->line_length) + (x * (data->bpp / 8)));
 	*(unsigned int *)addr = color;
-}
-
-void	set_center(t_test *data, t_point *c)
-{
-	c->x = data->playerX * data->tile_size;
-	c->y = data->playerY * data->tile_size;
 }
 
 int	init(t_test *data_ptr)

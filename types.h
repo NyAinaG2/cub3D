@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 08:19:22 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 09:16:33 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #define WIN_H 360
 #define WIN_TITLE "cub3D"
 #define TILE_SIZE 64
-#define ROTATION_SPEED 0.1
-#define MOVE_SPEED 0.2
+#define ROTATION_SPEED 0.05
+#define MOVE_SPEED 0.1
 #define PI2 6.28
 
 typedef struct test_s
