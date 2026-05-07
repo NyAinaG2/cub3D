@@ -6,15 +6,15 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 03:03:57 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 04:06:04 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 #define TYPES_H
 
-#define WIN_W 1280
-#define WIN_H 720
+#define WIN_W 720
+#define WIN_H 360
 #define WIN_TITLE "cub3D"
 #define TILE_SIZE 64
 #define ROTATION_SPEED 0.1

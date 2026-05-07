@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 16:29:35 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 04:59:44 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 
 #include "../dda/dda.h"
+#include "../libft/libft.h"
 #include "../minilibx-linux/mlx.h"
 #include "../types.h"
 

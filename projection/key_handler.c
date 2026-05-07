@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/03 11:09:45 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 05:21:19 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
 
-int close_window(t_test* data)
+int	close_window(t_test *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->windows_ptr);
@@ -21,28 +21,31 @@ int close_window(t_test* data)
 	exit(0);
 }
 
-void normalize_direction(t_test* data)
+void	normalize_direction(t_test *data)
 {
 	if (data->direction > 3.14)
 	{
 		data->direction -= PI2;
-		return;
+		return ;
 	}
-	if (data->direction <= -3.14) data->direction += PI2;
+	if (data->direction <= -3.14)
+		data->direction += PI2;
 }
 
-int is_move_valid(t_point c, t_point next)
+int	is_move_valid(t_point c, t_point next)
 {
-	if (tmp_map[(int)next.y][(int)c.x] == 1) return (0);
-	if (tmp_map[(int)c.y][(int)next.x] == 1) return (0);
+	if (tmp_map[(int)next.y][(int)c.x] == 1)
+		return (0);
+	if (tmp_map[(int)c.y][(int)next.x] == 1)
+		return (0);
 	return (1);
 }
 
-int collisionF(t_test* data)
+int	collisionF(t_test *data)
 {
-	t_point c;
-	t_point next;
-	float direction;
+	t_point	c;
+	t_point	next;
+	float	direction;
 
 	direction = copysign(1.0, cos(data->direction));
 	c.y = data->playerY + sin(data->direction) * MOVE_SPEED;
@@ -50,15 +53,16 @@ int collisionF(t_test* data)
 	next.x = c.x + MOVE_SPEED * direction;
 	direction = copysign(1.0, sin(data->direction));
 	next.y = c.y + MOVE_SPEED * direction;
-	if (is_move_valid(c, next)) return 0;
+	if (is_move_valid(c, next))
+		return (0);
 	return (1);
 }
 
-int collisionB(t_test* data)
+int	collisionB(t_test *data)
 {
-	t_point c;
-	t_point next;
-	float direction;
+	t_point	c;
+	t_point	next;
+	float	direction;
 
 	direction = copysign(1.0, cos(data->direction));
 	c.y = data->playerY - sin(data->direction) * MOVE_SPEED;
@@ -66,28 +70,33 @@ int collisionB(t_test* data)
 	next.x = c.x - MOVE_SPEED * direction;
 	direction = copysign(1.0, sin(data->direction));
 	next.y = c.y - MOVE_SPEED * direction;
-	if (is_move_valid(c, next)) return 0;
+	if (is_move_valid(c, next))
+		return (0);
 	return (1);
 }
 
-int key_handler(int key, t_test* data)
+int	key_handler(int key, t_test *data)
 {
-	printf("%d pressed.\n", key);
-	if (key == 65307) close_window(data);
+	if (key == 65307)
+		close_window(data);
 	if (key == 65362)
 	{
-		if (collisionF(data)) return (0);
+		if (collisionF(data))
+			return (0);
 		data->playerY += sin(data->direction) * MOVE_SPEED;
 		data->playerX += cos(data->direction) * MOVE_SPEED;
 	}
 	if (key == 65364)
 	{
-		if (collisionB(data)) return (0);
+		if (collisionB(data))
+			return (0);
 		data->playerY -= sin(data->direction) * MOVE_SPEED;
 		data->playerX -= cos(data->direction) * MOVE_SPEED;
 	}
-	if (key == 65361) data->direction -= 0.2;
-	if (key == 65363) data->direction += 0.2;
+	if (key == 65361)
+		data->direction -= 0.2;
+	if (key == 65363)
+		data->direction += 0.2;
 	normalize_direction(data);
 	draw(data);
 	return (0);
