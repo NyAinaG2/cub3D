@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/06 09:42:10 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/07 19:19:09 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	exit_all(t_data *data, int value)
 	}
 	if (data->map_tab != NULL)
 		free_strs(data->map_tab);
-	if (data->labels)
-		free_strs(data->labels);
 	while (i < 4)
 	{
 		if (data->img_ptr[i] != NULL)
@@ -563,7 +561,8 @@ int	check_map_close(t_data *data)
 
 void	init_data(t_data *data, char **argv)
 {
-	int	i;
+	int			i;
+	static char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
 
 	i = 0;
 	data->cap = 0;
@@ -585,9 +584,7 @@ void	init_data(t_data *data, char **argv)
 	data->map_height = 0;
 	data->start_w = 0;
 	data->end_w = 0;
-	data->labels = ft_split("NO,SO,WE,EA,F,C", ',');
-	if (!data->labels)
-		exit_parse(data, MEM_ERROR);
+	data->labels = g_labels;
 }
 
 void	ft_reset_char_map(t_data *data)
