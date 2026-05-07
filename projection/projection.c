@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 05:57:02 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 08:26:44 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ int	init(t_test *data_ptr)
 	data_ptr->fovMax = data_ptr->direction + (data_ptr->fov / 2);
 	data_ptr->fovMin = data_ptr->direction - (data_ptr->fov / 2);
 	data_ptr->step = 0.001;
-	data_ptr->offsetX = 32;
-	data_ptr->offsetY = 32;
+	data_ptr->wall_color = 0x707070;
+	data_ptr->ceil_color = 0x383838;
+	data_ptr->floor_color = 0x525252;
 	data_ptr->tile_size = 64;
 	return (1);
 }
@@ -71,7 +72,7 @@ void	draw_column(int len, int x, t_test *data)
 		end = WIN_H - 1;
 	while (start < end)
 	{
-		put_pixel_to_img(data, x, start, 0x707070);
+		put_pixel_to_img(data, x, start, data->wall_color);
 		start++;
 	}
 }
@@ -102,9 +103,9 @@ void	reset_img(t_test *data)
 		while (y < WIN_H)
 		{
 			if (y > WIN_H / 2)
-				put_pixel_to_img(data, x, y, 0x383838);
+				put_pixel_to_img(data, x, y, data->ceil_color);
 			else
-				put_pixel_to_img(data, x, y, 0x525252);
+				put_pixel_to_img(data, x, y, data->floor_color);
 			y++;
 		}
 		x++;

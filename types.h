@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 04:06:04 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 08:19:22 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ typedef struct test_s
 	float fovMin;
 	float fov;
 	float step;
-	int offsetX;
-	int offsetY;
 	float cellX;
 	float cellY;
+	int wall_color;
+	int ceil_color;
+	int floor_color;
 	int mapSizeX;
 	int mapSizeY;
 	void* img;
