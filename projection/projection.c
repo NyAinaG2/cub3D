@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 05:18:38 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 05:57:02 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	draw_column(int len, int x, t_test *data)
 		end = WIN_H - 1;
 	while (start < end)
 	{
-		put_pixel_to_img(data, x, start, 0x69878);
+		put_pixel_to_img(data, x, start, 0x707070);
 		start++;
 	}
 }
@@ -101,7 +101,10 @@ void	reset_img(t_test *data)
 		y = 0;
 		while (y < WIN_H)
 		{
-			put_pixel_to_img(data, x, y, 0);
+			if (y > WIN_H / 2)
+				put_pixel_to_img(data, x, y, 0x383838);
+			else
+				put_pixel_to_img(data, x, y, 0x525252);
 			y++;
 		}
 		x++;
