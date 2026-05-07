@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/06 20:14:51 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 03:50:01 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	draw_ray(t_test *data)
 	{
 		p0.x = data->playerX + 0.2 * cos(data->direction);
 		p0.y = data->playerY + 0.2 * sin(data->direction);
-		p1 = dda(p0, tmp);
+		tmp = dda(p0, tmp);
 		p0.x = p0.x * data->tile_size;
 		p0.y = p0.y * data->tile_size;
 		p1.x = p1.x * data->tile_size;
@@ -144,26 +144,50 @@ void	draw_ray(t_test *data)
 	}
 }
 
+void	draw_column(int len, int x, t_test *data)
+{
+	int	start;
+	int	end;
+
+	start = -len / 2 + WIN_H / 2;
+	end = len / 2 + WIN_H / 2;
+	if (start < 0)
+		start = 0;
+	if (start >= WIN_H)
+		end = WIN_H - 1;
+	while (start < end)
+	{
+		put_pixel_to_img(data, x, start, 0x4876987);
+		start++;
+	}
+}
+
+void	render_column(t_point p, float dir)
+{
+	float	d;
+	int		len;
+
+	d = dda(p, dir);
+	len = (int)(WIN_H / d);
+	(void)len;
+}
+
 void	draw(t_test *data)
 {
-	int	x;
-	int	y;
+	int		x;
+	float	step;
 
 	x = 0;
-	while (x < data->mapSizeX)
+	step = data->fov / WIN_W;
+	data->fovMin = data->direction - (data->fov / 2);
+	data->fovMax = data->direction + (data->fov / 2);
+	while (x < WIN_W)
 	{
-		y = 0;
-		while (y < data->mapSizeY)
-		{
-			if (tmp_map[y][x] == 1)
-				draw_rectangle(data, x, y, 0x569874);
-			else
-				draw_rectangle(data, x, y, 0);
-			y++;
-		}
+		draw_column(500, x, data);
 		x++;
 	}
-	draw_player(data);
-	draw_ray(data);
+	(void)step;
+	// draw_player(data);
+	// draw_ray(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
 }

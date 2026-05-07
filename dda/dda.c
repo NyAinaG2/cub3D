@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/06 20:08:49 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/07 03:50:34 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ static void	dda_loop(t_vec *vec)
 	}
 }
 
-t_point	dda(t_point p, float dir)
+float	dda(t_point p, float dir)
 {
 	t_vec	vec;
 
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec);
-	vec.res.x = p.x + vec.t * vec.angle.x;
-	vec.res.y = p.y + vec.t * vec.angle.y;
-	return (vec.res);
+	return (vec.t);
 }
