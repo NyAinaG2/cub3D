@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:44:46 by andrrand          #+#    #+#             */
-/*   Updated: 2026/03/30 14:17:42 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:30:25 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *str)
 
 	i = 0;
 	if (!str)
-		return(0);
+		return (0);
 	while (str[i] != 0)
 		i++;
 	return (i);
