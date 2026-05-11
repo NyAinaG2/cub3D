@@ -6,52 +6,11 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 19:38:11 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:04:30 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "projection.h"
-
-void	init_move(t_test *data)
-{
-	data->move.rotate_right = 0;
-	data->move.rotate_left = 0;
-	data->move.forward = 0;
-	data->move.backward = 0;
-	data->move.left = 0;
-	data->move.right = 0;
-}
-
-int	init(t_test *data_ptr)
-{
-	data_ptr->mlx_ptr = mlx_init();
-	if (!data_ptr->mlx_ptr)
-		return (0);
-	data_ptr->windows_ptr = mlx_new_window(data_ptr->mlx_ptr, WIN_W, WIN_H,
-			WIN_TITLE);
-	if (!data_ptr->windows_ptr)
-		return (0);
-	data_ptr->img = mlx_new_image(data_ptr->mlx_ptr, WIN_W, WIN_H);
-	data_ptr->addr = mlx_get_data_addr(data_ptr->img, &data_ptr->bpp,
-			&data_ptr->line_length, &data_ptr->endian);
-	data_ptr->map_size_x = 6;
-	data_ptr->map_size_y = 7;
-	data_ptr->px = 3;
-	data_ptr->py = 5;
-	data_ptr->player_box = 0.2;
-	data_ptr->direction = 2;
-	data_ptr->fov = 1.15;
-	data_ptr->fov_max = data_ptr->direction + (data_ptr->fov / 2);
-	data_ptr->fov_min = data_ptr->direction - (data_ptr->fov / 2);
-	data_ptr->step = 0.001;
-	data_ptr->wall_color = 0x707070;
-	data_ptr->ceil_color = 0x383838;
-	data_ptr->floor_color = 0x525252;
-	data_ptr->tile_size = 64;
-	data_ptr->game_time = get_current_time();
-	init_move(data_ptr);
-	return (1);
-}
+#include "render.h"
 
 void	draw_column(int len, int x, t_test *data)
 {
@@ -106,7 +65,7 @@ void	reset_img(t_test *data)
 	}
 }
 
-void	draw(t_test *data)
+void	render(t_test *data)
 {
 	int		x;
 	float	step;

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 18:46:54 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:14:22 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #define TILE_SIZE 64
 #define ROTATION_SPEED 0.001
 #define MOVE_SPEED 0.001
+#define ESC 65307
 #define KEY_W 119
 #define KEY_A 97
 #define KEY_D 100

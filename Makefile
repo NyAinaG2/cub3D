@@ -18,11 +18,12 @@ LIBFT = libft/libft.a
 
 LIBFT_FLAGS = -Llibft -lft
 
-SRC_FILES = projection/projection.c \
-			projection/key_handler.c \
-			projection/time_scale.c \
-			projection/move.c \
-			projection/collision.c \
+SRC_FILES = render/render.c \
+			render/collision.c \
+			render/init_render.c \
+			render/key_handler.c \
+			render/mlx_utils.c \
+			render/move.c \
 			dda/dda.c \
 			main.c \
 

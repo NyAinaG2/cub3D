@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:59:59 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 19:30:05 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 20:06:00 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "projection.h"
+#include "render.h"
 
-void	move_forward(t_test *data)
+static void	move_forward(t_test *data)
 {
 	t_point	next;
 
@@ -24,7 +24,7 @@ void	move_forward(t_test *data)
 		data->py = next.y;
 }
 
-void	move_backward(t_test *data)
+static void	move_backward(t_test *data)
 {
 	t_point	next;
 
@@ -36,7 +36,7 @@ void	move_backward(t_test *data)
 		data->py = next.y;
 }
 
-void	move_left(t_test *data)
+static void	move_left(t_test *data)
 {
 	t_point	next;
 
@@ -48,7 +48,7 @@ void	move_left(t_test *data)
 		data->py = next.y;
 }
 
-void	move_right(t_test *data)
+static void	move_right(t_test *data)
 {
 	t_point	next;
 
@@ -58,4 +58,24 @@ void	move_right(t_test *data)
 		data->px = next.x;
 	if (is_move_valid(data, data->px, next.y))
 		data->py = next.y;
+}
+
+int	move(t_test *data)
+{
+	if (data->move.forward)
+		move_forward(data);
+	if (data->move.backward)
+		move_backward(data);
+	if (data->move.left)
+		move_left(data);
+	if (data->move.right)
+		move_right(data);
+	if (data->move.rotate_left)
+		data->direction -= ROTATION_SPEED;
+	normalize_direction(data);
+	if (data->move.rotate_right)
+		data->direction += ROTATION_SPEED;
+	normalize_direction(data);
+	render(data);
+	return (0);
 }
