@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   projection.c                                       :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 10:34:14 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:38:11 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "projection.h"
-
-void	put_pixel_to_img(t_test *data, int x, int y, int color)
-{
-	char	*addr;
-
-	if (x < 0 || x >= WIN_W)
-		return ;
-	if (y < 0 || y >= WIN_H)
-		return ;
-	addr = data->addr + ((y * data->line_length) + (x * (data->bpp / 8)));
-	*(unsigned int *)addr = color;
-}
 
 void	init_move(t_test *data)
 {
@@ -46,15 +34,15 @@ int	init(t_test *data_ptr)
 	data_ptr->img = mlx_new_image(data_ptr->mlx_ptr, WIN_W, WIN_H);
 	data_ptr->addr = mlx_get_data_addr(data_ptr->img, &data_ptr->bpp,
 			&data_ptr->line_length, &data_ptr->endian);
-	data_ptr->mapSizeX = 6;
-	data_ptr->mapSizeY = 7;
-	data_ptr->playerX = 3;
-	data_ptr->playerY = 5;
-	data_ptr->playerR = 10;
+	data_ptr->map_size_x = 6;
+	data_ptr->map_size_y = 7;
+	data_ptr->px = 3;
+	data_ptr->py = 5;
+	data_ptr->player_box = 0.2;
 	data_ptr->direction = 2;
 	data_ptr->fov = 1.15;
-	data_ptr->fovMax = data_ptr->direction + (data_ptr->fov / 2);
-	data_ptr->fovMin = data_ptr->direction - (data_ptr->fov / 2);
+	data_ptr->fov_max = data_ptr->direction + (data_ptr->fov / 2);
+	data_ptr->fov_min = data_ptr->direction - (data_ptr->fov / 2);
 	data_ptr->step = 0.001;
 	data_ptr->wall_color = 0x707070;
 	data_ptr->ceil_color = 0x383838;
@@ -89,8 +77,8 @@ void	render_column(float dir, int x, t_test *data)
 	int		len;
 	t_point	p;
 
-	p.x = data->playerX;
-	p.y = data->playerY;
+	p.x = data->px;
+	p.y = data->py;
 	d = dda(p, dir);
 	d = d * cos(dir - data->direction);
 	len = (int)(WIN_H / d);
@@ -126,9 +114,9 @@ void	draw(t_test *data)
 
 	x = 0;
 	step = data->fov / WIN_W;
-	data->fovMin = data->direction - (data->fov / 2);
-	data->fovMax = data->direction + (data->fov / 2);
-	angle = data->fovMin;
+	data->fov_min = data->direction - (data->fov / 2);
+	data->fov_max = data->direction + (data->fov / 2);
+	angle = data->fov_min;
 	reset_img(data);
 	while (x < WIN_W)
 	{

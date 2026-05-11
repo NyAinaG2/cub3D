@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 11:04:49 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 18:46:54 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@
 #define TILE_SIZE 64
 #define ROTATION_SPEED 0.001
 #define MOVE_SPEED 0.001
-#define PI2 6.28
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_D 100
+#define KEY_S 115
+#define KEY_LEFT 65361
+#define KEY_RIGHT 65363
 #include <sys/time.h>
 
 typedef struct s_move
@@ -39,22 +44,20 @@ typedef struct test_s
 	void* windows_ptr;
 	unsigned char** map;
 	int tile_size;
-	float playerX;
-	float playerY;
+	float px;
+	float py;
+	float player_box;
 	float direction;
-	float playerR;
-	float fovMax;
-	float fovMin;
+	float fov_max;
+	float fov_min;
 	float fov;
 	float step;
-	float cellX;
-	float cellY;
 	double game_time;
 	int wall_color;
 	int ceil_color;
 	int floor_color;
-	int mapSizeX;
-	int mapSizeY;
+	int map_size_x;
+	int map_size_y;
 	void* img;
 	char* addr;
 	int bpp;
@@ -76,15 +79,15 @@ typedef struct s_vec
 	t_point step;
 	t_point res;
 	float t;
-	int mapX;
-	int mapY;
+	int map_x;
+	int map_y;
 	int hit;
 } t_vec;
 
 typedef struct s_dda
 {
-	t_point hitP;
-	t_point sideD;
+	t_point hit_p;
+	t_point side_d;
 	float distance;
 	int side;
 } t_dda;

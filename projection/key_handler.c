@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 11:03:43 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 19:34:15 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,80 +25,45 @@ void	normalize_direction(t_test *data)
 {
 	if (data->direction > 3.14)
 	{
-		data->direction -= PI2;
+		data->direction -= 6.28;
 		return ;
 	}
 	if (data->direction <= -3.14)
-		data->direction += PI2;
-}
-
-int	is_move_valid(t_point c, t_point next)
-{
-	if (tmp_map[(int)next.y][(int)c.x] == 1)
-		return (0);
-	if (tmp_map[(int)c.y][(int)next.x] == 1)
-		return (0);
-	return (1);
-}
-
-int	collisionF(t_test *data)
-{
-	t_point	c;
-	t_point	next;
-	float	direction;
-
-	direction = copysign(1.0, cos(data->direction));
-	c.y = data->playerY + sin(data->direction) * MOVE_SPEED;
-	c.x = data->playerX + cos(data->direction) * MOVE_SPEED;
-	next.x = c.x + MOVE_SPEED * direction;
-	direction = copysign(1.0, sin(data->direction));
-	next.y = c.y + MOVE_SPEED * direction;
-	if (is_move_valid(c, next))
-		return (0);
-	return (1);
-}
-
-int	collisionB(t_test *data)
-{
-	t_point	c;
-	t_point	next;
-	float	direction;
-
-	direction = copysign(1.0, cos(data->direction));
-	c.y = data->playerY - sin(data->direction) * MOVE_SPEED;
-	c.x = data->playerX - cos(data->direction) * MOVE_SPEED;
-	next.x = c.x - MOVE_SPEED * direction;
-	direction = copysign(1.0, sin(data->direction));
-	next.y = c.y - MOVE_SPEED * direction;
-	if (is_move_valid(c, next))
-		return (0);
-	return (1);
+		data->direction += 6.28;
 }
 
 int	key_press(int key, t_test *data)
 {
 	if (key == 65307)
 		close_window(data);
-	if (key == 65362)
+	if (key == KEY_W)
 		data->move.forward = 1;
-	if (key == 65364)
+	if (key == KEY_S)
 		data->move.backward = 1;
-	if (key == 65361)
+	if (key == KEY_A)
+		data->move.left = 1;
+	if (key == KEY_D)
+		data->move.right = 1;
+	if (key == KEY_LEFT)
 		data->move.rotate_left = 1;
-	if (key == 65363)
+	if (key == KEY_RIGHT)
 		data->move.rotate_right = 1;
 	return (0);
 }
 
 int	key_release(int key, t_test *data)
 {
-	if (key == 65362)
+	if (key == KEY_W)
 		data->move.forward = 0;
-	if (key == 65364)
+	if (key == KEY_S)
 		data->move.backward = 0;
-	if (key == 65361)
+	if (key == KEY_A)
+		data->move.left = 0;
+	if (key == KEY_D)
+		data->move.right = 0;
+	if (key == KEY_LEFT)
 		data->move.rotate_left = 0;
-	if (key == 65363)
+	if (key == KEY_RIGHT)
 		data->move.rotate_right = 0;
 	return (0);
 }
@@ -106,23 +71,16 @@ int	key_release(int key, t_test *data)
 int	move(t_test *data)
 {
 	if (data->move.forward)
-	{
-		if (!collisionF(data))
-		{
-			data->playerY += sin(data->direction) * MOVE_SPEED;
-			data->playerX += cos(data->direction) * MOVE_SPEED;
-		}
-	}
+		move_forward(data);
 	if (data->move.backward)
-	{
-		if (!collisionB(data))
-		{
-			data->playerY -= sin(data->direction) * MOVE_SPEED;
-			data->playerX -= cos(data->direction) * MOVE_SPEED;
-		}
-	}
+		move_backward(data);
+	if (data->move.left)
+		move_left(data);
+	if (data->move.right)
+		move_right(data);
 	if (data->move.rotate_left)
 		data->direction -= ROTATION_SPEED;
+	normalize_direction(data);
 	if (data->move.rotate_right)
 		data->direction += ROTATION_SPEED;
 	normalize_direction(data);

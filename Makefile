@@ -21,6 +21,8 @@ LIBFT_FLAGS = -Llibft -lft
 SRC_FILES = projection/projection.c \
 			projection/key_handler.c \
 			projection/time_scale.c \
+			projection/move.c \
+			projection/collision.c \
 			dda/dda.c \
 			main.c \
 
