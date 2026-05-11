@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 09:06:09 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 09:40:56 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	init(t_test *data_ptr)
 	data_ptr->ceil_color = 0x383838;
 	data_ptr->floor_color = 0x525252;
 	data_ptr->tile_size = 64;
+	data_ptr->game_time = get_current_time();
 	return (1);
 }
 

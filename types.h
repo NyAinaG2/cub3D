@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/07 09:16:33 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 09:38:40 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #define ROTATION_SPEED 0.05
 #define MOVE_SPEED 0.1
 #define PI2 6.28
+#include <sys/time.h>
 
 typedef struct test_s
 {
@@ -37,6 +38,7 @@ typedef struct test_s
 	float step;
 	float cellX;
 	float cellY;
+	double game_time;
 	int wall_color;
 	int ceil_color;
 	int floor_color;
