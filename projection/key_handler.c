@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 09:50:39 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:03:43 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,33 +75,57 @@ int	collisionB(t_test *data)
 	return (1);
 }
 
-int	key_handler(int key, t_test *data)
+int	key_press(int key, t_test *data)
 {
-	double	delta;
-
-	delta = get_delta_time(data);
 	if (key == 65307)
 		close_window(data);
 	if (key == 65362)
-	{
-		if (collisionF(data))
-			return (0);
-		data->playerY += sin(data->direction) * MOVE_SPEED;
-		data->playerX += cos(data->direction) * MOVE_SPEED;
-	}
+		data->move.forward = 1;
 	if (key == 65364)
-	{
-		if (collisionB(data))
-			return (0);
-		data->playerY -= sin(data->direction) * MOVE_SPEED;
-		data->playerX -= cos(data->direction) * MOVE_SPEED;
-	}
+		data->move.backward = 1;
 	if (key == 65361)
-		data->direction -= ROTATION_SPEED;
+		data->move.rotate_left = 1;
 	if (key == 65363)
+		data->move.rotate_right = 1;
+	return (0);
+}
+
+int	key_release(int key, t_test *data)
+{
+	if (key == 65362)
+		data->move.forward = 0;
+	if (key == 65364)
+		data->move.backward = 0;
+	if (key == 65361)
+		data->move.rotate_left = 0;
+	if (key == 65363)
+		data->move.rotate_right = 0;
+	return (0);
+}
+
+int	move(t_test *data)
+{
+	if (data->move.forward)
+	{
+		if (!collisionF(data))
+		{
+			data->playerY += sin(data->direction) * MOVE_SPEED;
+			data->playerX += cos(data->direction) * MOVE_SPEED;
+		}
+	}
+	if (data->move.backward)
+	{
+		if (!collisionB(data))
+		{
+			data->playerY -= sin(data->direction) * MOVE_SPEED;
+			data->playerX -= cos(data->direction) * MOVE_SPEED;
+		}
+	}
+	if (data->move.rotate_left)
+		data->direction -= ROTATION_SPEED;
+	if (data->move.rotate_right)
 		data->direction += ROTATION_SPEED;
 	normalize_direction(data);
-	data->game_time = get_current_time();
 	draw(data);
 	return (0);
 }

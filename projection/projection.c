@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 09:40:56 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 10:34:14 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	put_pixel_to_img(t_test *data, int x, int y, int color)
 		return ;
 	addr = data->addr + ((y * data->line_length) + (x * (data->bpp / 8)));
 	*(unsigned int *)addr = color;
+}
+
+void	init_move(t_test *data)
+{
+	data->move.rotate_right = 0;
+	data->move.rotate_left = 0;
+	data->move.forward = 0;
+	data->move.backward = 0;
+	data->move.left = 0;
+	data->move.right = 0;
 }
 
 int	init(t_test *data_ptr)
@@ -51,6 +61,7 @@ int	init(t_test *data_ptr)
 	data_ptr->floor_color = 0x525252;
 	data_ptr->tile_size = 64;
 	data_ptr->game_time = get_current_time();
+	init_move(data_ptr);
 	return (1);
 }
 

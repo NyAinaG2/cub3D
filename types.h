@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 09:38:40 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:04:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,24 @@
 #define WIN_H 360
 #define WIN_TITLE "cub3D"
 #define TILE_SIZE 64
-#define ROTATION_SPEED 0.05
-#define MOVE_SPEED 0.1
+#define ROTATION_SPEED 0.001
+#define MOVE_SPEED 0.001
 #define PI2 6.28
 #include <sys/time.h>
 
+typedef struct s_move
+{
+	int rotate_left;
+	int rotate_right;
+	int forward;
+	int backward;
+	int left;
+	int right;
+} t_move;
+
 typedef struct test_s
 {
+	t_move move;
 	void* mlx_ptr;
 	void* windows_ptr;
 	unsigned char** map;

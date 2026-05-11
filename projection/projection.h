@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 09:41:56 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/11 10:53:26 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ int key_handler(int key, t_test* params);
 double clamp_time(double time, double tmax);
 double get_current_time();
 double get_delta_time(t_test* data);
+int move(t_test* data);
+int key_press(int key, t_test* data);
+int key_release(int key, t_test* data);
 
 #endif
