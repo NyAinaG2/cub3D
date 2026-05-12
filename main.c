@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 10:34:25 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:40:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int argc, char **argv)
 	if (!ft_check_extension(argv[1]))
 		return (ft_putstr_fd(EXT_ERROR, 2), 1);
 	parse(&data, argv);
+	if (!data.map_tab)
+		return (0);
 	init_render(&var, &data);
 	render(&var);
 	mlx_hook(var.windows_ptr, 2, 1L << 0, key_press, &var);

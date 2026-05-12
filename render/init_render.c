@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 10:40:58 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:42:23 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static int	init_mlx_data(t_test *data)
 	return (1);
 }
 
-static void	init_player_data(t_test *data)
+static void	init_player_data(t_test *data, t_data *parse)
 {
-	data->px = 3;
-	data->py = 4;
-	data->player_box = 0.2;
+	data->px = parse->pos[0];
+	data->py = parse->pos[1];
 	data->direction = 2;
+	data->player_box = 0.2;
 	data->fov = 1.15;
 	data->fov_max = data->direction + (data->fov / 2);
 	data->fov_min = data->direction - (data->fov / 2);
@@ -64,7 +64,7 @@ int	init_render(t_test *data, t_data *parse)
 	if (!init_mlx_data(data))
 		return (0);
 	init_map(data, parse);
-	init_player_data(data);
+	init_player_data(data, parse);
 	init_move(data);
 	return (1);
 }

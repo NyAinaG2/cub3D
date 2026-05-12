@@ -6,11 +6,25 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/08 10:38:43 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:24:32 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+void	init_tab_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 6)
+		data->index_checker[i++] = 0;
+	i = 0;
+	while (i < 4)
+		data->img_ptr[i++] = NULL;
+	data->pos[0] = 0;
+	data->pos[1] = 0;
+}
 
 void	init_data(t_data *data, char **argv)
 {
@@ -29,11 +43,7 @@ void	init_data(t_data *data, char **argv)
 		ft_putstr_fd(MLX_ERROR, 2);
 		exit (1);
 	}
-	while (i < 6)
-		data->index_checker[i++] = 0;
-	i = 0;
-	while (i < 4)
-		data->img_ptr[i++] = NULL;
+	init_tab_data(data);
 	data->map_height = 0;
 	data->start_w = 0;
 	data->end_w = 0;
@@ -86,6 +96,11 @@ void	ft_print_map(t_data *data)
 		ft_putnbr_fd(i++, 1);
 		ft_putstr_fd("\n", 1);
 	}
+	ft_putstr_fd("Player pos x = ", 1);
+	ft_putnbr_fd(data->pos[0], 1);
+	ft_putstr_fd(" y = ", 1);
+	ft_putnbr_fd(data->pos[1], 1);
+	ft_putstr_fd("\n", 1);
 }
 
 void	parse(t_data *data, char **argv)
@@ -99,5 +114,6 @@ void	parse(t_data *data, char **argv)
 	check_map(data, get_next_to_map, 1, "");
 	check_map(data, check_map_close, 0, CLOSED_ERROR);
 	ft_reset_char_map(data);
+	set_player_pos(data);
 	ft_print_map(data);
 }

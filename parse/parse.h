@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 08:37:02 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/08 12:46:39 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:21:57 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 typedef struct s_data
 {
 	int			is_closed;
+	int			pos[2];
 	void		*img_ptr[4];
 	int			img_size[4][2];
 	char		**labels;
@@ -60,6 +61,7 @@ int		invalid_color_format(char *str);
 int		check_params(t_data *data);
 int		check_map_close(t_data *data);
 int		check_map_height(t_data *data);
+void	set_player_pos(t_data *data);
 int		set_start_width(t_data *data);
 int		set_end_width(t_data *data);
 char	**init_map_tab(t_data *data);
