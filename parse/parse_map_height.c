@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:38:29 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/08 10:39:38 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/12 11:18:49 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,28 @@ int	check_map_height(t_data *data)
 	}
 	data->map_height = height;
 	return (height > 2 && data->cap != 0);
+}
+
+void	set_player_pos(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (data->map_tab[y])
+	{
+		x = 0;
+		while (data->map_tab[y][x])
+		{
+			if (ft_strchr("NSWE", data->map_tab[y][x]))
+			{
+				data->pos[0] = x;
+				data->pos[1] = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
