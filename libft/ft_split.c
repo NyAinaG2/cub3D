@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrrand <adrandriamanga@gmail.com>        +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:44:07 by andrrand          #+#    #+#             */
-/*   Updated: 2026/04/04 19:25:46 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:58:31 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
