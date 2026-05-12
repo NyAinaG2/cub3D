@@ -1,5 +1,4 @@
 *.o
-*.cub
 *.zip
 .vscode
 .zed
