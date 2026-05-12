@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:14:22 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:29:14 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct test_s
 	t_move move;
 	void* mlx_ptr;
 	void* windows_ptr;
-	unsigned char** map;
+	char** map;
 	int tile_size;
 	float px;
 	float py;

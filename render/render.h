@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:14:56 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:34:39 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include "../dda/dda.h"
 #include "../libft/libft.h"
 #include "../minilibx-linux/mlx.h"
+#include "../parse/parse.h"
 #include "../types.h"
 
-extern const unsigned char tmp_map[7][6];
 int close_window(t_test* data);
 void put_pixel_to_img(t_test* data, int x, int y, int color);
 int is_move_valid(t_test* data, float px, float py);
@@ -30,7 +30,7 @@ void normalize_direction(t_test* data);
 int move(t_test* data);
 int key_press(int key, t_test* data);
 int key_release(int key, t_test* data);
-int init_render(t_test* data);
 void render(t_test* data);
+int init_render(t_test* data, t_data* parse);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 19:57:21 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:40:58 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	init_mlx_data(t_test *data)
 static void	init_player_data(t_test *data)
 {
 	data->px = 3;
-	data->py = 5;
+	data->py = 4;
 	data->player_box = 0.2;
 	data->direction = 2;
 	data->fov = 1.15;
@@ -48,21 +48,22 @@ static void	init_player_data(t_test *data)
 	data->step = 0.001;
 }
 
-static void	init_map(t_test *data)
+static void	init_map(t_test *data, t_data *parse)
 {
+	data->map = parse->map_tab;
 	data->wall_color = 0x707070;
 	data->ceil_color = 0x383838;
 	data->floor_color = 0x525252;
-	data->map_size_x = 6;
-	data->map_size_y = 7;
+	data->map_size_x = parse->end_w;
+	data->map_size_y = parse->map_height;
 	data->tile_size = 64;
 }
 
-int	init_render(t_test *data)
+int	init_render(t_test *data, t_data *parse)
 {
 	if (!init_mlx_data(data))
 		return (0);
-	init_map(data);
+	init_map(data, parse);
 	init_player_data(data);
 	init_move(data);
 	return (1);

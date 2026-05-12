@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 19:44:10 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:48:58 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	set_dda_params(t_vec *vec, t_point p, float dir)
 		vec->side.y = (p.y - floor(p.y)) * vec->delta.y;
 }
 
-static void	dda_loop(t_vec *vec)
+static void	dda_loop(t_vec *vec, t_test *data)
 {
 	while (vec->hit == 0)
 	{
@@ -49,16 +49,16 @@ static void	dda_loop(t_vec *vec)
 			vec->side.y += vec->delta.y;
 			vec->map_y += (int)(vec->step.y);
 		}
-		if (tmp_map[vec->map_y][vec->map_x] == 1)
+		if (data->map[vec->map_y][vec->map_x] == '1')
 			vec->hit = 1;
 	}
 }
 
-float	dda(t_point p, float dir)
+float	dda(t_point p, float dir, t_test *data)
 {
 	t_vec	vec;
 
 	set_dda_params(&vec, p, dir);
-	dda_loop(&vec);
+	dda_loop(&vec, data);
 	return (vec.t);
 }

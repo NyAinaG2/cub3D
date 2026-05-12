@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:04:30 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:44:25 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	render_column(float dir, int x, t_test *data)
 
 	p.x = data->px;
 	p.y = data->py;
-	d = dda(p, dir);
+	d = dda(p, dir, data);
 	d = d * cos(dir - data->direction);
 	len = (int)(WIN_H / d);
 	draw_column(len, x, data);

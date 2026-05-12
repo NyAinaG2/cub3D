@@ -6,26 +6,36 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:07:17 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/12 10:34:25 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse/parse.h"
 #include "render/render.h"
 
-const unsigned char	tmp_map[7][6] = {{1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 1}, {1,
-		0, 1, 0, 0, 1}, {1, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0,
-		1}, {1, 1, 1, 1, 1, 1}};
-
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_test	data;
+	t_test	var;
+	t_data	data;
 
-	data.map = (unsigned char **)tmp_map;
-	init_render(&data);
-	render(&data);
-	mlx_hook(data.windows_ptr, 2, 1L << 0, key_press, &data);
-	mlx_hook(data.windows_ptr, 3, 1L << 1, key_release, &data);
-	mlx_loop_hook(data.mlx_ptr, move, &data);
-	mlx_loop(data.mlx_ptr);
+	if (argc != 2)
+		return (ft_putstr_fd(ARG_ERROR, 2), 1);
+	if (!ft_check_extension(argv[1]))
+		return (ft_putstr_fd(EXT_ERROR, 2), 1);
+	parse(&data, argv);
+	init_render(&var, &data);
+	render(&var);
+	mlx_hook(var.windows_ptr, 2, 1L << 0, key_press, &var);
+	mlx_hook(var.windows_ptr, 3, 1L << 1, key_release, &var);
+	mlx_loop_hook(var.mlx_ptr, move, &var);
+	mlx_loop(var.mlx_ptr);
 	return (0);
 }
+//
+// int	main(int argc, char **argv)
+// {
+// 	t_data	data;
+//
+// 	exit_all(&data, 0);
+// 	return (0);
+// }

@@ -24,6 +24,17 @@ SRC_FILES = render/render.c \
 			render/key_handler.c \
 			render/mlx_utils.c \
 			render/move.c \
+			parse/parse.c \
+			parse/parse_check_params.c\
+			parse/parse_check_utils.c\
+			parse/parse_exit_utils.c\
+			parse/parse_get_next_map.c\
+			parse/parse_map_close.c\
+			parse/parse_map_height.c\
+			parse/parse_utils.c\
+			parse/parse_width.c\
+			get_next_line/get_next_line.c\
+			get_next_line/get_next_line_utils.c\
 			dda/dda.c \
 			main.c \
 
