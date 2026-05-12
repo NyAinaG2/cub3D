@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/12 11:24:32 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:07:39 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void	init_tab_data(t_data *data)
 
 void	init_data(t_data *data, char **argv)
 {
-	int			i;
 	static char	*g_labels[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
 
-	i = 0;
 	data->cap = 0;
 	data->is_closed = 1;
 	data->map_name = argv[1];
@@ -41,7 +39,7 @@ void	init_data(t_data *data, char **argv)
 	if (!data->mlx_ptr)
 	{
 		ft_putstr_fd(MLX_ERROR, 2);
-		exit (1);
+		exit(1);
 	}
 	init_tab_data(data);
 	data->map_height = 0;
