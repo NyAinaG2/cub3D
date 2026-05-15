@@ -6,15 +6,17 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 10:48:58 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:54:45 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
+#include <math.h>
 
 static void	set_dda_params(t_vec *vec, t_point p, float dir)
 {
 	vec->hit = 0;
+	vec->first_hit = 'x';
 	vec->map_x = (int)p.x;
 	vec->map_y = (int)p.y;
 	vec->angle.x = cos(dir);
@@ -40,12 +42,14 @@ static void	dda_loop(t_vec *vec, t_test *data)
 		if (vec->side.x < vec->side.y)
 		{
 			vec->t = vec->side.x;
+			vec->first_hit = 'x';
 			vec->side.x += vec->delta.x;
 			vec->map_x += (int)(vec->step.x);
 		}
 		else
 		{
 			vec->t = vec->side.y;
+			vec->first_hit = 'y';
 			vec->side.y += vec->delta.y;
 			vec->map_y += (int)(vec->step.y);
 		}
@@ -54,11 +58,25 @@ static void	dda_loop(t_vec *vec, t_test *data)
 	}
 }
 
-float	dda(t_point p, float dir, t_test *data)
+static void	get_dda_result(t_tex *res, t_vec *vec)
+{
+	double	tmp;
+
+	if (vec->first_hit == 'x')
+		res->x = modf(vec->map_y, &tmp);
+	else
+		res->x = modf(vec->map_x, &tmp);
+	res->d = vec->t;
+	res->side = vec->first_hit;
+}
+
+t_tex	dda(t_point p, float dir, t_test *data)
 {
 	t_vec	vec;
+	t_tex	res;
 
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec, data);
-	return (vec.t);
+	get_dda_result(&res, &vec);
+	return (res);
 }

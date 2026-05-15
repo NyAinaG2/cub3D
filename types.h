@@ -6,15 +6,15 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 10:29:14 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/15 18:34:01 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 #define TYPES_H
 
-#define WIN_W 720
-#define WIN_H 360
+#define WIN_W 640
+#define WIN_H 480
 #define WIN_TITLE "cub3D"
 #define TILE_SIZE 64
 #define ROTATION_SPEED 0.001
@@ -83,7 +83,15 @@ typedef struct s_vec
 	int map_x;
 	int map_y;
 	int hit;
+	char first_hit;
 } t_vec;
+
+typedef struct s_tex
+{
+	char side;
+	float x;
+	float d;
+} t_tex;
 
 typedef struct s_dda
 {
