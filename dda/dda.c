@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 20:02:13 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:17:27 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,21 @@ static void	dda_loop(t_vec *vec, t_test *data)
 	}
 }
 
-static void	get_dda_result(t_params *res, t_vec *vec)
+static void	get_dda_result(t_params *res, t_vec *vec, t_point p)
 {
 	double	tmp;
+	double	wall_hit_coord;
 
 	if (vec->first_hit == 'x')
 	{
-		res->scale = modf(vec->map_y, &tmp);
+		wall_hit_coord = p.y + vec->t * vec->angle.y;
+		res->scale = modf(wall_hit_coord, &tmp);
 		res->direction = vec->step.x;
 	}
 	else
 	{
-		res->scale = modf(vec->map_x, &tmp);
+		wall_hit_coord = p.x + vec->t * vec->angle.x;
+		res->scale = modf(wall_hit_coord, &tmp);
 		res->direction = vec->step.y;
 	}
 	res->d = vec->t;
@@ -82,6 +85,6 @@ t_params	dda(t_point p, float dir, t_test *data)
 
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec, data);
-	get_dda_result(&res, &vec);
+	get_dda_result(&res, &vec, p);
 	return (res);
 }

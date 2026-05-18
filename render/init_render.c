@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 17:34:20 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:17:59 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	init_test_textures(t_test *data)
 	tmp->addr = mlx_get_data_addr(tmp->img, &tmp->bpp, &tmp->line_length,
 			&tmp->endian);
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, tmp->img, 0, 0);
-	sleep(5);
+	sleep(1);
 }
 
 int	init_render(t_test *data, t_data *parse)
