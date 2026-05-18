@@ -6,12 +6,11 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 17:43:38 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:52:22 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
-#include <math.h>
 
 static void	set_dda_params(t_vec *vec, t_point p, float dir)
 {
@@ -63,9 +62,15 @@ static void	get_dda_result(t_params *res, t_vec *vec)
 	double	tmp;
 
 	if (vec->first_hit == 'x')
-		res->x = modf(vec->map_y, &tmp);
+	{
+		res->scale = modf(vec->map_y, &tmp);
+		res->direction = vec->step.x;
+	}
 	else
-		res->x = modf(vec->map_x, &tmp);
+	{
+		res->scale = modf(vec->map_x, &tmp);
+		res->direction = vec->step.y;
+	}
 	res->d = vec->t;
 	res->side = vec->first_hit;
 }

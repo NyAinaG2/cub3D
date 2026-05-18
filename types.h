@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 17:40:52 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:52:02 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ typedef struct s_vec
 typedef struct s_params
 {
 	char side;
-	float x;
+	char direction;
+	float scale;
 	float d;
 } t_params;
 
