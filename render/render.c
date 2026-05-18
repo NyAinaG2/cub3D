@@ -6,29 +6,11 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 17:41:45 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 19:30:09 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
-void	draw_column(int len, int x, t_test *data)
-{
-	int	start;
-	int	end;
-
-	start = -len / 2 + WIN_H / 2;
-	end = len / 2 + WIN_H / 2;
-	if (start < 0)
-		start = 0;
-	if (start >= WIN_H)
-		end = WIN_H - 1;
-	while (start < end)
-	{
-		put_pixel_to_img(data, x, start, data->wall_color);
-		start++;
-	}
-}
 
 void	render_column(float dir, int x, t_test *data)
 {
@@ -41,7 +23,7 @@ void	render_column(float dir, int x, t_test *data)
 	d = dda(p, dir, data);
 	d.d = d.d * cos(dir - data->direction);
 	len = (int)(WIN_H / d.d);
-	draw_column(len, x, data);
+	draw_column(len, x, data, &d);
 }
 
 void	reset_img(t_test *data)

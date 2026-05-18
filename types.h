@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 17:52:02 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 19:14:04 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ typedef struct s_point
 	float x;
 	float y;
 } t_point;
+
+typedef struct s_column
+{
+	float step;
+	int start;
+	int current;
+	int len;
+} t_column;
 
 typedef struct s_vec
 {

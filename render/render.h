@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 18:07:10 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 19:29:53 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void normalize_direction(t_test* data);
 int move(t_test* data);
 int key_press(int key, t_test* data);
 int key_release(int key, t_test* data);
-void draw_column(int len, int x, t_test* data);
+void draw_column(int len, int x, t_test* data, t_params* params);
 void render(t_test* data);
 int init_render(t_test* data, t_data* parse);
 
