@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 11:42:23 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:34:20 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ static void	init_map(t_test *data, t_data *parse)
 	data->tile_size = 64;
 }
 
+static void	init_test_textures(t_test *data)
+{
+	t_texture	*tmp;
+
+	tmp = &data->north;
+	tmp->img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./assets/textures/north.xpm", &tmp->size_x, &tmp->size_y);
+	if (!tmp->img)
+	{
+		ft_putstr_fd("Init textures failed\n", 1);
+		exit(1);
+	}
+	tmp->addr = mlx_get_data_addr(tmp->img, &tmp->bpp, &tmp->line_length,
+			&tmp->endian);
+	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, tmp->img, 0, 0);
+	sleep(5);
+}
+
 int	init_render(t_test *data, t_data *parse)
 {
 	if (!init_mlx_data(data))
@@ -66,5 +84,6 @@ int	init_render(t_test *data, t_data *parse)
 	init_map(data, parse);
 	init_player_data(data, parse);
 	init_move(data);
+	init_test_textures(data);
 	return (1);
 }

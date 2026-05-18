@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 16:43:17 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:18:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_texture
 	int size_y;
 	int line_length;
 	int bpp;
+	int endian;
 	char* addr;
 	void* img;
 } t_texture;
