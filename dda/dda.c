@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/15 18:54:45 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:43:38 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	dda_loop(t_vec *vec, t_test *data)
 	}
 }
 
-static void	get_dda_result(t_tex *res, t_vec *vec)
+static void	get_dda_result(t_params *res, t_vec *vec)
 {
 	double	tmp;
 
@@ -70,10 +70,10 @@ static void	get_dda_result(t_tex *res, t_vec *vec)
 	res->side = vec->first_hit;
 }
 
-t_tex	dda(t_point p, float dir, t_test *data)
+t_params	dda(t_point p, float dir, t_test *data)
 {
-	t_vec	vec;
-	t_tex	res;
+	t_vec		vec;
+	t_params	res;
 
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec, data);

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/15 18:53:48 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 17:41:45 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	draw_column(int len, int x, t_test *data)
 
 void	render_column(float dir, int x, t_test *data)
 {
-	t_tex	d;
-	int		len;
-	t_point	p;
+	t_params	d;
+	int			len;
+	t_point		p;
 
 	p.x = data->px;
 	p.y = data->py;
