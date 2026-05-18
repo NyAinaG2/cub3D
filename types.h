@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/15 18:34:01 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:43:17 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,26 @@ typedef struct s_move
 	int right;
 } t_move;
 
+typedef struct s_texture
+{
+	int size_x;
+	int size_y;
+	int line_length;
+	int bpp;
+	char* addr;
+	void* img;
+} t_texture;
+
 typedef struct test_s
 {
 	t_move move;
 	void* mlx_ptr;
 	void* windows_ptr;
 	char** map;
+	t_texture north;
+	t_texture east;
+	t_texture south;
+	t_texture west;
 	int tile_size;
 	float px;
 	float py;
