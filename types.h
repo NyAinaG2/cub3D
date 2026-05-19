@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 09:47:16 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:28:17 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ typedef struct s_vec
 	int hit;
 	char first_hit;
 } t_vec;
-
 typedef struct s_params
 {
 	char side;
