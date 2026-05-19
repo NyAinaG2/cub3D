@@ -3,6 +3,7 @@
 .vscode
 .zed
 cub3D
+img/
 minilibx-linux
 get_next_line
 libft
