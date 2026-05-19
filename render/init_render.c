@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 11:31:09 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:36:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ static int	init_mlx_data(t_test *data)
 
 static void	init_player_data(t_test *data, t_data *parse)
 {
+	int	x;
+	int	y;
+
+	x = (int)data->px;
+	y = (int)data->py;
 	data->px = parse->pos[0] + 0.5;
 	data->py = parse->pos[1] + 0.5;
-	data->direction = set_player_direction(data->map[(int)data->py][(int)data->px]);
+	data->direction = set_player_direction(data->map[y][x]);
 	data->player_box = 0.2;
 	data->fov = 1.15;
 	data->fov_max = data->direction + (data->fov / 2);

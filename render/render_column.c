@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 17:45:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 18:13:13 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:29:38 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	clamp_column_start(t_column *column, int *start, int *end)
 {
 	if (start < 0)
 	{
-		column->y_pos = (float)(-*start) * column->y_step;
+		column->y_pos = column->y_step * (float)(-*start);
 		*start = 0;
 	}
 	if (*end > WIN_H)
