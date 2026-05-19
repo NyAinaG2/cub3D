@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 17:37:13 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 10:08:12 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:18:25 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,14 @@ int	get_texture_y(t_texture *texture, int current_y, int start, int len_column)
 
 int	get_texture_x(t_texture *texture, t_params *params)
 {
-	int	res;
+	int		res;
+	float	current_scale;
 
-	res = (int)(params->scale * texture->size_x);
+	current_scale = params->scale;
+	if ((params->direction == 1 && params->side == 'y') || (params->direction ==
+			-1 && params->side == 'x'))
+		current_scale = 1 - current_scale;
+	res = (int)(current_scale * texture->size_x);
 	if (res < 0)
 		res = 0;
 	if (res >= texture->size_x)
