@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 12:31:34 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 12:49:04 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	render_column(float dir, int x, t_test *data)
 {
-	t_params	d;
+	t_params	params;
 	float		len;
 	t_point		p;
 
 	p.x = data->px;
 	p.y = data->py;
-	d = dda(p, dir, data);
-	d.d = d.d * cos(dir - data->direction);
-	len = WIN_H / d.d;
-	draw_column(len, x, data, &d);
+	params = dda(p, dir, data);
+	params.d = params.d * cos(dir - data->direction);
+	len = WIN_H / params.d;
+	draw_column(len, x, data, &params);
 }
 
 void	reset_img(t_test *data)
