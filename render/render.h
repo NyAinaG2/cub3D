@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 19:29:53 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 10:07:51 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int move(t_test* data);
 int key_press(int key, t_test* data);
 int key_release(int key, t_test* data);
 void draw_column(int len, int x, t_test* data, t_params* params);
+void init_textures(t_data* parse, t_test* data);
+t_texture* get_texture(t_params* params, t_test* data);
 void render(t_test* data);
 int init_render(t_test* data, t_data* parse);
 

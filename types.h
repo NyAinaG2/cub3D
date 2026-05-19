@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 08:55:11 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 09:47:16 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #define WIN_W 980
 #define WIN_H 720
 #define WIN_TITLE "cub3D"
-#define TILE_SIZE 64
 #define ROTATION_SPEED 0.001
 #define MOVE_SPEED 0.001
 #define ESC 65307
@@ -26,7 +25,6 @@
 #define KEY_S 115
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
-#include <sys/time.h>
 
 typedef struct s_move
 {
@@ -59,7 +57,6 @@ typedef struct test_s
 	t_texture east;
 	t_texture south;
 	t_texture west;
-	int tile_size;
 	float px;
 	float py;
 	float player_box;

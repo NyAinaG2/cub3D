@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 09:00:32 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 09:44:31 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,11 @@ static void	init_player_data(t_test *data, t_data *parse)
 static void	init_map(t_test *data, t_data *parse)
 {
 	data->map = parse->map_tab;
-	data->wall_color = 0x707070;
-	data->ceil_color = 0x383838;
-	data->floor_color = 0x525252;
+	data->ceil_color = parse->colors[0];
+	data->floor_color = parse->colors[1];
 	data->map_size_x = parse->end_w;
 	data->map_size_y = parse->map_height;
-	data->tile_size = 64;
 }
-
-static void	init_textures(t_data *data, t_texture *texture)
-{
-	texture->img = data->img_ptr[0];
-	texture->addr = mlx_get_data_addr(data->img_ptr[0], &texture->bpp,
-			&texture->line_length, &texture->endian);
-	texture->size_x = data->img_size[0][0];
-	texture->size_y = data->img_size[0][1];
-}
-//
-// static void	init_test_textures(t_test *data, t_data *parse)
-// {
-// 	tmp = &data->north;
-// 	tmp->img = mlx_xpm_file_to_image(data->mlx_ptr, "./img/art_ea.xpm",
-// 			&tmp->size_x, &tmp->size_y);
-// 	if (!tmp->img)
-// 	{
-// 		ft_putstr_fd("Init textures failed\n", 1);
-// 		exit(1);
-// 	}
-// 	tmp->addr = mlx_get_data_addr(tmp->img, &tmp->bpp, &tmp->line_length,
-// 			&tmp->endian);
-// 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, tmp->img, 0, 0);
-// 	sleep(1);
-// }
 
 int	init_render(t_test *data, t_data *parse)
 {
@@ -91,6 +64,6 @@ int	init_render(t_test *data, t_data *parse)
 	init_map(data, parse);
 	init_player_data(data, parse);
 	init_move(data);
-	init_textures(parse, &data->north);
+	init_textures(parse, data);
 	return (1);
 }

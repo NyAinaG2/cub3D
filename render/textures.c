@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 17:37:13 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 19:41:06 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 10:08:12 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	draw_column(int len, int x, t_test *data, t_params *params)
 	while (y < end)
 	{
 		column.current = y;
-		put_pixel_to_img(data, x, y, get_texture_color(params, &data->north,
-				&column));
+		put_pixel_to_img(data, x, y, get_texture_color(params,
+				get_texture(params, data), &column));
 		y++;
 	}
 }

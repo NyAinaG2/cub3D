@@ -25,6 +25,8 @@ SRC_FILES = render/render.c \
 			render/mlx_utils.c \
 			render/move.c \
 			render/textures.c\
+			render/init_textures.c \
+			render/get_textures.c \
 			parse/parse.c \
 			parse/parse_check_params.c\
 			parse/parse_check_utils.c\
