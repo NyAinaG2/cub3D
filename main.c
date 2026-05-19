@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 11:47:13 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:54:10 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,3 @@ int	main(int argc, char **argv)
 	mlx_loop(var.mlx_ptr);
 	return (0);
 }
-//
-// int	main(int argc, char **argv)
-// {
-// 	t_data	data;
-//
-// 	exit_all(&data, 0);
-// 	return (0);
-// }

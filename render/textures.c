@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 17:37:13 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 11:18:25 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 14:55:19 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_column(int len, int x, t_test *data, t_params *params)
 		end = WIN_H - 1;
 	column.start = start_unclipped;
 	y = start;
-	while (y < end)
+	while (y <= end)
 	{
 		column.current = y;
 		put_pixel_to_img(data, x, y, get_texture_color(params,
