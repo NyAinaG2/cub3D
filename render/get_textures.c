@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:59:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 10:40:56 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 11:23:09 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ float	set_player_direction(char direction)
 		return (1.57);
 	if (direction == 'N')
 		return (-1.57);
-	if (direction == 'E')
-		return (3.14);
 	if (direction == 'W')
+		return (3.14);
+	if (direction == 'E')
 		return (0);
 	return (0);
 }
