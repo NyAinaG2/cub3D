@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 08:37:02 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/12 11:21:57 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/19 09:07:04 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_data
 	char		cap;
 	int			map_fd;
 	int			index_checker[6];
-	int			colors[2][3];
+	int			colors[2];
 	char		*map_name;
 	char		**map_tab;
 	size_t		map_height;

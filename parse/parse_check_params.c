@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:11:45 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/08 10:39:15 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/19 09:10:33 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	get_color(t_data *data, char *str, int index)
 {
 	char	**strs;
 	int		i;
+	int		rgb[3];
 
 	i = 0;
 	strs = ft_split(str, ',');
@@ -44,9 +45,10 @@ static void	get_color(t_data *data, char *str, int index)
 		return ;
 	while (i < 3)
 	{
-		data->colors[index - 4][i] = ft_atoi(strs[i]);
+		rgb[i] = ft_atoi(strs[i]);
 		i++;
 	}
+	data->colors[index - 4] = rgb[0] << 16 | rgb[1] << 8 | rgb[2];
 	free_strs(strs);
 }
 
