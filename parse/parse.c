@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:03:35 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/12 11:24:32 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/19 09:08:37 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,10 @@ void	ft_print_map(t_data *data)
 
 	i = 0;
 	ft_putstr_fd("F ", 1);
-	ft_putnbr_fd(data->colors[0][0], 1);
-	ft_putstr_fd(",", 1);
-	ft_putnbr_fd(data->colors[0][1], 1);
-	ft_putstr_fd(",", 1);
-	ft_putnbr_fd(data->colors[0][2], 1);
+	ft_putnbr_fd(data->colors[0], 1);
 	ft_putstr_fd("\n", 1);
 	ft_putstr_fd("C ", 1);
-	ft_putnbr_fd(data->colors[1][0], 1);
-	ft_putstr_fd(",", 1);
-	ft_putnbr_fd(data->colors[1][1], 1);
-	ft_putstr_fd(",", 1);
-	ft_putnbr_fd(data->colors[1][2], 1);
+	ft_putnbr_fd(data->colors[1], 1);
 	ft_putstr_fd("\n", 1);
 	while (data->map_tab[i])
 	{
