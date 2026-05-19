@@ -27,6 +27,7 @@ SRC_FILES = render/render.c \
 			render/textures.c\
 			render/init_textures.c \
 			render/get_textures.c \
+			render/render_column.c \
 			parse/parse.c \
 			parse/parse_check_params.c\
 			parse/parse_check_utils.c\
