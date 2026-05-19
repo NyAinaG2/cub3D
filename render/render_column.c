@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 17:45:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 17:48:03 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:05:26 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,26 @@ int	get_texture_color(t_texture *texture, t_column *column)
 	return (res);
 }
 
+void	init_render_column(t_column *column, t_test *data, t_params *params)
+{
+	column->texture = get_texture(params, data);
+}
+
 void	draw_column(int len, int x, t_test *data, t_params *params)
 {
 	int			start;
 	int			end;
 	int			y;
 	t_column	column;
-	t_texture	*texture;
 
-	texture = get_texture(params, data);
+	init_render_column(&column, data, params);
 	column.len = len;
 	column.start = (WIN_H - len) / 2;
 	start = column.start;
 	end = column.start + len;
-	column.x_texture_img = get_texture_x(texture, params);
+	column.x_texture_img = get_texture_x(column.texture, params);
 	column.y_pos = 0.0f;
-	column.y_step = (float)texture->size_y / (float)column.len;
+	column.y_step = (float)column.texture->size_y / (float)column.len;
 	if (start < 0)
 	{
 		column.y_pos = (float)(-start) * column.y_step;
@@ -49,7 +53,8 @@ void	draw_column(int len, int x, t_test *data, t_params *params)
 	while (y < end)
 	{
 		column.current = y;
-		put_pixel_to_img(data, x, y, get_texture_color(texture, &column));
+		put_pixel_to_img(data, x, y, get_texture_color(column.texture,
+				&column));
 		column.y_pos += column.y_step;
 		y++;
 	}

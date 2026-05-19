@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 17:14:57 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 18:01:42 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_point
 
 typedef struct s_column
 {
+	t_texture* texture;
 	float step;
 	int start;
 	int current;
