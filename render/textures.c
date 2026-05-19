@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 17:37:13 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 15:32:19 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 16:34:07 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-int	sample_texture(t_texture *texture, int x, int y)
+static int	sample_texture(t_texture *texture, int x, int y)
 {
 	char	*addr;
 
@@ -25,7 +25,8 @@ int	sample_texture(t_texture *texture, int x, int y)
 	return (*(unsigned int *)addr);
 }
 
-int	get_texture_y(t_texture *texture, int current_y, int start, int len_column)
+static int	get_texture_y(t_texture *texture, int current_y, int start,
+		int len_column)
 {
 	float	u;
 	int		res;
@@ -41,7 +42,7 @@ int	get_texture_y(t_texture *texture, int current_y, int start, int len_column)
 	return (res);
 }
 
-int	get_texture_x(t_texture *texture, t_params *params)
+static int	get_texture_x(t_texture *texture, t_params *params)
 {
 	int		res;
 	float	current_scale;
@@ -58,15 +59,13 @@ int	get_texture_x(t_texture *texture, t_params *params)
 	return (res);
 }
 
-int	get_texture_color(t_params *params, t_texture *texture, t_column *column)
+static int	get_texture_color(t_texture *texture, t_column *column)
 {
-	int	x;
 	int	y;
 	int	res;
 
-	x = get_texture_x(texture, params);
 	y = get_texture_y(texture, column->current, column->start, column->len);
-	res = sample_texture(texture, x, y);
+	res = sample_texture(texture, column->x_texture_img, y);
 	return (res);
 }
 
@@ -81,6 +80,7 @@ void	draw_column(int len, int x, t_test *data, t_params *params)
 	column.start = (WIN_H - len) / 2;
 	start = column.start;
 	end = column.start + len;
+	column.x_texture_img = get_texture_x(get_texture(params, data), params);
 	if (start < 0)
 		start = 0;
 	if (end > WIN_H)
@@ -89,8 +89,8 @@ void	draw_column(int len, int x, t_test *data, t_params *params)
 	while (y < end)
 	{
 		column.current = y;
-		put_pixel_to_img(data, x, y, get_texture_color(params,
-				get_texture(params, data), &column));
+		put_pixel_to_img(data, x, y, get_texture_color(get_texture(params,
+					data), &column));
 		y++;
 	}
 }

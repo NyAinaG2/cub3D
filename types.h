@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 15:44:03 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/19 16:25:43 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_column
 	int start;
 	int current;
 	int len;
+	float x_texture_img;
 } t_column;
 
 typedef struct s_vec
