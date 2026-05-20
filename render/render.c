@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 09:38:48 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 09:51:16 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,20 @@ void	reset_img(t_test *data)
 void	render(t_test *data)
 {
 	int		x;
-	float	step;
 	float	angle;
+	float	camera_x;
 
 	x = 0;
-	step = data->fov / WIN_W;
+	camera_x = 0;
 	data->fov_min = data->direction - (data->fov / 2);
 	data->fov_max = data->direction + (data->fov / 2);
 	angle = data->fov_min;
 	reset_img(data);
 	while (x < WIN_W)
 	{
+		camera_x = 2.0f * x / (float)WIN_W - 1.0f;
+		angle = data->direction + atan(camera_x * tan(data->fov / 2.0f));
 		render_column(angle, x, data);
-		angle += step;
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->windows_ptr, data->img, 0, 0);
