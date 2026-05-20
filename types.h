@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 08:21:12 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:37:27 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define KEY_S 115
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
-# include "./parse/parse.h"
+#include "./parse/parse.h"
 
 typedef struct s_move
 {
@@ -48,7 +48,7 @@ typedef struct s_texture
 	void* img;
 } t_texture;
 
-typedef struct test_s
+typedef struct game_s
 {
 	t_move move;
 	void* mlx_ptr;
@@ -78,8 +78,8 @@ typedef struct test_s
 	int bpp;
 	int line_length;
 	int endian;
-	t_data *parse;
-} t_test;
+	t_data* parse;
+} t_game;
 
 typedef struct s_point
 {

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:59:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 11:23:09 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:27 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float	set_player_direction(char direction)
 	return (0);
 }
 
-t_texture	*get_texture(t_params *params, t_test *data)
+t_texture	*get_texture(t_params *params, t_game *data)
 {
 	if (params->side == 'y')
 	{

@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:16:46 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/12 10:50:48 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:23 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static int	is_wall(t_test *data, float px, float py)
+static int	is_wall(t_game *data, float px, float py)
 {
 	if ((int)px > data->map_size_x)
 		return (0);
@@ -21,7 +21,7 @@ static int	is_wall(t_test *data, float px, float py)
 	return (data->map[(int)py][(int)px] == '1');
 }
 
-int	is_move_valid(t_test *data, float px, float py)
+int	is_move_valid(t_game *data, float px, float py)
 {
 	float	box;
 

@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:13:40 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:38 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void	normalize_direction(t_test *data)
+void	normalize_direction(t_game *data)
 {
 	if (data->direction > 3.14)
 	{
@@ -23,7 +23,7 @@ void	normalize_direction(t_test *data)
 		data->direction += 6.28;
 }
 
-int	key_press(int key, t_test *data)
+int	key_press(int key, t_game *data)
 {
 	if (key == ESC)
 		close_window(data);
@@ -42,7 +42,7 @@ int	key_press(int key, t_test *data)
 	return (0);
 }
 
-int	key_release(int key, t_test *data)
+int	key_release(int key, t_game *data)
 {
 	if (key == KEY_W)
 		data->move.forward = 0;

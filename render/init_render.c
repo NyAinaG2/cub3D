@@ -6,13 +6,13 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 08:49:07 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:31 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static void	init_move(t_test *data)
+static void	init_move(t_game *data)
 {
 	data->last_frame = get_time();
 	data->move.rotate_right = 0;
@@ -23,7 +23,7 @@ static void	init_move(t_test *data)
 	data->move.right = 0;
 }
 
-static int	init_mlx_data(t_test *data)
+static int	init_mlx_data(t_game *data)
 {
 	data->mlx_ptr = data->parse->mlx_ptr;
 	if (!data->mlx_ptr)
@@ -37,7 +37,7 @@ static int	init_mlx_data(t_test *data)
 	return (1);
 }
 
-static void	init_player_data(t_test *data, t_data *parse)
+static void	init_player_data(t_game *data, t_data *parse)
 {
 	data->px = parse->pos[0] + 0.5;
 	data->py = parse->pos[1] + 0.5;
@@ -49,7 +49,7 @@ static void	init_player_data(t_test *data, t_data *parse)
 	data->step = 0.001;
 }
 
-static void	init_map(t_test *data, t_data *parse)
+static void	init_map(t_game *data, t_data *parse)
 {
 	data->map = parse->map_tab;
 	data->ceil_color = parse->colors[0];
@@ -58,7 +58,7 @@ static void	init_map(t_test *data, t_data *parse)
 	data->map_size_y = parse->map_height;
 }
 
-int	init_render(t_test *data, t_data *parse)
+int	init_render(t_game *data, t_data *parse)
 {
 	data->parse = parse;
 	if (!init_mlx_data(data))

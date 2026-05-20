@@ -6,13 +6,13 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:59:59 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 10:14:11 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:45 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static void	move_forward(t_test *data)
+static void	move_forward(t_game *data)
 {
 	t_point	next;
 
@@ -24,7 +24,7 @@ static void	move_forward(t_test *data)
 		data->py = next.y;
 }
 
-static void	move_backward(t_test *data)
+static void	move_backward(t_game *data)
 {
 	t_point	next;
 	double	game_time;
@@ -38,7 +38,7 @@ static void	move_backward(t_test *data)
 		data->py = next.y;
 }
 
-static void	move_left(t_test *data)
+static void	move_left(t_game *data)
 {
 	t_point	next;
 
@@ -50,7 +50,7 @@ static void	move_left(t_test *data)
 		data->py = next.y;
 }
 
-static void	move_right(t_test *data)
+static void	move_right(t_game *data)
 {
 	t_point	next;
 
@@ -62,7 +62,7 @@ static void	move_right(t_test *data)
 		data->py = next.y;
 }
 
-int	move(t_test *data)
+int	move(t_game *data)
 {
 	update_game_time(data);
 	if (data->move.forward)

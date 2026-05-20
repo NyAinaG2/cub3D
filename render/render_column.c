@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 17:45:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 18:29:38 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:57 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	clamp_column_start(t_column *column, int *start, int *end)
 		*end = WIN_H;
 }
 
-static void	init_render_column(t_column *column, t_test *data, t_params *params,
+static void	init_render_column(t_column *column, t_game *data, t_params *params,
 		int len)
 {
 	column->texture = get_texture(params, data);
@@ -44,7 +44,7 @@ static void	init_render_column(t_column *column, t_test *data, t_params *params,
 	column->y_step = (float)column->texture->size_y / (float)column->len;
 }
 
-void	draw_column(int len, int x, t_test *data, t_params *params)
+void	draw_column(int len, int x, t_game *data, t_params *params)
 {
 	int			start;
 	int			end;

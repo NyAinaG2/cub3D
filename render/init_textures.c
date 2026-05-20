@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:10:45 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 09:43:57 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:34 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_index_texture(t_data *parse, t_texture *texture, int i)
 	texture->size_y = parse->img_size[i][1];
 }
 
-void	init_textures(t_data *parse, t_test *data)
+void	init_textures(t_data *parse, t_game *data)
 {
 	init_index_texture(parse, &data->north, 0);
 	init_index_texture(parse, &data->south, 1);

@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 09:51:16 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void	render_column(float dir, int x, t_test *data)
+void	render_column(float dir, int x, t_game *data)
 {
 	t_params	d;
 	int			len;
@@ -25,7 +25,7 @@ void	render_column(float dir, int x, t_test *data)
 	draw_column(len, x, data, &d);
 }
 
-void	reset_img(t_test *data)
+void	reset_img(t_game *data)
 {
 	int	x;
 	int	y;
@@ -46,7 +46,7 @@ void	reset_img(t_test *data)
 	}
 }
 
-void	render(t_test *data)
+void	render(t_game *data)
 {
 	int		x;
 	float	angle;

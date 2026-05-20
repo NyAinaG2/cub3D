@@ -6,13 +6,13 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:36:27 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 09:00:15 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:38:41 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-void	put_pixel_to_img(t_test *data, int x, int y, int color)
+void	put_pixel_to_img(t_game *data, int x, int y, int color)
 {
 	char	*addr;
 
@@ -24,7 +24,7 @@ void	put_pixel_to_img(t_test *data, int x, int y, int color)
 	*(unsigned int *)addr = color;
 }
 
-int	close_window(t_test *data)
+int	close_window(t_game *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->windows_ptr);
