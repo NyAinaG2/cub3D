@@ -1,22 +1,22 @@
 
-WE ./assets/textures/west.xpm
-EA ./assets/textures/east.xpm
-SO ./assets/textures/south.xpm
-NO ./assets/textures/north.xpm
+WE ./img/art_we.xpm
+EA ./img/art_ea.xpm
+SO ./img/art_so.xpm
+NO ./img/art_no.xpm
 C 255,0,255
 F 255,       0           ,                                                                             0
 111111
-1000W1
+1000N1
+100001
+100101
+101001
+100101
 100001
 100001
-100001
-100001
-100001
-100001
-100001
-100001
-100001
-100001
+100101
+100101
+101001
+101101
 100001
 100001
 100001

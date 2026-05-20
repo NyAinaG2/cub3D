@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:59:59 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 06:52:56 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 10:14:11 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	move_backward(t_test *data)
 	double	game_time;
 
 	game_time = data->game_time;
-
 	next.x = data->px - cos(data->direction) * MOVE_SPEED * data->game_time;
 	next.y = data->py - sin(data->direction) * MOVE_SPEED * data->game_time;
 	if (is_move_valid(data, next.x, data->py))
