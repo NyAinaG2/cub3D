@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:38:31 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 14:09:53 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	init_player_data(t_game *data, t_data *parse)
 	data->fov = 1.15;
 	data->fov_max = data->direction + (data->fov / 2);
 	data->fov_min = data->direction - (data->fov / 2);
-	data->step = 0.001;
 }
 
 static void	init_map(t_game *data, t_data *parse)

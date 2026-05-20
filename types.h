@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 12:03:27 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 14:08:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_game
 	float		fov_max;
 	float		fov_min;
 	float		fov;
-	float		step;
 	double		game_time;
 	double		last_frame;
 	int			ceil_color;
@@ -111,6 +110,7 @@ typedef struct s_vec
 	int			hit;
 	char		first_hit;
 }				t_vec;
+
 typedef struct s_params
 {
 	char		side;
@@ -118,14 +118,6 @@ typedef struct s_params
 	float		scale;
 	float		d;
 }				t_params;
-
-typedef struct s_dda
-{
-	t_point		hit_p;
-	t_point		side_d;
-	float		distance;
-	int			side;
-}				t_dda;
 
 typedef struct s_color
 {
