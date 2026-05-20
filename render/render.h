@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:38:54 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:19:25 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "../parse/parse.h"
 # include "../types.h"
 # include <math.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 
