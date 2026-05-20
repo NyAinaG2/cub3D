@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:16:46 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 16:45:25 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:54:40 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	is_wall(t_game *data, float px, float py)
 {
-	if ((int)px > data->map_size_x)
-		return (0);
-	if ((int)py > data->map_size_y)
-		return (0);
+	if (px >= (float)data->map_size_x || px < 0.0f)
+		return (1);
+	if (py >= (float)data->map_size_y || py < 0.0f)
+		return (1);
 	return (data->map[(int)py][(int)px] == '1');
 }
 
