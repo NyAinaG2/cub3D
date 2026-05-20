@@ -1,6 +1,6 @@
 NAME = cub3D
 
-CC = clang
+CC = cc
 
 C_FLAGS = -Wall -Werror -Wextra
 
