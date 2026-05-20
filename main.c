@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 06:33:13 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:43:22 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_test	var;
+	t_game	var;
 	t_data	data;
 
 	if (argc != 2)
