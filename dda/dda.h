@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef DDA_H
-#define DDA_H
+# define DDA_H
 
-#include "../render/render.h"
-#include "../types.h"
+# include "../render/render.h"
+# include "../types.h"
 
-t_params dda(t_point p, float dir, t_test* data);
+t_params	dda(t_point p, float dir, t_test *data);
 
 #endif
