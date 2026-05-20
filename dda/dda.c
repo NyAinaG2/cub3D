@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/18 20:17:27 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 09:38:42 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ t_params	dda(t_point p, float dir, t_test *data)
 	set_dda_params(&vec, p, dir);
 	dda_loop(&vec, data);
 	get_dda_result(&res, &vec, p);
+	res.d = res.d * cos(dir - data->direction);
 	return (res);
 }
