@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:03:39 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:38:49 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 16:38:33 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,12 @@ void	render(t_game *data)
 
 	x = 0;
 	camera_x = 0;
-	data->fov_min = data->direction - (data->fov / 2);
-	data->fov_max = data->direction + (data->fov / 2);
-	angle = data->fov_min;
+	angle = 0;
 	reset_img(data);
 	while (x < WIN_W)
 	{
 		camera_x = 2.0f * x / (float)WIN_W - 1.0f;
-		angle = data->direction + atan(camera_x * tan(data->fov / 2.0f));
+		angle = data->direction + atan(camera_x * tan(FOV / 2.0f));
 		render_column(angle, x, data);
 		x++;
 	}

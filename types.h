@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 14:08:49 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 17:03:47 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define WIN_TITLE "cub3D"
 # define ROTATION_SPEED 3
 # define MOVE_SPEED 3
+# define FOV 1.15
+# define PLAYER_BUFFER 0.2
 # define ESC 65307
 # define KEY_W 119
 # define KEY_A 97
@@ -60,11 +62,7 @@ typedef struct s_game
 	t_texture	west;
 	float		px;
 	float		py;
-	float		player_box;
 	float		direction;
-	float		fov_max;
-	float		fov_min;
-	float		fov;
 	double		game_time;
 	double		last_frame;
 	int			ceil_color;
