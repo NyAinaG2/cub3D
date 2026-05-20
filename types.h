@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 18:01:42 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 07:00:49 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #define WIN_W 680
 #define WIN_H 480
 #define WIN_TITLE "cub3D"
-#define ROTATION_SPEED 0.001
-#define MOVE_SPEED 0.001
+#define ROTATION_SPEED 3
+#define MOVE_SPEED 3
 #define ESC 65307
 #define KEY_W 119
 #define KEY_A 97
@@ -66,6 +66,7 @@ typedef struct test_s
 	float fov;
 	float step;
 	double game_time;
+	double last_frame;
 	int wall_color;
 	int ceil_color;
 	int floor_color;

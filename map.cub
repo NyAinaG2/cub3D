@@ -3,16 +3,8 @@ WE ./assets/textures/west.xpm
 EA ./assets/textures/east.xpm
 SO ./assets/textures/south.xpm
 NO ./assets/textures/north.xpm
-C 0,255,0
+C 255,255,255
 F 255,       0           ,                                                                             0
 111111
-100001
-100001
-100101
-100001
-100001
-100001
-100001
-100001
-1000N1
+1000S1
 111111

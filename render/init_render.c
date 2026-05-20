@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 18:36:28 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 06:42:41 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	init_move(t_test *data)
 {
+	data->last_frame = get_time();
 	data->move.rotate_right = 0;
 	data->move.rotate_left = 0;
 	data->move.forward = 0;

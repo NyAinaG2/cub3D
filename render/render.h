@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 18:30:38 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 06:47:26 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 int			close_window(t_test *data);
 void		put_pixel_to_img(t_test *data, int x, int y, int color);
@@ -38,5 +39,7 @@ t_texture	*get_texture(t_params *params, t_test *data);
 float		set_player_direction(char direction);
 void		render(t_test *data);
 int			init_render(t_test *data, t_data *parse);
+double		get_time(void);
+void		update_game_time(t_test *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 19:15:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/19 14:54:10 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 06:33:13 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv)
 	render(&var);
 	mlx_hook(var.windows_ptr, 2, 1L << 0, key_press, &var);
 	mlx_hook(var.windows_ptr, 3, 1L << 1, key_release, &var);
+	mlx_hook(var.windows_ptr, 17, 0, close_window, &var);
 	mlx_loop_hook(var.mlx_ptr, move, &var);
 	mlx_loop(var.mlx_ptr);
 	return (0);

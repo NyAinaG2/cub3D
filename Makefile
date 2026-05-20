@@ -25,6 +25,7 @@ SRC_FILES = render/render.c \
 			render/mlx_utils.c \
 			render/move.c \
 			render/textures.c\
+			render/time_utils.c \
 			render/init_textures.c \
 			render/get_textures.c \
 			render/render_column.c \
