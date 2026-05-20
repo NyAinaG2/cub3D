@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 07:00:49 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 08:21:12 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define KEY_S 115
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
+# include "./parse/parse.h"
 
 typedef struct s_move
 {
@@ -77,6 +78,7 @@ typedef struct test_s
 	int bpp;
 	int line_length;
 	int endian;
+	t_data *parse;
 } t_test;
 
 typedef struct s_point

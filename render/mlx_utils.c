@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:36:27 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/11 20:05:26 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 08:28:04 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	close_window(t_test *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->windows_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
+	exit_all(data->parse, 0);
+	// mlx_destroy_display(data->mlx_ptr);
+	// free(data->mlx_ptr);
 	exit(0);
 }

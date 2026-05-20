@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 19:40:34 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 06:42:41 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/20 08:49:07 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	init_move(t_test *data)
 
 static int	init_mlx_data(t_test *data)
 {
-	data->mlx_ptr = mlx_init();
+	data->mlx_ptr = data->parse->mlx_ptr;
 	if (!data->mlx_ptr)
 		return (0);
 	data->windows_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, WIN_TITLE);
@@ -39,14 +39,9 @@ static int	init_mlx_data(t_test *data)
 
 static void	init_player_data(t_test *data, t_data *parse)
 {
-	int	x;
-	int	y;
-
-	x = (int)data->px;
-	y = (int)data->py;
 	data->px = parse->pos[0] + 0.5;
 	data->py = parse->pos[1] + 0.5;
-	data->direction = set_player_direction(data->map[y][x]);
+	data->direction = set_player_direction(parse->cap);
 	data->player_box = 0.2;
 	data->fov = 1.15;
 	data->fov_max = data->direction + (data->fov / 2);
@@ -65,6 +60,7 @@ static void	init_map(t_test *data, t_data *parse)
 
 int	init_render(t_test *data, t_data *parse)
 {
+	data->parse = parse;
 	if (!init_mlx_data(data))
 		return (0);
 	init_map(data, parse);
