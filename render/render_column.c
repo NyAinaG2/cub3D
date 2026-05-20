@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 17:45:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:38:57 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 13:41:12 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_texture_color(t_column *column)
 
 static void	clamp_column_start(t_column *column, int *start, int *end)
 {
-	if (start < 0)
+	if (*start < 0)
 	{
 		column->y_pos = column->y_step * (float)(-*start);
 		*start = 0;
