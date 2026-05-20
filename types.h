@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:01:01 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:58:46 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:03:27 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_texture
 	void		*img;
 }				t_texture;
 
-typedef struct game_s
+typedef struct s_game
 {
 	t_move		move;
 	void		*mlx_ptr;
