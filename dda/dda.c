@@ -6,11 +6,25 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:38:03 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:54:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
+
+static void	set_delta(t_vec *vec, float dir)
+{
+	vec->angle.x = cos(dir);
+	vec->angle.y = sin(dir);
+	if (vec->angle.x == 0)
+		vec->delta.x = 1e30;
+	else
+		vec->delta.x = fabs(1 / vec->angle.x);
+	if (vec->angle.y == 0)
+		vec->delta.y = 1e30;
+	else
+		vec->delta.y = fabs(1 / vec->angle.y);
+}
 
 static void	set_dda_params(t_vec *vec, t_point p, float dir)
 {
@@ -18,12 +32,9 @@ static void	set_dda_params(t_vec *vec, t_point p, float dir)
 	vec->first_hit = 'x';
 	vec->map_x = (int)p.x;
 	vec->map_y = (int)p.y;
-	vec->angle.x = cos(dir);
-	vec->angle.y = sin(dir);
+	set_delta(vec, dir);
 	vec->step.x = copysign(1.0, vec->angle.x);
 	vec->step.y = copysign(1.0, vec->angle.y);
-	vec->delta.x = fabs(1 / vec->angle.x);
-	vec->delta.y = fabs(1 / vec->angle.y);
 	if (vec->step.x > 0)
 		vec->side.x = (floor(p.x + 1) - p.x) * vec->delta.x;
 	else
