@@ -6,13 +6,13 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:16:46 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 18:30:38 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:42:42 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static int	is_wall(t_game *data, float px, float py)
+int	is_wall(t_game *data, float px, float py)
 {
 	int	map_x;
 	int	map_y;

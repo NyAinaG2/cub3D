@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 09:27:35 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 11:54:49 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:40:28 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	dda_loop(t_vec *vec, t_game *data)
 			vec->side.y += vec->delta.y;
 			vec->map_y += (int)(vec->step.y);
 		}
-		if (data->map[vec->map_y][vec->map_x] == '1')
+		if (is_wall(data, vec->map_x, vec->map_y))
 			vec->hit = 1;
 	}
 }
