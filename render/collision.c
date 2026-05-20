@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:16:46 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 18:23:09 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:30:38 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 static int	is_wall(t_game *data, float px, float py)
 {
-	if (px >= (float)data->map_size_x || px < 0.0f)
+	int	map_x;
+	int	map_y;
+
+	map_x = (int)px;
+	map_y = (int)py;
+	if (map_x >= data->map_size_x || px < 0.0f)
 		return (1);
-	if (py >= (float)data->map_size_y || py < 0.0f)
+	if (map_y >= data->map_size_y || py < 0.0f)
 		return (1);
-	return (data->map[(int)py][(int)px] == '1');
+	return (data->map[map_y][map_y] == '1');
 }
 
 int	is_move_valid(t_game *data, float px, float py)
