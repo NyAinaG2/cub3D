@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 06:41:56 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/20 17:11:55 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 19:12:52 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ double	get_time(void)
 void	update_game_time(t_game *data)
 {
 	double	tmp;
+	double	delta;
 
 	tmp = get_time();
-	data->game_time = tmp - data->last_frame;
+	delta = tmp - data->last_frame;
+	if (delta > 0.1f)
+		data->game_time = 0.1f;
+	else
+		data->game_time = delta;
 	data->last_frame = tmp;
 }
