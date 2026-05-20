@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 18:16:46 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 17:54:40 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/20 18:23:09 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	is_move_valid(t_game *data, float px, float py)
 	float	box;
 
 	box = PLAYER_BUFFER;
+	if (is_wall(data, px, py))
+		return (0);
 	if (is_wall(data, px + box, py + box))
 		return (0);
 	if (is_wall(data, px - box, py - box))
