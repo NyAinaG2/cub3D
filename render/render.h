@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:01:47 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 17:19:25 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/21 12:06:15 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/time.h>
 
 int			close_window(t_game *data);
+int			focus_out(t_game *data);
 void		put_pixel_to_img(t_game *data, int x, int y, int color);
 int			is_move_valid(t_game *data, float px, float py);
 void		normalize_direction(t_game *data);

@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 16:49:50 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 17:03:37 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/21 12:08:49 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,16 @@ int	key_release(int key, t_game *data)
 		data->move.rotate_left = 0;
 	if (key == KEY_RIGHT)
 		data->move.rotate_right = 0;
+	return (0);
+}
+
+int	focus_out(t_game *data)
+{
+	data->move.backward = 0;
+	data->move.forward = 0;
+	data->move.left = 0;
+	data->move.right = 0;
+	data->move.rotate_left = 0;
+	data->move.rotate_right = 0;
 	return (0);
 }
