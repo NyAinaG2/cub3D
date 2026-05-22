@@ -6,7 +6,7 @@
 /*   By: mrakotos <mrakotos@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:59:03 by mrakotos          #+#    #+#             */
-/*   Updated: 2026/05/20 17:11:53 by mrakotos         ###   ########.fr       */
+/*   Updated: 2026/05/22 12:37:38 by mrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ t_texture	*get_texture(t_params *params, t_game *data)
 	if (params->side == 'y')
 	{
 		if (params->direction == 1)
-			return (&data->south);
-		else
 			return (&data->north);
+		else
+			return (&data->south);
 	}
 	else
 	{
 		if (params->direction == 1)
-			return (&data->east);
-		else
 			return (&data->west);
+		else
+			return (&data->east);
 	}
 	return (&data->north);
 }
