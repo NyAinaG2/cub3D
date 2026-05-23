@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:38:16 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/08 10:39:20 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/23 06:41:46 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,4 @@ void	skip_labels(t_data *data)
 		line++;
 		free(str);
 	}
-}
-
-int	invalid_color_format(char *str)
-{
-	return (ft_atoi(str) > 255 || ft_atoi(str) < 0
-		|| !is_allcharin(str, "1234567890 ")
-		|| ft_countword(str, ' ') != 1);
 }

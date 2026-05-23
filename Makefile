@@ -38,6 +38,7 @@ SRC_FILES = render/render.c \
 			parse/parse_map_height.c\
 			parse/parse_utils.c\
 			parse/parse_width.c\
+			parse/parse_check_color.c\
 			get_next_line/get_next_line.c\
 			get_next_line/get_next_line_utils.c\
 			dda/dda.c \

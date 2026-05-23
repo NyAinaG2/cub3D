@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 08:37:02 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/19 09:07:04 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/23 06:41:56 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exit_parse(t_data *data, char *msg);
 int		ft_check_extension(char *str);
 void	check_map(t_data *data, int (*f)(t_data *), int o, char *msg);
 void	skip_labels(t_data *data);
-int		invalid_color_format(char *str);
+int		is_valid_number(char *str);
 int		check_params(t_data *data);
 int		check_map_close(t_data *data);
 int		check_map_height(t_data *data);

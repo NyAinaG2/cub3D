@@ -6,7 +6,7 @@
 /*   By: andrrand <andrrand@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:11:45 by andrrand          #+#    #+#             */
-/*   Updated: 2026/05/19 09:10:33 by andrrand         ###   ########.fr       */
+/*   Updated: 2026/05/23 06:42:01 by andrrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	check_color(t_data *data, char *str, int index)
 		return (0);
 	while (strs[j] && i == 3)
 	{
-		if (invalid_color_format(strs[j]))
+		if (!is_valid_number(strs[j]))
 			break ;
 		j++;
 	}
